@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace DominionWeb.Game.Cards.Base
 {
@@ -12,7 +13,14 @@ namespace DominionWeb.Game.Cards.Base
 
         public void Resolve(Game game)
         {
-            throw new NotImplementedException();
+            var player = game.GetActivePlayer();
+            player.Draw(4);
+            player.NumberOfBuys++;
+            
+            foreach (var otherPlayer in game.Players.Where(x => x != player))
+            {
+                otherPlayer.Draw(1);
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace DominionWeb.Game.Supply
             var kSupply = new List<Pile>()
             {
                 villages, witches, smithys, markets, laboratorys,
-                chapels, moats, gardens, throneRooms, vassals, councilRooms
+                chapels, moats, gardens, throneRooms, vassals, councilRooms            
             };
             
             return new Supply(tSupply, vSupply, kSupply);
