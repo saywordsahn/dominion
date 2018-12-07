@@ -63,7 +63,7 @@ export class PlayerComponent implements Player {
     this.numberOfActions = player.numberOfActions;
     this.numberOfBuys = player.numberOfBuys;
     this.actionRequest = player.actionRequest;
-    this.logText = player.gameLog.join('/n');
+    this.logText = player.gameLog.join('\n');
     console.log('player updated:', this);
   }
 
