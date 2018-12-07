@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm-2">
+    <div *ngFor="let pile of treasureSupply">
+      <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[0]] }} ({{ pile.cards.length }})</button>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="col-sm">
+      <div *ngFor="let pile of victorySupply">
+        <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[0]] }} ({{ pile.cards.length }})</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="row">
+      <div class="col-sm-2" *ngFor="let pile of kingdomSupply">
+        <img (click)="buy(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[0])" alt="image">
+      </div>
+    </div>
+
+  </div>
+</div>

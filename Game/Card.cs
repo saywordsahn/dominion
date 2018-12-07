@@ -1,0 +1,40 @@
+﻿using System;
+namespace DominionWeb.Game
+{
+    public enum Card
+    {
+        Copper,
+        Silver,
+        Gold,
+        Estate,
+        Province,
+        Duchy,
+        Curse,        
+        Cellar,
+        Chapel,
+        Moat,
+        Harbinger,
+        Merchant,
+        Vassal,
+        Village,
+        Workshop,
+        Bureaucrat,
+        Gardens,
+        Militia,
+        Moneylender,
+        Poacher,
+        Remodel,
+        Smithy,
+        ThroneRoom,
+        Bandit,
+        CouncilRoom,
+        Festival,
+        Laboratory,
+        Library,
+        Market,
+        Mine,
+        Sentry,
+        Witch,
+        Artisan
+    }
+}

@@ -1,0 +1,23 @@
+<!--<h1>Hello, world!</h1>-->
+<!--Include the above line to pass e2e test (ng e2e in the ClientApp dir)-->
+<div class="container">
+  <div class="row">
+    <div class="player2"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10">
+     <d-supply></d-supply>
+    </div>
+    <div class="col-sm-2">
+      <button (click)="send()">New Game</button>
+      Current User: {{ user.userName }} <button (click)="changeUser()">Change User</button>
+      <button (click)="loadPrevious(gameToLoad)">Load Previous Game</button>
+      <input type="text" [(ngModel)]="gameToLoad" name="gameToLoad">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <d-player></d-player>
+    </div>
+  </div>
+</div>
