@@ -6,13 +6,10 @@ namespace DominionWeb.Game.Cards.Base
     // or change the original interface
     public class Gardens : ICard
     {
-        private readonly Card _name = Card.Gardens;
-        private readonly CardType _cardType = CardType.Victory;
-        private int _cost = 4;
-    
-        public int Cost => _cost;
-        public CardType CardType => _cardType;
-        public Card Name => _name;
+        public int Cost { get; } = 4;
 
+        public CardType CardType { get; } = CardType.Victory;
+
+        public Card Name { get; } = Card.Gardens;
     }
 }

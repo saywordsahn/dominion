@@ -7,14 +7,12 @@ namespace DominionWeb.Game.Cards.Base
     //TODO: add attack to cardType or reassess need for cardType on object
     public class Witch : ICard, IAction, IAttack
     {
-        private readonly Card _name = Card.Witch;
-        private readonly CardType _cardType = CardType.Action;
-        private int _cost = 5;
-    
-        public int Cost => _cost;
-        public CardType CardType => _cardType;
-        public Card Name => _name;
-        
+        public int Cost { get; } = 5;
+
+        public CardType CardType { get; } = CardType.Action;
+
+        public Card Name { get; } = Card.Witch;
+
         public IEnumerable<IAbility> Abilities { get; set; }
         public IEnumerable<IActionEvent> ActionEvents { get; set; }
 

@@ -1,13 +1,16 @@
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Province : ICard
+    public class Province : ICard, IVictory
     {
-        private readonly Card _name = Card.Province;
-        private readonly CardType _cardType = CardType.Victory;
-        private int _cost = 8;
+        public Card Name { get; } = Card.Province;
 
-        public Card Name => _name;
-        public int Cost => _cost;
-        public CardType CardType => _cardType;
+        public int Cost { get; } = 8;
+
+        public CardType CardType { get; } = CardType.Victory;
+
+        public int GetVictoryPointValue(Game game)
+        {
+            return 6;
+        }
     } 
 }
