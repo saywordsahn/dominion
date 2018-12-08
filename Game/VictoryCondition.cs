@@ -1,3 +1,5 @@
+using DominionWeb.Game.Supply;
+
 namespace DominionWeb.Game
 {
     public class VictoryCondition : IVictoryCondition

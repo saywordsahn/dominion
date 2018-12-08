@@ -1,7 +1,4 @@
-﻿using System;
-using DominionWeb.Game.Supply;
-
-namespace DominionWeb.Game
+﻿namespace DominionWeb.Game.Supply
 {
     public interface ISupply
     {

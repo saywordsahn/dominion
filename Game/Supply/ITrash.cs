@@ -1,4 +1,4 @@
-namespace DominionWeb.Game
+namespace DominionWeb.Game.Supply
 {
     public interface ITrash
     {

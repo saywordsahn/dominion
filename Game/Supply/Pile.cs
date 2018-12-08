@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 
-namespace DominionWeb.Game
+namespace DominionWeb.Game.Supply
 {
     public class Pile
     {
