@@ -34,5 +34,6 @@ namespace DominionWeb.Game
         IActionRequest ActionRequest { get; set; }
         void Discard(Card card);
         void TrashFromHand(ISupply supply, Card card);
+        int GetDominionCount();
     }
 }

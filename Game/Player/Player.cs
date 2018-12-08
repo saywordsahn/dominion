@@ -68,6 +68,11 @@ namespace DominionWeb.Game.Player
             supply.AddToTrash(card);
         }
 
+        public int GetDominionCount()
+        {
+            return Deck.Count + Hand.Count + DiscardPile.Count;
+        }
+
         public void PlayAllTreasure()
         {
             foreach (var card in Hand.ToList())

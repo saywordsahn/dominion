@@ -8,7 +8,7 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Estate;
 
-        public int GetVictoryPointValue(Game game)
+        public int GetVictoryPointValue(IPlayer player)
         {
             return 1;
         }
