@@ -6,7 +6,7 @@ namespace DominionWeb.Game
     {
         public bool IsMet(ISupply supply)
         {
-            return supply.NoProvincesRemain() || supply.ThreePilesEmpty();
+            return supply.NoProvincesRemain() || supply.ThreeOrMorePilesEmpty();
         }
     }
 }

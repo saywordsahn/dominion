@@ -72,12 +72,16 @@ namespace DominionWeb.Game.Supply
 
         public bool NoProvincesRemain()
         {
-            throw new NotImplementedException();
+            return TreasureSupply.Any(pile => pile.Cards.Count > 0 && pile.Cards[0] == Card.Province);
         }
 
-        public bool ThreePilesEmpty()
+        public bool ThreeOrMorePilesEmpty()
         {
-            throw new NotImplementedException();
+            var numberOfEmptyPiles = TreasureSupply.Count(pile => pile.Cards.Count == 0)
+                                     + VictorySupply.Count(pile => pile.Cards.Count == 0)
+                                     + KingdomSupply.Count(pile => pile.Cards.Count == 0);
+
+            return numberOfEmptyPiles >= 3;
         }
 
         public Card Take(Card card)

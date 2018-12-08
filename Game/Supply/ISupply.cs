@@ -7,6 +7,6 @@
         bool Contains(Card card);
         void AddToTrash(Card card);
         bool NoProvincesRemain();
-        bool ThreePilesEmpty();
+        bool ThreeOrMorePilesEmpty();
     }
 }
