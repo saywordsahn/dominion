@@ -11,6 +11,8 @@ import {PlayArea} from "../models/playArea";
 import {ActionRequest} from "../models/actionRequest";
 import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
+import {SelectItem} from "primeng/api";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'd-player',
@@ -29,6 +31,10 @@ export class PlayerComponent implements Player {
   actionRequest: ActionRequest;
   gameLog: string[];
 
+
+  //temp vars for testing multiselect
+  selectCards: SelectItem[];
+  selectedCards: any[];
 
   logText: string;
   PlayStatus = PlayStatus;
@@ -65,6 +71,14 @@ export class PlayerComponent implements Player {
     this.numberOfBuys = player.numberOfBuys;
     this.actionRequest = player.actionRequest;
     this.logText = player.gameLog.join('\n');
+
+    //adapting code for ngPrime controls
+    this.selectCards = [];
+    this.selectedCards = [];
+    for (let i = 0; i < player.hand.length; i++)
+    {
+      this.selectCards.push( {label: Card[player.hand[i]], value: {id: i, name: player.hand[i]}});
+    }
     console.log('player updated:', this);
   }
 
@@ -101,9 +115,19 @@ export class PlayerComponent implements Player {
     if (obj == true) {
       this.hubService.submitActionRequestResponse(this.gameService.gameId, ActionRequestType.YesNo, ActionResponse.Yes);
     } else {
-      this.hubService.submitActionRequestResponse(this.gameService.gameId, ActionRequestType.YesNo, ActionResponse.No)
+      this.hubService.submitActionRequestResponse(this.gameService.gameId, ActionRequestType.YesNo, ActionResponse.No);
     }
+  }
 
+  submitMultiSelect() {
+    console.log(this.selectedCards);
+    //unadapt from primeNg format
+    let cards = [];
+    for (let i = 0; i < this.selectedCards.length; i++)
+    {
+      cards.push(this.selectedCards[i].name);
+    }
+    this.hubService.submitSelectCardsRequestResponse(this.gameService.gameId, ActionRequestType.SelectMultipleCards, cards);
   }
 
 }

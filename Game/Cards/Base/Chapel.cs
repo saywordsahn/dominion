@@ -24,11 +24,14 @@ namespace DominionWeb.Game.Cards.Base
         public void ResponseReceived(Game game, IEnumerable<Card> cards)
         {
             var player = game.GetActivePlayer();
+            player.PlayStatus = PlayStatus.ActionPhase;
 
             foreach (var card in cards)
             {
                 player.TrashFromHand(game.Supply, card);
             }
+            
+
         }
 
     }

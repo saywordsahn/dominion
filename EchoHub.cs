@@ -173,6 +173,25 @@ namespace DominionWeb
 			}
 			await Clients.All.SendAsync("Send", game.Supply);
 		}
+		
+		public async Task ProcessSelectCardsActionResponse(int gameId, ActionRequestType actionRequestType, IEnumerable<Card> cards)
+		{
+			var gameState = await _context.GameState.Where(x => x.GameId == gameId).FirstAsync();
+			var game = Game.Game.Load(gameState.State);
+			
+			game.Submit(Context.UserIdentifier, actionRequestType, cards);
+
+			gameState.State = game.GetGameState();
+			_context.GameState.Update(gameState);
+			await _context.SaveChangesAsync();
+			
+			//await Clients.User(Context.UserIdentifier).SendAsync("Player", game.Players.Single(x => x.PlayerName == Context.UserIdentifier));
+			foreach (var player in game.Players)
+			{
+				await Clients.User(player.PlayerName).SendAsync("Player", player);
+			}
+			await Clients.All.SendAsync("Send", game.Supply);
+		}
 
 //	    private class GameState
 //	    {

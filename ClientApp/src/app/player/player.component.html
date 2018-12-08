@@ -43,7 +43,11 @@
         <button (click)="submitAction(false)">No</button>
       </div>
       <div *ngIf="actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards">
-        <button>Button</button>
+        <p-multiSelect [options]="selectCards"
+            [(ngModel)]="selectedCards"
+            [showHeader]="false"></p-multiSelect>
+        <button (click)="submitMultiSelect()">Submit</button>
+
       </div>
     </div>
     <div *ngIf="playStatus == PlayStatus.BuyPhase">

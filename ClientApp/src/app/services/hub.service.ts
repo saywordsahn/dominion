@@ -7,6 +7,7 @@ import {PlayerAction} from '../models/playerAction';
 import {Player} from "../models/player";
 import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
+import {Action} from "rxjs/internal/scheduler/Action";
 
 
 @Injectable({
@@ -111,8 +112,14 @@ export class HubService {
     this.hubConnection.send("EndActionPhase", gameId);
   }
 
+  //TODO: refactor
   submitActionRequestResponse(gameId: number, actionRequestType: ActionRequestType, actionResponse: ActionResponse) {
     this.hubConnection.send("ProcessActionResponse", gameId, actionRequestType, actionResponse);
+  }
+
+  submitSelectCardsRequestResponse(gameId: number, actionRequestType: ActionRequestType, cards: Card[])
+  {
+    this.hubConnection.send("ProcessSelectCardsActionResponse", gameId, actionRequestType, cards);
   }
 
 }
