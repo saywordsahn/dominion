@@ -17,11 +17,14 @@ namespace DominionWeb.Game
         public IList<IPlayer> Players { get; private set; }
         public ISupply Supply { get; private set; }
 
-        public Game(int gameId, IList<IPlayer> players, ISupply supply)
+        private readonly IVictoryCondition _victoryCondition;
+
+        public Game(int gameId, IList<IPlayer> players, ISupply supply, IVictoryCondition victoryCondition)
         {
             GameId = gameId;
             Players = players;
             Supply = supply;
+            _victoryCondition = victoryCondition;
         }
 
         public void Initialize()
@@ -113,7 +116,16 @@ namespace DominionWeb.Game
             if (playerAction == PlayerAction.EndTurn)
             {
                 player.EndTurn();
-                nextPlayer.StartTurn();
+                
+                if (_victoryCondition.IsMet(Supply))
+                {
+                    //Game over
+                    //determine winner
+                }
+                else
+                {
+                    nextPlayer.StartTurn();
+                }
             }
             else if (playerAction == PlayerAction.PlayAllTreasure && player.PlayStatus == PlayStatus.BuyPhase)
             {

@@ -70,6 +70,16 @@ namespace DominionWeb.Game.Supply
             Trash.Add(card);
         }
 
+        public bool NoProvincesRemain()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ThreePilesEmpty()
+        {
+            throw new NotImplementedException();
+        }
+
         public Card Take(Card card)
         {
             var supplyType = _supplyTypeMap[card];

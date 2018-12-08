@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Supply;
 
 namespace DominionWeb.Game
 {

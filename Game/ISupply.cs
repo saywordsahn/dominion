@@ -9,5 +9,7 @@ namespace DominionWeb.Game
         Card Take(SupplyType supplyType, Card card);
         bool Contains(Card card);
         void AddToTrash(Card card);
+        bool NoProvincesRemain();
+        bool ThreePilesEmpty();
     }
 }

@@ -44,8 +44,10 @@ namespace DominionWeb
 			var maria = new Player(2, "maria@gmail.com");
 
 			var players = new List<IPlayer>() {ben, maria};
+			
+			var defaultVictoryCondition = new VictoryCondition();
 
-			var game = new Game.Game(gameModel.GameId, players, supply);
+			var game = new Game.Game(gameModel.GameId, players, supply, defaultVictoryCondition);
 
 			game.Initialize();
 
