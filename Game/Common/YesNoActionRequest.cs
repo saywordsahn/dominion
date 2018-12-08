@@ -2,6 +2,8 @@ using DominionWeb.Game.Cards;
 
 namespace DominionWeb.Game.Common
 {
+    
+    //TODO: refactor to BinaryActionRequest to handle some other cards in Intrigue
     public class YesNoActionRequest : IActionRequest
     {
         public ActionRequestType ActionRequestType { get; } = ActionRequestType.YesNo;

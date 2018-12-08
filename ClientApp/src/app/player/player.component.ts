@@ -32,6 +32,7 @@ export class PlayerComponent implements Player {
 
   logText: string;
   PlayStatus = PlayStatus;
+  ActionRequestType = ActionRequestType;
 
   constructor(
     private dataService: DataService,

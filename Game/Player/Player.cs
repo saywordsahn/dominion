@@ -60,6 +60,14 @@ namespace DominionWeb.Game.Player
             }
         }
 
+        public void TrashFromHand(ISupply supply, Card card)
+        {
+            var cardInHand = Hand.First(x => x == card);
+            Hand.Remove(cardInHand);
+            GameLog.Add(PlayerName.Substring(0, 1) + " trashes a " + card.ToString());
+            supply.AddToTrash(card);
+        }
+
         public void PlayAllTreasure()
         {
             foreach (var card in Hand.ToList())
@@ -105,7 +113,7 @@ namespace DominionWeb.Game.Player
 
         public void Discard(Card card)
         {
-            GameLog.Add(PlayerName + " discards a " + card.ToString());
+            GameLog.Add(PlayerName.Substring(0,1) + " discards a " + card.ToString());
             DiscardPile.Add(card);            
         }
 

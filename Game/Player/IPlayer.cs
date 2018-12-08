@@ -29,8 +29,10 @@ namespace DominionWeb.Game
         List<Card> Deck { get; }
         List<Card> DiscardPile { get; }
         List<ICard> PlayedCards { get; }
+        List<Card> Hand { get; }
         ICollection<string> GameLog { get; }
         IActionRequest ActionRequest { get; set; }
         void Discard(Card card);
+        void TrashFromHand(ISupply supply, Card card);
     }
 }

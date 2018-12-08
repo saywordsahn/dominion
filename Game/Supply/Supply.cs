@@ -11,6 +11,7 @@ namespace DominionWeb.Game.Supply
         public IEnumerable<Pile> TreasureSupply;
         public IEnumerable<Pile> VictorySupply;
         public IEnumerable<Pile> KingdomSupply;
+        public ICollection<Card> Trash { get; private set; }
         
         private readonly IDictionary<Card, SupplyType> _supplyTypeMap = new Dictionary<Card, SupplyType>();
 
@@ -23,6 +24,7 @@ namespace DominionWeb.Game.Supply
             TreasureSupply = treasureSupply;
             VictorySupply = victorySupply;
             KingdomSupply = kingdomSupply;
+            Trash = new List<Card>();
             MapSupplyType();
         }
 
@@ -63,7 +65,11 @@ namespace DominionWeb.Game.Supply
                 .Contains(card);
         }
 
-        
+        public void AddToTrash(Card card)
+        {
+            Trash.Add(card);
+        }
+
         public Card Take(Card card)
         {
             var supplyType = _supplyTypeMap[card];

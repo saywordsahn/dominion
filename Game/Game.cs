@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using DominionWeb.Game.Cards;
@@ -159,7 +160,19 @@ namespace DominionWeb.Game
             {
                 ar.ResponseReceived(this, actionResponse);
             }
-            
+        }
+
+        public void Submit(string playerName, ActionRequestType actionRequestType, IEnumerable<Card> cards)
+        {
+            var player = Players.Single(x => x.PlayerName == playerName);
+            var card = player.ActionRequest.Requester;
+
+            var instance = player.PlayedCards[player.PlayedCards.Count - 1];
+
+            if (actionRequestType == ActionRequestType.SelectCards && instance is ISelectCardsResponseRequired sc)
+            {
+                sc.ResponseReceived(this, cards);
+            }
         }
 
         public IPlayer GetNextPlayer(IPlayer currentPlayer)
