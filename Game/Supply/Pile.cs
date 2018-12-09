@@ -4,7 +4,7 @@ namespace DominionWeb.Game.Supply
 {
     public class Pile
     {
-        public IList<Card> Cards;
+        public readonly IList<Card> Cards;
 
         public Pile(IList<Card> cards)
         {

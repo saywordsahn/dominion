@@ -27,7 +27,7 @@ namespace DominionWeb.Game.Supply
             var throneRooms = new Pile(Enumerable.Repeat(Card.ThroneRoom, 10).ToList());
             var vassals = new Pile(Enumerable.Repeat(Card.Vassal, 10).ToList());
             var councilRooms = new Pile(Enumerable.Repeat(Card.CouncilRoom, 10).ToList());
-            
+            var harbingers = new Pile(Enumerable.Repeat(Card.Harbinger, 10).ToList());
             
             var tSupply = new List<Pile>()
             {
@@ -42,7 +42,8 @@ namespace DominionWeb.Game.Supply
             var kSupply = new List<Pile>()
             {
                 villages, witches, smithys, markets, laboratorys,
-                chapels, moats, gardens, throneRooms, vassals, councilRooms            
+                chapels, moats, gardens, throneRooms, vassals, 
+                councilRooms, harbingers            
             };
             
             return new Supply(tSupply, vSupply, kSupply);

@@ -13,7 +13,7 @@ export class Player {
   moneyPlayed: number;
   numberOfBuys: number;
   numberOfActions: number;
-  actionRequest: ActionRequest;
+  actionRequest: any;
   gameLog: string[];
   victoryPoints: number;
 }

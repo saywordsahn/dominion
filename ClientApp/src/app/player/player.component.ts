@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {DataService} from "../services/data.service";
 import {CardService} from "../services/card.service";
 import {Card, ICard} from "../models/card";
@@ -7,12 +7,16 @@ import {HubService} from "../services/hub.service";
 import {PlayStatus} from "../models/playStatus";
 import {GameService} from "../services/game.service";
 import {PlayerAction} from '../models/playerAction';
-import {PlayArea} from "../models/playArea";
 import {ActionRequest} from "../models/actionRequest";
 import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
 import {SelectItem} from "primeng/api";
-import {forEach} from "@angular/router/src/utils/collection";
+
+//
+// class SelectMultipleCardsActionRequest {
+//   message: string;
+//   cards: Card[];
+// }
 
 @Component({
   selector: 'd-player',
@@ -28,9 +32,11 @@ export class PlayerComponent implements Player {
   numberOfActions: number;
   numberOfBuys: number;
   playedCards: ICard[];
-  actionRequest: ActionRequest;
+  actionRequest: any;
   gameLog: string[];
   victoryPoints: number;
+
+  // private selectMultipleCardsActionRequest: SelectMultipleCardsActionRequest;
 
 
   //temp vars for testing multiselect
@@ -74,14 +80,24 @@ export class PlayerComponent implements Player {
     this.logText = player.gameLog.join('\n');
     this.victoryPoints = player.victoryPoints;
 
-    //adapting code for ngPrime controls
+    // if (player.actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards) {
+    //   this.selectMultipleCardsActionRequest = new SelectMultipleCardsActionRequest();
+    //   this.selectMultipleCardsActionRequest.message = player.actionRequest.message;
+    //   this.selectMultipleCardsActionRequest.cards = player.actionRequest.cards;
+    // }
+
+
     this.selectCards = [];
     this.selectedCards = [];
-    for (let i = 0; i < player.hand.length; i++)
-    {
-      this.selectCards.push( {label: Card[player.hand[i]], value: {id: i, name: player.hand[i]}});
+
+    if (this.actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards) {
+      for (let i = 0; i < this.actionRequest.cards.length; i++)
+      {
+        this.selectCards.push( {label: Card[this.actionRequest.cards[i]], value: {id: i, name: this.actionRequest.cards[i]}});
+      }
+      console.log('player updated:', this);
     }
-    console.log('player updated:', this);
+
   }
 
   play(card: Card) : void {
