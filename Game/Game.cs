@@ -16,19 +16,21 @@ namespace DominionWeb.Game
         public readonly int GameId;
         public IList<IPlayer> Players { get; private set; }
         public ISupply Supply { get; private set; }
+        public GameStatus GameStatus { get; private set; }
 
-        private readonly IVictoryCondition _victoryCondition;
+        public IVictoryCondition VictoryCondition { get; private set; }
 
         public Game(int gameId, IList<IPlayer> players, ISupply supply, IVictoryCondition victoryCondition)
         {
             GameId = gameId;
             Players = players;
             Supply = supply;
-            _victoryCondition = victoryCondition;
+            VictoryCondition = victoryCondition;
         }
 
         public void Initialize()
         {
+            GameStatus = GameStatus.Active;
             bool first = true;
             
             foreach (var player in Players)
@@ -117,10 +119,9 @@ namespace DominionWeb.Game
             {
                 player.EndTurn();
                 
-                if (_victoryCondition.IsMet(Supply))
+                if (VictoryCondition.IsMet(Supply))
                 {
-                    //Game over
-                    //determine winner
+                    OnGameEnd();
                 }
                 else
                 {
@@ -157,6 +158,15 @@ namespace DominionWeb.Game
             else if (playerAction == PlayerAction.EndActionPhase)
             {
                 player.EndActionPhase();
+            }
+        }
+        
+        private void OnGameEnd()
+        {
+            GameStatus = GameStatus.Finished;
+            foreach (var player in Players)
+            {
+                player.PlayStatus = PlayStatus.GameEnd;
             }
         }
 

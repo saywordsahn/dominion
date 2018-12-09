@@ -105,6 +105,7 @@ export class HubService {
   }
 
   endTurn(gameId: number): void {
+    console.log('end turn', gameId);
     this.hubConnection.send("EndTurn", gameId);
   }
 

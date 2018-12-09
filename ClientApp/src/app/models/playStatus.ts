@@ -5,5 +5,6 @@ export enum PlayStatus {
   ActionPhase,
   Attacker,
   Responder,
-  ActionRequestResponder
+  ActionRequestResponder,
+  GameEnd
 }

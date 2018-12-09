@@ -26,6 +26,11 @@ namespace DominionWeb.Game.Player
         public int NumberOfActions { get; set; }
         public IActionRequest ActionRequest { get; set; }
         public ICollection<string> GameLog { get; private set; }
+        public int DominionCount => Dominion.Count();
+        public int VictoryPoints => GetVictoryPointCount();
+        
+        private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand);
+        
          
         public Player(int id, string playerName)
         {
@@ -69,9 +74,21 @@ namespace DominionWeb.Game.Player
             supply.AddToTrash(card);
         }
 
-        public int GetDominionCount()
+        public int GetVictoryPointCount()
         {
-            return Deck.Count + Hand.Count + DiscardPile.Count;
+            var vpCount = 0;
+
+            foreach (var card in this.Dominion)
+            {
+                var instance = CardFactory.Create(card);
+
+                if (instance is IVictory v)
+                {
+                    vpCount += v.GetVictoryPointValue(this);
+                }
+            }
+
+            return vpCount;
         }
 
         public void PlayAllTreasure()

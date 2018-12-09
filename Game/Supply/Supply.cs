@@ -72,7 +72,7 @@ namespace DominionWeb.Game.Supply
 
         public bool NoProvincesRemain()
         {
-            return TreasureSupply.Any(pile => pile.Cards.Count > 0 && pile.Cards[0] == Card.Province);
+            return !VictorySupply.Any(pile => pile.Cards.Count > 0 && pile.Cards[0] == Card.Province);
         }
 
         public bool ThreeOrMorePilesEmpty()

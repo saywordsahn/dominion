@@ -12,7 +12,7 @@ namespace DominionWeb.Game.Cards.Base
         
         public int GetVictoryPointValue(IPlayer player)
         {
-            var dominionSize = player.GetDominionCount();
+            var dominionSize = player.DominionCount;
 
             return dominionSize / 10;
         }

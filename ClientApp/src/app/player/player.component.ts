@@ -30,6 +30,7 @@ export class PlayerComponent implements Player {
   playedCards: ICard[];
   actionRequest: ActionRequest;
   gameLog: string[];
+  victoryPoints: number;
 
 
   //temp vars for testing multiselect
@@ -71,6 +72,7 @@ export class PlayerComponent implements Player {
     this.numberOfBuys = player.numberOfBuys;
     this.actionRequest = player.actionRequest;
     this.logText = player.gameLog.join('\n');
+    this.victoryPoints = player.victoryPoints;
 
     //adapting code for ngPrime controls
     this.selectCards = [];

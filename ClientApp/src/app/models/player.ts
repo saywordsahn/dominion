@@ -10,10 +10,10 @@ export class Player {
   discardPile: Card[];
   playedCards: ICard[];
   playStatus: PlayStatus;
-  //playArea: PlayArea;
   moneyPlayed: number;
   numberOfBuys: number;
   numberOfActions: number;
   actionRequest: ActionRequest;
   gameLog: string[];
+  victoryPoints: number;
 }

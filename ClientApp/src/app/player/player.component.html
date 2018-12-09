@@ -20,6 +20,9 @@
       </div>
   </div>
   <div class="col-sm">
+    <div *ngIf="playStatus == PlayStatus.GameEnd">
+      The game is over. You have {{ victoryPoints }} Victory Points.
+    </div>
     <div *ngIf="playStatus == PlayStatus.WaitForTurn">
       Wait for you turn...
     </div>
