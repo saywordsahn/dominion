@@ -61,17 +61,17 @@ namespace DominionWeb.Game
         public void Submit(string playerName, PlayerAction action, Card card)
         {
             var player = Players.Single(x => x.PlayerName == playerName);
-            var cardInstance = CardFactory.Create(card);
+            var instance = CardFactory.Create(card);
             
             //TODO: consider combining ActionAttack into one status/interface
-            if (action == PlayerAction.Play && cardInstance is IAction a1 && cardInstance is IAttack att)
+            if (action == PlayerAction.Play && instance is IAction a1 && instance is IAttack att)
             {
-                player.Play(card);
+                player.Play(instance);
                 a1.Resolve(this);
             }
-            else if (action == PlayerAction.Play && cardInstance is IAction a2)
+            else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2)
             {
-                player.Play(card);
+                player.Play(instance);
                 a2.Resolve(this);
                 //TODO: look into refactoring this to player object (ex. player.SetActionOrBuyPhase())
                 //TODO: check for number of actions remaining to move statuses automatically
@@ -81,25 +81,25 @@ namespace DominionWeb.Game
                 }
                 
             }
-            else if (action == PlayerAction.Play && cardInstance is ITreasure t)
+            else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.BuyPhase && instance is ITreasure t)
             {
                 //we could implement by as an IAction and then we could remove this section
                 //maybe a different abstraction is better though
                 //TODO: refactor
-                player.Play(card);
+                player.Play(instance);
             }
             //TODO: refactor this as an admin privilege
             else if (action == PlayerAction.GainToHand && player.PlayerName == "ben@gmail.com")
             {
                 player.GainToHand(card);
             }
-            else if (action == PlayerAction.React && cardInstance is IReaction r)
+            else if (action == PlayerAction.React && instance is IReaction r)
             {
                 r.ReactionEffect(this);
             }
             else if (action == PlayerAction.Buy)
             {                
-                if (Supply.Contains(card) && cardInstance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
+                if (Supply.Contains(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
                 {
                     player.Buy(card);
                     Supply.Take(card);

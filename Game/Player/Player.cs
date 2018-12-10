@@ -47,22 +47,24 @@ namespace DominionWeb.Game.Player
         }
 
         public void Play(Card card)
+        {
+            Play(CardFactory.Create(card));
+        }
+        
+        public void Play(ICard card)
         {            
-            //check triggeredAbilities
-            RunTriggeredAbilities(card);
+            RunTriggeredAbilities(card.Name);
+            Hand.Remove(card.Name);
+            PlayedCards.Add(card);
             
-            var instance = CardFactory.Create(card);
-
-            if (PlayStatus == PlayStatus.ActionPhase && instance is IAction a)
+            switch (card)
             {
-                Hand.Remove(card);
-                PlayedCards.Add(instance);
-            }
-            else if (PlayStatus == PlayStatus.BuyPhase && instance is ITreasure t)
-            {
-                Hand.Remove(card);
-                PlayedCards.Add(instance);
-                MoneyPlayed += t.Value;
+                case IAction a:
+                    NumberOfActions--;
+                    break;
+                case ITreasure t:
+                    MoneyPlayed += t.Value;
+                    break;
             }
         }
 

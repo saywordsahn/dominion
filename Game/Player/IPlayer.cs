@@ -9,6 +9,7 @@ namespace DominionWeb.Game
 {
     public interface IPlayer
     {
+        void Play(ICard card);
         void Play(Card card);
         void Gain(Card card);
         void Gain(IEnumerable<Card> cards);
