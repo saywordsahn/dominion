@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DominionWeb.Game.Supply
 {
@@ -13,8 +15,16 @@ namespace DominionWeb.Game.Supply
         public IEnumerable<Pile> KingdomSupply;
         public ICollection<Card> Trash { get; private set; }
         
+        private IEnumerable<Pile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
+        
         private readonly IDictionary<Card, SupplyType> _supplyTypeMap = new Dictionary<Card, SupplyType>();
 
+        //TODO: figure out why we can't make this a property (json serialization issue)
+        public IEnumerable<Card> GetDistinctCards()
+        {
+            return FullSupply.Where(x => x.Cards.Count > 0).Select(x => x.Cards[0]);
+        }
+        
         public Supply(
             IEnumerable<Pile> treasureSupply,
             IEnumerable<Pile> victorySupply,
