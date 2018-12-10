@@ -31,6 +31,14 @@ namespace DominionWeb.Game.Supply
             var merchants = new Pile(Card.Merchant, 10);
             var workshops = new Pile(Card.Workshop, 10);
             
+            var bureaucrats = new Pile(Card.Bureaucrat, 10);
+            var militias = new Pile(Card.Militia, 10);
+            var moneyLenders = new Pile(Card.Moneylender, 10);
+            var poachers = new Pile(Card.Poacher, 10);
+            var remodels = new Pile(Card.Remodel, 10);
+            var cellars = new Pile(Card.Cellar, 10);
+            
+            
             var tSupply = new List<Pile>()
             {
                 coppers, silvers, golds
@@ -43,9 +51,8 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = new List<Pile>()
             {
-                villages, witches, merchants, workshops, laboratorys,
-                chapels, moats, gardens, throneRooms, vassals, 
-                councilRooms, harbingers            
+                chapels, moats, villages, poachers, workshops, remodels, 
+                militias, moneyLenders, gardens, throneRooms, bureaucrats, cellars           
             };
             
             return new Supply(tSupply, vSupply, kSupply);
