@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DominionWeb.Game.Cards;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Supply;
 
@@ -31,6 +32,7 @@ namespace DominionWeb.Game
         List<Card> DiscardPile { get; }
         List<ICard> PlayedCards { get; }
         List<Card> Hand { get; }
+        List<ITriggeredAbility> TriggeredAbilities { get; }
         ICollection<string> GameLog { get; }
         IActionRequest ActionRequest { get; set; }
         void Discard(Card card);

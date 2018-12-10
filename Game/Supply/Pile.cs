@@ -7,13 +7,18 @@ namespace DominionWeb.Game.Supply
     {
         public readonly IList<Card> Cards;
 
+        public Pile()
+        {
+            Cards = new List<Card>();
+        }
+        
         public Pile(IList<Card> cards)
         {
             Cards = cards;
         }
 
         public Pile(Card card, int number)
-            :this(Enumerable.Repeat(card, number).ToList())
+            : this(Enumerable.Repeat(card, number).ToList())
         { }
     }
 }

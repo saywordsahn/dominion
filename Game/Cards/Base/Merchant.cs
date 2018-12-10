@@ -1,4 +1,5 @@
 using System;
+using DominionWeb.Game.Cards.Abilities;
 
 namespace DominionWeb.Game.Cards.Base
 {
@@ -12,7 +13,13 @@ namespace DominionWeb.Game.Cards.Base
 
         public void Resolve(Game game)
         {
-            throw new NotImplementedException();
+            var player = game.GetActivePlayer();
+            player.Draw(1);
+            player.NumberOfActions++;
+            player.TriggeredAbilities.Add(new PlusOneMoneyOnFirstSilverPlay());
         }
+        
+        
+        
     }
 }

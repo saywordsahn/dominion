@@ -13,9 +13,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Witch;
 
-        public IEnumerable<IAbility> Abilities { get; set; }
-        public IEnumerable<IActionEvent> ActionEvents { get; set; }
-
         public void Resolve(Game game)
         {
             var player = game.GetActivePlayer();

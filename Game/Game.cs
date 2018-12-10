@@ -85,6 +85,7 @@ namespace DominionWeb.Game
             {
                 //we could implement by as an IAction and then we could remove this section
                 //maybe a different abstraction is better though
+                //TODO: refactor
                 player.Play(card);
             }
             //TODO: refactor this as an admin privilege

@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
 using DominionWeb.Game.Cards;
-using DominionWeb.Game.Cards.Base;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Utils;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Supply;
-using Microsoft.AspNetCore.Http;
 
 namespace DominionWeb.Game.Player
 {
     public class Player : IPlayer
     {        
-        public int PlayerId { get; private set; }
-        public string PlayerName { get; private set; }
+        public int PlayerId { get; }
+        public string PlayerName { get; }
         public List<Card> Hand { get; private set; }
         public List<Card> Deck { get; private set; }
         public List<Card> DiscardPile { get; private set; }
@@ -25,9 +22,10 @@ namespace DominionWeb.Game.Player
         public int NumberOfBuys { get; set; }
         public int NumberOfActions { get; set; }
         public IActionRequest ActionRequest { get; set; }
-        public ICollection<string> GameLog { get; private set; }
+        public ICollection<string> GameLog { get; }
         public int DominionCount => Dominion.Count();
         public int VictoryPoints => GetVictoryPointCount();
+        public List<ITriggeredAbility> TriggeredAbilities { get; }
         
         private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand);
         
@@ -40,6 +38,7 @@ namespace DominionWeb.Game.Player
             Deck = new List<Card>();
             DiscardPile = new List<Card>();
             PlayedCards = new List<ICard>();
+            TriggeredAbilities = new List<ITriggeredAbility>();
             PlayStatus = PlayStatus.GameStart;
             MoneyPlayed = 0;
             NumberOfBuys = 0;
@@ -48,9 +47,10 @@ namespace DominionWeb.Game.Player
         }
 
         public void Play(Card card)
-        {
-            if (!Hand.Contains(card)) return;
-           
+        {            
+            //check triggeredAbilities
+            RunTriggeredAbilities(card);
+            
             var instance = CardFactory.Create(card);
 
             if (PlayStatus == PlayStatus.ActionPhase && instance is IAction a)
@@ -63,6 +63,24 @@ namespace DominionWeb.Game.Player
                 Hand.Remove(card);
                 PlayedCards.Add(instance);
                 MoneyPlayed += t.Value;
+            }
+        }
+
+        //this may need to be updated for future triggered abilities
+        //for now -- YAGNI
+        private void RunTriggeredAbilities(Card card)
+        {
+            foreach (var triggeredAbility in TriggeredAbilities.ToList())
+            {
+                if (triggeredAbility.Trigger.IsMet(PlayerAction.Play, card))
+                {
+                    triggeredAbility.Ability.Resolve(this);
+
+                    if (triggeredAbility.TriggeredAbilityDurationType == TriggeredAbilityDurationType.Once)
+                    {
+                        TriggeredAbilities.Remove(triggeredAbility);
+                    }
+                }
             }
         }
 
@@ -91,6 +109,7 @@ namespace DominionWeb.Game.Player
             return vpCount;
         }
 
+        //TODO: refactor
         public void PlayAllTreasure()
         {
             foreach (var card in Hand.ToList())
@@ -99,6 +118,7 @@ namespace DominionWeb.Game.Player
                 
                 if (instance is ITreasure t)
                 {
+                    RunTriggeredAbilities(card);
                     Hand.Remove(card);
                     PlayedCards.Add(instance);
                     MoneyPlayed += t.Value;
@@ -181,6 +201,7 @@ namespace DominionWeb.Game.Player
         {
             DiscardPile.AddRange(GetPlayedCardEnums());
             DiscardPile.AddRange(Hand);
+            TriggeredAbilities.Clear();
             PlayedCards = new List<ICard>();
             Hand = new List<Card>();
             Draw(5);
