@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DominionWeb.Game.Supply
 {
@@ -10,5 +11,9 @@ namespace DominionWeb.Game.Supply
         {
             Cards = cards;
         }
+
+        public Pile(Card card, int number)
+            :this(Enumerable.Repeat(card, number).ToList())
+        { }
     }
 }

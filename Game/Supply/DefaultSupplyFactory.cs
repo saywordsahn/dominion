@@ -7,27 +7,29 @@ namespace DominionWeb.Game.Supply
     {
         public Supply Create()
         {            
-            var coppers = new Pile(Enumerable.Repeat(Card.Copper, 46).ToList());
-            var silvers = new Pile(Enumerable.Repeat(Card.Silver, 40).ToList());
-            var golds = new Pile(Enumerable.Repeat(Card.Gold, 30).ToList());
+            var coppers = new Pile(Card.Copper, 46);
+            var silvers = new Pile(Card.Silver, 40);
+            var golds = new Pile(Card.Gold, 30);
             
-            var estates = new Pile(Enumerable.Repeat(Card.Estate, 8).ToList());
-            var duchys = new Pile(Enumerable.Repeat(Card.Duchy, 8).ToList());
-            var provinces = new Pile(Enumerable.Repeat(Card.Province, 8).ToList());
-            var curses = new Pile(Enumerable.Repeat(Card.Curse, 10).ToList());
+            var estates = new Pile(Card.Estate, 8);
+            var duchys = new Pile(Card.Duchy, 8);
+            var provinces = new Pile(Card.Province, 8);
+            var curses = new Pile(Card.Curse, 10);
             
-            var villages = new Pile(Enumerable.Repeat(Card.Village, 10).ToList());
-            var witches = new Pile(Enumerable.Repeat(Card.Witch, 10).ToList());
-            var smithys = new Pile(Enumerable.Repeat(Card.Smithy, 10).ToList());
-            var markets = new Pile(Enumerable.Repeat(Card.Market, 10).ToList());
-            var laboratorys = new Pile(Enumerable.Repeat(Card.Laboratory, 10).ToList());
-            var chapels = new Pile(Enumerable.Repeat(Card.Chapel, 10).ToList());
-            var moats = new Pile(Enumerable.Repeat(Card.Moat, 10).ToList());
-            var gardens = new Pile(Enumerable.Repeat(Card.Gardens, 8).ToList());
-            var throneRooms = new Pile(Enumerable.Repeat(Card.ThroneRoom, 10).ToList());
-            var vassals = new Pile(Enumerable.Repeat(Card.Vassal, 10).ToList());
-            var councilRooms = new Pile(Enumerable.Repeat(Card.CouncilRoom, 10).ToList());
-            var harbingers = new Pile(Enumerable.Repeat(Card.Harbinger, 10).ToList());
+            var villages = new Pile(Card.Village, 10);
+            var witches = new Pile(Card.Witch, 10);
+            var smithys = new Pile(Card.Smithy, 10);
+            var markets = new Pile(Card.Market, 10);
+            var laboratorys = new Pile(Card.Laboratory, 10);
+            var chapels = new Pile(Card.Chapel, 10);
+            var moats = new Pile(Card.Moat, 10);
+            var gardens = new Pile(Card.Gardens, 8);
+            var throneRooms = new Pile(Card.ThroneRoom, 10);
+            var vassals = new Pile(Card.Vassal, 10);
+            var councilRooms = new Pile(Card.CouncilRoom, 10);
+            var harbingers = new Pile(Card.Harbinger, 10);
+            var merchants = new Pile(Card.Merchant, 10);
+            var workshops = new Pile(Card.Workshop, 10);
             
             var tSupply = new List<Pile>()
             {
@@ -41,7 +43,7 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = new List<Pile>()
             {
-                villages, witches, smithys, markets, laboratorys,
+                villages, witches, merchants, workshops, laboratorys,
                 chapels, moats, gardens, throneRooms, vassals, 
                 councilRooms, harbingers            
             };

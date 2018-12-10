@@ -90,7 +90,7 @@ export class PlayerComponent implements Player {
     this.selectCards = [];
     this.selectedCards = [];
 
-    if (this.actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards) {
+    if (this.actionRequest != undefined && this.actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards) {
       for (let i = 0; i < this.actionRequest.cards.length; i++)
       {
         this.selectCards.push( {label: Card[this.actionRequest.cards[i]], value: {id: i, name: this.actionRequest.cards[i]}});
