@@ -11,7 +11,7 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Vassal;
         
-        public Card FlippedCard { get; private set; }
+        public Card FlippedCard { get; set; }
 
         public void Resolve(Game game)
         {
@@ -46,8 +46,8 @@ namespace DominionWeb.Game.Cards.Base
             if (flippedCard is IAction a)
             {
                 player.DiscardPile.RemoveAt(player.DiscardPile.Count - 1);
-                player.PlayedCards.Add(flippedCard);
-                a.Resolve(game);
+                player.PlayedCards.Add(new PlayedCard(flippedCard));
+                player.PlayStack.Push(new PlayedCard(flippedCard, false));
             }
 
         }

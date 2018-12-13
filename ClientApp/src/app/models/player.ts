@@ -2,13 +2,14 @@ import {Card, ICard} from "./card";
 import {PlayStatus} from './playStatus';
 import {PlayArea} from "./playArea";
 import {ActionRequest} from "./actionRequest";
+import {PlayedCard} from "./playedCard";
 
 export class Player {
   playerId: number;
   deck: Card[];
   hand: Card[];
   discardPile: Card[];
-  playedCards: ICard[];
+  playedCards: PlayedCard[];
   playStatus: PlayStatus;
   moneyPlayed: number;
   numberOfBuys: number;

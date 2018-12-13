@@ -13,6 +13,7 @@ namespace DominionWeb.Game.Cards.Base
             var player = game.GetActivePlayer();
             player.Draw(1);
             player.NumberOfActions += 2;
+            player.PlayStatus = PlayStatus.ActionPhase;
         }
         
     }

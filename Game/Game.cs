@@ -35,8 +35,12 @@ namespace DominionWeb.Game
             
             foreach (var player in Players)
             {
-                var coppers = Enumerable.Repeat(Supply.Take(SupplyType.Treasure, Card.Copper), 7);
-                var estates = Enumerable.Repeat(Supply.Take(Card.Estate), 3);
+                var coppers = Enumerable.Repeat(Supply.Take(Card.Village), 7);
+                var estates = Enumerable.Repeat(Supply.Take(Card.ThroneRoom), 3);
+                var remodels = Enumerable.Repeat(Supply.Take(Card.Remodel), 3);
+                var vassals = Enumerable.Repeat(Supply.Take(Card.Vassal), 3);
+                player.Gain(remodels);
+                player.Gain(vassals);
                 player.Gain(coppers);
 //                Console.WriteLine("{0} starts with 7 Coppers.", player.Name);
 //                Console.WriteLine("{0} starts with 3 Estates.", player.Name);
@@ -58,6 +62,21 @@ namespace DominionWeb.Game
             }
         }
 
+        private void CheckPlayStack(IPlayer player)
+        {
+            while (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0)
+            {
+                var card = player.PlayStack.Pop();
+
+                if (card.IsThronedCopy)
+                {
+                    player.PlayedCards.Add(card);
+                }
+                
+                if (card.Card is IAction a) a.Resolve(this);
+            }
+        }
+        
         public void Submit(string playerName, PlayerAction action, Card card)
         {
             var player = Players.Single(x => x.PlayerName == playerName);
@@ -68,17 +87,20 @@ namespace DominionWeb.Game
             {
                 player.Play(instance);
                 a1.Resolve(this);
+                
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2)
             {
                 player.Play(instance);
                 a2.Resolve(this);
+                CheckPlayStack(player);
                 //TODO: look into refactoring this to player object (ex. player.SetActionOrBuyPhase())
                 //TODO: check for number of actions remaining to move statuses automatically
                 if (player.PlayStatus != PlayStatus.ActionRequestResponder)
                 {
                     player.PlayStatus = player.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
                 }
+                
                 
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.BuyPhase && instance is ITreasure t)
@@ -174,27 +196,31 @@ namespace DominionWeb.Game
         public void Submit(string playerName, ActionRequestType actionRequestType, ActionResponse actionResponse)
         {
             var player = Players.Single(x => x.PlayerName == playerName);
-            var card = player.ActionRequest.Requester;
+            //var card = player.ActionRequest.Requester;
 
             //TODO: rethink this through, likely bugs, if not now, in future when more cards are added
-            var instance = player.PlayedCards[player.PlayedCards.Count - 1];
+            //var instance = player.PlayedCards[player.PlayedCards.Count - 1];
+            var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
+
 
             if (actionRequestType == ActionRequestType.YesNo && instance is IActionRequester ar)
             {
                 ar.ResponseReceived(this, actionResponse);
+                CheckPlayStack(player);
             }
         }
-
+        
         public void Submit(string playerName, ActionRequestType actionRequestType, IEnumerable<Card> cards)
         {
             var player = Players.Single(x => x.PlayerName == playerName);
-            var card = player.ActionRequest.Requester;
+//            var card = player.ActionRequest.Requester;
 
-            var instance = player.PlayedCards[player.PlayedCards.Count - 1];
+            var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
 
             if (actionRequestType == ActionRequestType.SelectCards && instance is ISelectCardsResponseRequired sc)
             {
                 sc.ResponseReceived(this, cards);
+                CheckPlayStack(player);
             }
         }
 

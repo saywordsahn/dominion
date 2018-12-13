@@ -21,7 +21,6 @@ namespace DominionWeb.Game
         PlayStatus PlayStatus { get; set; }
         string PlayerName { get; }
         int NumberOfActions { get; set; }
-        void ClearPlayedCards();
         void Buy(Card card);
         void EndTurn();
         void StartTurn();
@@ -31,7 +30,7 @@ namespace DominionWeb.Game
         void PlayAllTreasure();
         List<Card> Deck { get; }
         List<Card> DiscardPile { get; }
-        List<ICard> PlayedCards { get; }
+        List<PlayedCard> PlayedCards { get; }
         List<Card> Hand { get; }
         List<ITriggeredAbility> TriggeredAbilities { get; }
         ICollection<string> GameLog { get; }
@@ -39,5 +38,7 @@ namespace DominionWeb.Game
         void Discard(Card card);
         void TrashFromHand(ISupply supply, Card card);
         int DominionCount { get; }
+        void PlayWithoutCost(ICard instance);
+        Stack<PlayedCard> PlayStack { get; set; }
     }
 }
