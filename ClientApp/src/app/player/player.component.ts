@@ -11,6 +11,7 @@ import {ActionRequest} from "../models/actionRequest";
 import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
 import {SelectItem} from "primeng/api";
+import {PlayedCard} from "../models/playedCard";
 
 //
 // class SelectMultipleCardsActionRequest {
@@ -31,7 +32,7 @@ export class PlayerComponent implements Player {
   moneyPlayed: number = 0;
   numberOfActions: number;
   numberOfBuys: number;
-  playedCards: ICard[];
+  playedCards: PlayedCard[];
   actionRequest: any;
   gameLog: string[];
   victoryPoints: number;
@@ -72,7 +73,6 @@ export class PlayerComponent implements Player {
     this.hand = player.hand;
     this.playerId = player.playerId;
     this.playStatus = player.playStatus;
-    this.playedCards = player.playedCards;
     this.moneyPlayed = player.moneyPlayed;
     this.numberOfActions = player.numberOfActions;
     this.numberOfBuys = player.numberOfBuys;
@@ -86,6 +86,14 @@ export class PlayerComponent implements Player {
     //   this.selectMultipleCardsActionRequest.cards = player.actionRequest.cards;
     // }
 
+    //todo: add lodash or pipe
+    //hide throned cards
+    this.playedCards = [];
+    for (let i = 0; i < player.playedCards.length; i++) {
+      if (!player.playedCards[i].isThronedCopy) {
+        this.playedCards.push(player.playedCards[i]);
+      }
+    }
 
     this.selectCards = [];
     this.selectedCards = [];

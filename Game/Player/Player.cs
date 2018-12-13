@@ -16,7 +16,7 @@ namespace DominionWeb.Game.Player
         public List<Card> Hand { get; private set; }
         public List<Card> Deck { get; private set; }
         public List<Card> DiscardPile { get; private set; }
-        public List<ICard> PlayedCards { get; private set; }
+        public List<PlayedCard> PlayedCards { get; private set; }
         public PlayStatus PlayStatus { get; set; }
         public int MoneyPlayed { get; set; }
         public int NumberOfBuys { get; set; }
@@ -26,9 +26,9 @@ namespace DominionWeb.Game.Player
         public int DominionCount => Dominion.Count();
         public int VictoryPoints => GetVictoryPointCount();
         public List<ITriggeredAbility> TriggeredAbilities { get; }
+        public Stack<PlayedCard> PlayStack { get; set; }
         
         private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand);
-        
          
         public Player(int id, string playerName)
         {
@@ -37,7 +37,8 @@ namespace DominionWeb.Game.Player
             Hand = new List<Card>();
             Deck = new List<Card>();
             DiscardPile = new List<Card>();
-            PlayedCards = new List<ICard>();
+            PlayedCards = new List<PlayedCard>();
+            PlayStack = new Stack<PlayedCard>();
             TriggeredAbilities = new List<ITriggeredAbility>();
             PlayStatus = PlayStatus.GameStart;
             MoneyPlayed = 0;
@@ -55,7 +56,7 @@ namespace DominionWeb.Game.Player
         {            
             RunTriggeredAbilities(card.Name);
             Hand.Remove(card.Name);
-            PlayedCards.Add(card);
+            PlayedCards.Add(new PlayedCard(card));
             
             switch (card)
             {
@@ -66,6 +67,13 @@ namespace DominionWeb.Game.Player
                     MoneyPlayed += t.Value;
                     break;
             }
+        }
+        
+        public void PlayWithoutCost(ICard card)
+        {
+            RunTriggeredAbilities(card.Name);
+            Hand.Remove(card.Name);
+            PlayedCards.Add(new PlayedCard(card));
         }
 
         //this may need to be updated for future triggered abilities
@@ -122,7 +130,7 @@ namespace DominionWeb.Game.Player
                 {
                     RunTriggeredAbilities(card);
                     Hand.Remove(card);
-                    PlayedCards.Add(instance);
+                    PlayedCards.Add(new PlayedCard(instance));
                     MoneyPlayed += t.Value;
                 }
             }
@@ -130,7 +138,7 @@ namespace DominionWeb.Game.Player
 
         public ICard GetLastPlayedCard()
         {
-            return PlayedCards[PlayedCards.Count - 1];
+            return PlayedCards[PlayedCards.Count - 1].Card;
         }
 
         public void Buy(Card card)
@@ -204,7 +212,7 @@ namespace DominionWeb.Game.Player
             DiscardPile.AddRange(GetPlayedCardEnums());
             DiscardPile.AddRange(Hand);
             TriggeredAbilities.Clear();
-            PlayedCards = new List<ICard>();
+            PlayedCards = new List<PlayedCard>();
             Hand = new List<Card>();
             Draw(5);
             PlayStatus = PlayStatus.WaitForTurn;
@@ -250,15 +258,10 @@ namespace DominionWeb.Game.Player
 
             foreach (var card in PlayedCards)
             {
-                list.Add(card.Name);
+                list.Add(card.Card.Name);
             }
             
             return list;
-        }
-
-        public void ClearPlayedCards()
-        {
-            PlayedCards = new List<ICard>();
         }
         
     }

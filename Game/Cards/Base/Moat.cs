@@ -12,7 +12,8 @@ namespace DominionWeb.Game.Cards.Base
 
         public void Resolve(Game game)
         {
-            throw new NotImplementedException();
+            var player = game.GetActivePlayer();
+            player.Draw(2);
         }
     }
 }
