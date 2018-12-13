@@ -10,9 +10,9 @@ namespace DominionWeb.Game.Supply
 {
     public class Supply : ISupply
     {
-        public IEnumerable<Pile> TreasureSupply;
-        public IEnumerable<Pile> VictorySupply;
-        public IEnumerable<Pile> KingdomSupply;
+        public IEnumerable<Pile> TreasureSupply { get; }
+        public IEnumerable<Pile> VictorySupply { get; }
+        public IEnumerable<Pile> KingdomSupply { get; }
         public ICollection<Card> Trash { get; private set; }
         
         private IEnumerable<Pile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
