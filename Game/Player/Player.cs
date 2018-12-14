@@ -175,6 +175,12 @@ namespace DominionWeb.Game.Player
         {
             Hand.Add(card);
         }
+
+        public void DiscardFromHand(Card card)
+        {
+            Hand.Remove(card);
+            DiscardPile.Add(card);
+        }
         
         public void Shuffle()
         {

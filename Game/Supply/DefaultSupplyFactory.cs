@@ -57,7 +57,7 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = new List<Pile>()
             {
-                chapels, moats, villages, remodels, vassals, mines, 
+                chapels, moats, villages, remodels, poachers, mines, 
                 militias, bandits, artisans, throneRooms, bureaucrats, cellars           
             };
             

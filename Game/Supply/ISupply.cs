@@ -15,5 +15,6 @@ namespace DominionWeb.Game.Supply
         void AddToTrash(Card card);
         bool NoProvincesRemain();
         bool ThreeOrMorePilesEmpty();
+        int EmptyPileCount();
     }
 }

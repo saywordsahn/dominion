@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Poacher : ICard, IAction
+    public class Poacher : ICard, IAction, ISelectCardsResponseRequired
     {
         public int Cost { get; } = 4;
 
@@ -12,7 +15,35 @@ namespace DominionWeb.Game.Cards.Base
 
         public void Resolve(Game game)
         {
-            throw new NotImplementedException();
+            var player = game.GetActivePlayer();
+            player.Draw(1);
+            player.NumberOfActions++;
+            player.MoneyPlayed++;
+
+            var emptyPileCount = game.Supply.EmptyPileCount();
+
+            if (emptyPileCount > 0)
+            {
+                //discard a cardPerEmptyPile
+                player.ActionRequest = new SelectCardsActionRequest("Discard " + emptyPileCount + " cards.",
+                    Card.Poacher, player.Hand, emptyPileCount);
+                player.PlayStatus = PlayStatus.ActionRequestResponder;
+            }
+            
+        }
+
+        public void ResponseReceived(Game game, IEnumerable<Card> cards)
+        {
+            var player = game.GetActivePlayer();
+
+            var cardList = cards.ToList();
+
+            if (cardList.Count != game.Supply.EmptyPileCount()) return;
+
+            foreach (var c in cards)
+            {
+                player.DiscardFromHand(c);
+            }
         }
     }
 }

@@ -39,9 +39,7 @@ namespace DominionWeb.Game.Cards.Base
             {
                 foreach (var c in cardList)
                 {
-                    //TODO: add discardFromHandMethod on player
-                    player.Hand.Remove(c);
-                    player.DiscardPile.Add(c);
+                    player.DiscardFromHand(c);
                 }
                 
                 player.Draw(cardList.Count); 

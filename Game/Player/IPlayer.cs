@@ -14,6 +14,7 @@ namespace DominionWeb.Game
         void Gain(Card card);
         void Gain(IEnumerable<Card> cards);
         void GainToHand(Card card);
+        void DiscardFromHand(Card card);
         void Shuffle();
         void Draw(int numberToDraw);
         int MoneyPlayed { get; set; }

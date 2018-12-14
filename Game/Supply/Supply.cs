@@ -87,11 +87,14 @@ namespace DominionWeb.Game.Supply
 
         public bool ThreeOrMorePilesEmpty()
         {
-            var numberOfEmptyPiles = TreasureSupply.Count(pile => pile.Cards.Count == 0)
-                                     + VictorySupply.Count(pile => pile.Cards.Count == 0)
-                                     + KingdomSupply.Count(pile => pile.Cards.Count == 0);
+            return EmptyPileCount() >= 3;
+        }
 
-            return numberOfEmptyPiles >= 3;
+        public int EmptyPileCount()
+        {
+            return TreasureSupply.Count(pile => pile.Cards.Count == 0)
+                + VictorySupply.Count(pile => pile.Cards.Count == 0)
+                + KingdomSupply.Count(pile => pile.Cards.Count == 0);
         }
 
         public Card Take(Card card)
