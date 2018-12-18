@@ -157,12 +157,24 @@ namespace DominionWeb.Game.Player
 
         public void Gain(Card card)
         {
-            DiscardPile.Add(card);
+            var instance = CardFactory.Create(card);
+
+            if (instance is IOnGainOverride o)
+            {
+                o.OnGain(this, card);
+            }
+            else
+            {
+                DiscardPile.Add(card); 
+            }            
         }
         
         public void Gain(IEnumerable<Card> cards)
         {
-            DiscardPile.AddRange(cards);
+            foreach (var card in cards)
+            {
+                Gain(card);
+            }
         }
 
         public void Discard(Card card)
