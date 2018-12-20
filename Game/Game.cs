@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using DominionWeb.Game.Cards;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Base;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Supply;
@@ -35,12 +36,8 @@ namespace DominionWeb.Game
             
             foreach (var player in Players)
             {
-                var coppers = Enumerable.Repeat(Supply.Take(Card.Village), 7);
-                var estates = Enumerable.Repeat(Supply.Take(Card.ThroneRoom), 3);
-                var artisans = Enumerable.Repeat(Supply.Take(Card.Artisan), 3);
-                var vassals = Enumerable.Repeat(Supply.Take(Card.Vassal), 3);
-                player.Gain(artisans);
-                player.Gain(vassals);
+                var coppers = Enumerable.Repeat(Supply.Take(Card.Copper), 7);
+                var estates = Enumerable.Repeat(Supply.Take(Card.Estate), 3);
                 player.Gain(coppers);
 //                Console.WriteLine("{0} starts with 7 Coppers.", player.Name);
 //                Console.WriteLine("{0} starts with 3 Estates.", player.Name);
@@ -62,9 +59,19 @@ namespace DominionWeb.Game
             }
         }
 
-        private void CheckPlayStack(IPlayer player)
+        public void CheckPlayStack(IPlayer player)
         {
-            while (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0)
+            while (player.OnGainAbilities.Count > 0 
+                && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true))
+            {
+                var ability = player.OnGainAbilities.Last();
+                player.OnGainAbilities.RemoveAt(player.OnGainAbilities.Count - 1);
+                player.PlayedAbilities.Add(ability);
+                ability.Resolve(player);
+            }
+            
+            while (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0
+                && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true) )
             {
                 var card = player.PlayStack.Pop();
 
@@ -110,11 +117,6 @@ namespace DominionWeb.Game
                 //TODO: refactor
                 player.Play(instance);
             }
-            //TODO: refactor this as an admin privilege
-            else if (action == PlayerAction.GainToHand && player.PlayerName == "ben@gmail.com")
-            {
-                player.GainToHand(card);
-            }
             else if (action == PlayerAction.React && instance is IReaction r)
             {
                 r.ReactionEffect(this);
@@ -125,6 +127,7 @@ namespace DominionWeb.Game
                 {
                     player.Buy(card);
                     Supply.Take(card);
+                    CheckPlayStack(player);
                 }
             }
             else
@@ -199,15 +202,29 @@ namespace DominionWeb.Game
             //var card = player.ActionRequest.Requester;
 
             //TODO: rethink this through, likely bugs, if not now, in future when more cards are added
+            //TODO: this fails if there is a request from card that wasn't played
             //var instance = player.PlayedCards[player.PlayedCards.Count - 1];
-            var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
-
-
-            if (actionRequestType == ActionRequestType.YesNo && instance is IActionRequester ar)
+            if (player.PlayedAbilities.Last().Resolved == false)
             {
-                ar.ResponseReceived(this, actionResponse);
+                var aInstance = player.PlayedAbilities.Last();
+
+                if (aInstance is IResponseRequired<ActionResponse> rr)
+                {
+                    rr.ResponseReceived(this, actionResponse);
+                }
                 CheckPlayStack(player);
             }
+            else
+            {
+                var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
+
+                if (actionRequestType == ActionRequestType.YesNo && instance is IResponseRequired<ActionResponse> ar)
+                {
+                    ar.ResponseReceived(this, actionResponse);
+                    CheckPlayStack(player);
+                }
+            }
+            
         }
         
         public void Submit(string playerName, ActionRequestType actionRequestType, IEnumerable<Card> cards)

@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Moneylender : ICard, IAction, IActionRequester
+    public class Moneylender : ICard, IAction, IResponseRequired<ActionResponse>
     {
         public int Cost { get; } = 4;
 

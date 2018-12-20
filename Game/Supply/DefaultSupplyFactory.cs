@@ -44,6 +44,8 @@ namespace DominionWeb.Game.Supply
             var bandits = new Pile(Card.Bandit, 10);
             var artisans = new Pile(Card.Artisan, 10);
             
+            var nomadCamps = new Pile(Card.NomadCamp, 10);
+            var ducats = new Pile(Card.Ducat, 10);
             
             var tSupply = new List<Pile>()
             {
@@ -57,8 +59,8 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = new List<Pile>()
             {
-                chapels, moats, villages, remodels, poachers, mines, 
-                militias, bandits, artisans, throneRooms, bureaucrats, cellars           
+                ducats, moats, villages, remodels, poachers, mines, 
+                militias, bandits, artisans, throneRooms, bureaucrats, nomadCamps           
             };
             
             return new Supply(tSupply, vSupply, kSupply);

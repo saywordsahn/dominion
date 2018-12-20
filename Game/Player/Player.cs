@@ -22,12 +22,16 @@ namespace DominionWeb.Game.Player
         public int MoneyPlayed { get; set; }
         public int NumberOfBuys { get; set; }
         public int NumberOfActions { get; set; }
+        public int VictoryTokens { get; set; }
         public IActionRequest ActionRequest { get; set; }
         public ICollection<string> GameLog { get; }
         public int DominionCount => Dominion.Count();
         public int VictoryPoints => GetVictoryPointCount();
         public List<ITriggeredAbility> TriggeredAbilities { get; }
+        public List<IAbility> OnGainAbilities { get; }
+        public List<IAbility> PlayedAbilities { get; }
         public Stack<PlayedCard> PlayStack { get; set; }
+        public int Coffers { get; set; }
         
         private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand);
          
@@ -41,10 +45,14 @@ namespace DominionWeb.Game.Player
             PlayedCards = new List<PlayedCard>();
             PlayStack = new Stack<PlayedCard>();
             TriggeredAbilities = new List<ITriggeredAbility>();
+            PlayedAbilities = new List<IAbility>();
+            OnGainAbilities = new List<IAbility>();
             PlayStatus = PlayStatus.GameStart;
             MoneyPlayed = 0;
             NumberOfBuys = 0;
             NumberOfActions = 0;
+            VictoryTokens = 0;
+            Coffers = 0;
             GameLog = new List<string>();
         }
 
@@ -65,6 +73,12 @@ namespace DominionWeb.Game.Player
                     NumberOfActions--;
                     break;
                 case ITreasure t:
+                    
+                    if (t is ITreasureAbilityHolder h)
+                    {
+                        h.ResolveTreasureAbilities(this);
+                    }
+                    
                     MoneyPlayed += t.Value;
                     break;
             }
@@ -165,6 +179,11 @@ namespace DominionWeb.Game.Player
             }
             else
             {
+                if (instance is IOnGainAbilityHolder ah)
+                {
+                    OnGainAbilities.Add(ah.OnGainAbility);
+                }
+                
                 DiscardPile.Add(card); 
             }            
         }
@@ -185,7 +204,14 @@ namespace DominionWeb.Game.Player
 
         public void GainToHand(Card card)
         {
+            var instance = CardFactory.Create(card);
+
             Hand.Add(card);
+           
+            if (instance is IOnGainAbilityHolder ah)
+            {
+                OnGainAbilities.Add(ah.OnGainAbility);
+            }
         }
 
         public void DiscardFromHand(Card card)
@@ -281,6 +307,11 @@ namespace DominionWeb.Game.Player
             }
             
             return list;
+        }
+
+        public bool HasCardInHand(Card card)
+        {
+            return Hand.Exists(x => x == card);
         }
         
     }

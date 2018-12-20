@@ -111,5 +111,10 @@ namespace DominionWeb.Game
         BadOmens, Delusion, Envy, Famine, Fear, Greed, Haunting, Locusts, Misery, Plague, Poverty, War,
         
         Deluded, Envious, LostInTheWoods, Miserable, TwiceMiserable,
+        
+        //Renaissance Expansion
+        BorderGuard, Ducat, Lackeys, ActingTroupe, CargoShip, Experiment, Improve, FlagBearer, Hideout, Inventor,
+        MountainVillage, Patron, Priest, Research, SilkMerchant, OldWitch, Recruiter, Scepter, Scholar, Sculptor,
+        Seer, Spices, Swashbuckler, Treasurer, Villain
     }
 }

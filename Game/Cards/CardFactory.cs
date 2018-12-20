@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Base;
+using DominionWeb.Game.Cards.Hinterlands;
+using DominionWeb.Game.Cards.Renaissance;
 
 namespace DominionWeb.Game.Cards
 {
@@ -41,7 +43,13 @@ namespace DominionWeb.Game.Cards
             { Card.Mine, () => new Mine() },
             { Card.Sentry, () => new Sentry() },
             { Card.Witch, () => new Witch() },
-            { Card.Artisan, () => new Artisan() }
+            { Card.Artisan, () => new Artisan() },
+            
+            //hinterlands
+            { Card.NomadCamp, () => new NomadCamp()},
+            
+            //renaissance
+            { Card.Ducat, () => new Ducat() },
         };
 
         public static ICard Create(Card card)

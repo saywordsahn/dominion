@@ -1,9 +1,10 @@
 using System;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Vassal : ICard, IAction, IActionRequester
+    public class Vassal : ICard, IAction, IResponseRequired<ActionResponse>
     {
         public int Cost { get; } = 3;
 

@@ -54,7 +54,22 @@ namespace DominionWeb.Tests.PlayerTests
             Assert.Equal(expected, actual);
         }
         
+        [Fact]
+        public void has_card_in_hand_returns_true()
+        {
+            var player = new Player(1, "ben@gmail.com");
+            player.Hand.Add(Card.Copper);
+            Assert.True(player.HasCardInHand(Card.Copper));
+        }
         
+        [Fact]
+        public void has_card_in_hand_returns_false()
+        {
+            var player = new Player(1, "ben@gmail.com");
+            player.Hand.Add(Card.Copper);
+            Assert.False(player.HasCardInHand(Card.Witch));
+        }
+
         
     }
 }
