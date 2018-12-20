@@ -16,3 +16,20 @@ body {
 .player2 {
   height: 50px;
 }
+
+.cardDetail {
+  max-height:478px;
+  max-width:298px;
+}
+
+/*TODO: make background invisible*/
+/*.cardDetailDialogBox {*/
+  /*background-color: transparent;*/
+  /*border: none;*/
+/*}*/
+
+/*::ng-deep body .ui-dialog .ui-dialog-content {*/
+  /*background-color: transparent;*/
+  /*border: none;*/
+/*}*/
+

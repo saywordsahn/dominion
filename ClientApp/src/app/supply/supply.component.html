@@ -14,9 +14,12 @@
   <div class="col-sm-8">
     <div class="row">
       <div class="col-sm-2" *ngFor="let pile of kingdomSupply">
-        <img (click)="buy(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[0])" alt="image">
+        <img oncontextmenu="return false;" (click)="buy(pile)" (contextmenu)="rightClick(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[0])" alt="image">
       </div>
     </div>
-
+    <!--373x598-->
+    <p-dialog class="cardDetailDialogBox" [showHeader]="false" [modal]="true" [dismissableMask]="true" [(visible)]="showCardDetail">
+      <img class="cardDetail" [src]="cardDetailLoc">
+    </p-dialog>
   </div>
 </div>

@@ -18,7 +18,11 @@ import { CardService } from './services/card.service';
 import { HubService } from './services/hub.service';
 import {UserService} from "./services/user.service";
 
+//primeng
 import {MultiSelectModule} from 'primeng/multiselect';
+import {Dialog, DialogModule} from 'primeng/dialog';
+
+
 
 @NgModule({
   declarations: [
@@ -40,7 +44,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
-    MultiSelectModule
+    MultiSelectModule,
+    DialogModule
   ],
   providers: [
       DataService,

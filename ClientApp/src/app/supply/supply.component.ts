@@ -18,6 +18,9 @@ export class SupplyComponent implements Supply {
   kingdomSupply: Pile[];
   victorySupply: Pile[];
 
+  showCardDetail: boolean = false;
+  cardDetailLoc: string;
+
   constructor(private dataService: DataService,
               public cardService: CardService,
               private hubService: HubService,
@@ -43,6 +46,14 @@ export class SupplyComponent implements Supply {
       if (pile.cards.length > 0) {
         this.hubService.submitAction(this.gameService.gameId, PlayerAction.Buy, pile.cards[0]);
       }
+    }
+  }
+
+  rightClick(pile) {
+    if (pile.cards.length > 0) {
+      this.cardDetailLoc = this.cardService.getImgLoc(pile.cards[0]);
+      console.log(this.cardDetailLoc);
+      this.showCardDetail = true;
     }
   }
 
