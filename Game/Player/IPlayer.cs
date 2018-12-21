@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Supply;
 
-namespace DominionWeb.Game
+namespace DominionWeb.Game.Player
 {
     public interface IPlayer
     {
@@ -47,5 +47,6 @@ namespace DominionWeb.Game
         int Coffers { get; set; }
         bool HasCardInHand(Card card);
         bool IsRespondingToAbility();
+        bool HasReactionInHand();
     }
 }

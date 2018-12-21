@@ -1,7 +1,9 @@
 
 <div class="row">
   <div class="col-lg">
-    <div *ngFor="let card of playedCards"> {{ Card[card.card.name] }}</div>
+    <div *ngFor="let card of playedCards">
+      {{ Card[card.card.name] }} <div *ngIf="card.isThronedCopy">*</div>
+    </div>
   </div>
 </div>
 <div class="row">

@@ -1,6 +1,6 @@
-using DominionWeb.Game.Player;
+using DominionWeb.Game.Player.Triggers;
 
-namespace DominionWeb.Game.Cards.Abilities
+namespace DominionWeb.Game.Cards.Abilities.TriggeredAbilities
 {
     public class PlusOneMoneyOnFirstSilverPlay : ITriggeredAbility
     {

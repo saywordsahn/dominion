@@ -1,5 +1,3 @@
-using System;
-
 namespace DominionWeb.Game.Cards.Base
 {
     public class Laboratory : ICard, IAction

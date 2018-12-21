@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
@@ -31,8 +28,6 @@ namespace DominionWeb.Game.Cards.Base
             {
                 player.TrashFromHand(game.Supply, card);
             }
-            
-
         }
 
     }

@@ -1,5 +1,4 @@
-﻿using System;
-namespace DominionWeb.Game
+namespace DominionWeb.Game.Player
 {
     public enum PlayerAction
     {
@@ -10,6 +9,7 @@ namespace DominionWeb.Game
         React,
         TakeAttackEffect,
         PlayAllTreasure,
-        GainToHand
+        GainToHand,
+        Trash
     }
 }

@@ -1,3 +1,5 @@
+using DominionWeb.Game.Player;
+
 namespace DominionWeb.Game.Cards.Hinterlands
 {
     public class NomadCamp : ICard, IAction, IOnGainOverride

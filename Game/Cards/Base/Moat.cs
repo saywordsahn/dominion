@@ -2,7 +2,7 @@ using System;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Moat : ICard, IAction
+    public class Moat : ICard, IAction, IReaction
     {
         public int Cost { get; } = 2;
 
@@ -14,6 +14,11 @@ namespace DominionWeb.Game.Cards.Base
         {
             var player = game.GetActivePlayer();
             player.Draw(2);
+        }
+
+        public void ReactionEffect(Game game)
+        {
+            throw new NotImplementedException();
         }
     }
 }

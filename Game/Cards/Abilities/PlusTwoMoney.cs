@@ -2,16 +2,14 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    //TODO: refactor as PlusMoney
-    public class PlusOneMoney : IAbility
+    public class PlusTwoMoney : IAbility
     {
         public bool Resolved { get; set; }
 
         public void Resolve(IPlayer player)
         {
-            player.MoneyPlayed++;
+            player.MoneyPlayed += 2;
             Resolved = true;
         }
-
     }
 }

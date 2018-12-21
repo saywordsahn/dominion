@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DominionWeb.Models
+﻿namespace DominionWeb.Models
 {
     public partial class Player
     {

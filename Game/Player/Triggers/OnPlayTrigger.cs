@@ -1,10 +1,8 @@
-using System;
-
-namespace DominionWeb.Game.Player
+namespace DominionWeb.Game.Player.Triggers
 {
     public class OnPlayTrigger : ITrigger
     {
-        public Card TriggerCard { get; }
+        public Card TriggerCard { get; set; }
         
         public OnPlayTrigger(Card card)
         {
@@ -13,7 +11,9 @@ namespace DominionWeb.Game.Player
         
         public bool IsMet(PlayerAction playerAction, Card card)
         {
-            return playerAction == PlayerAction.Play && card == TriggerCard;
+            return playerAction == PlayerAction.Play
+                && (TriggerCard == Card.Any || card == TriggerCard);
+
         }
     }
 }

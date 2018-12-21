@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {

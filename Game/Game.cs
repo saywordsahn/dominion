@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
-using DominionWeb.Game.Cards.Base;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Player;
 using DominionWeb.Game.Supply;
 using Newtonsoft.Json;
 
@@ -100,7 +98,6 @@ namespace DominionWeb.Game
             {
                 player.Play(instance);
                 a1.Resolve(this);
-                
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2)
             {
@@ -236,14 +233,21 @@ namespace DominionWeb.Game
         
         public void Submit(string playerName, ActionRequestType actionRequestType, IEnumerable<Card> cards)
         {
+            //for attack responders this won't work since they didn't play the card
             var player = Players.Single(x => x.PlayerName == playerName);
 //            var card = player.ActionRequest.Requester;
 
             var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
 
+            //TODO: move to IResponseRequired<IEnumerable<Card>> interface
             if (actionRequestType == ActionRequestType.SelectCards && instance is ISelectCardsResponseRequired sc)
             {
                 sc.ResponseReceived(this, cards);
+                CheckPlayStack(player);
+            }
+            else if (actionRequestType == ActionRequestType.SelectCards && instance is IResponseRequired<IEnumerable<Card>> rr)
+            {
+                rr.ResponseReceived(this, cards);
                 CheckPlayStack(player);
             }
         }

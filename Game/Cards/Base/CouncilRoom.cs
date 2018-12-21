@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 
 namespace DominionWeb.Game.Cards.Base

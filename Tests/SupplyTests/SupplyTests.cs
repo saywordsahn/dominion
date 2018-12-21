@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using DominionWeb.Game;
 using Xunit;
-using DominionWeb.Game.Player;
 using DominionWeb.Game.Supply;
 
 namespace DominionWeb.Tests.SupplyTests

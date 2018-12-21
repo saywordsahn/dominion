@@ -1,5 +1,4 @@
-﻿using System;
-namespace DominionWeb.Game
+﻿namespace DominionWeb.Game
 {
     public enum Card
     {
@@ -115,6 +114,11 @@ namespace DominionWeb.Game
         //Renaissance Expansion
         BorderGuard, Ducat, Lackeys, ActingTroupe, CargoShip, Experiment, Improve, FlagBearer, Hideout, Inventor,
         MountainVillage, Patron, Priest, Research, SilkMerchant, OldWitch, Recruiter, Scepter, Scholar, Sculptor,
-        Seer, Spices, Swashbuckler, Treasurer, Villain
+        Seer, Spices, Swashbuckler, Treasurer, Villain,
+        
+        
+        
+        //not playable
+        Any
     }
 }

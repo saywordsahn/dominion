@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
 using DominionWeb.Game.Utils;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Supply;
+using TriggeredAbilityDurationType = DominionWeb.Game.Cards.Abilities.TriggeredAbilities.TriggeredAbilityDurationType;
 
 namespace DominionWeb.Game.Player
 {
@@ -63,7 +64,7 @@ namespace DominionWeb.Game.Player
         
         public void Play(ICard card)
         {            
-            RunTriggeredAbilities(card.Name);
+            RunTriggeredAbilities(PlayerAction.Play, card.Name);
             Hand.Remove(card.Name);
             PlayedCards.Add(new PlayedCard(card));
             
@@ -86,20 +87,21 @@ namespace DominionWeb.Game.Player
         
         public void PlayWithoutCost(ICard card)
         {
-            RunTriggeredAbilities(card.Name);
+            RunTriggeredAbilities(PlayerAction.Play, card.Name);
             Hand.Remove(card.Name);
             PlayedCards.Add(new PlayedCard(card));
         }
 
         //this may need to be updated for future triggered abilities
-        //for now -- YAGNI
-        private void RunTriggeredAbilities(Card card)
+        //this only works for simple triggered abilities
+        private void RunTriggeredAbilities(PlayerAction playerAction, Card card)
         {
             foreach (var triggeredAbility in TriggeredAbilities.ToList())
             {
-                if (triggeredAbility.Trigger.IsMet(PlayerAction.Play, card))
+                if (triggeredAbility.Trigger.IsMet(playerAction, card))
                 {
-                    triggeredAbility.Ability.Resolve(this);
+                    //triggeredAbility.Ability.Resolve(this);
+                    PlayedAbilities.Add(triggeredAbility.Ability);
 
                     if (triggeredAbility.TriggeredAbilityDurationType == TriggeredAbilityDurationType.Once)
                     {
@@ -114,7 +116,8 @@ namespace DominionWeb.Game.Player
             var cardInHand = Hand.First(x => x == card);
             Hand.Remove(cardInHand);
             GameLog.Add(PlayerName.Substring(0, 1) + " trashes a " + card.ToString());
-            supply.AddToTrash(card);
+            supply.AddToTrash(card);            
+            RunTriggeredAbilities(PlayerAction.Trash, card);
         }
 
         public int GetVictoryPointCount()
@@ -143,7 +146,7 @@ namespace DominionWeb.Game.Player
                 
                 if (instance is ITreasure t)
                 {
-                    RunTriggeredAbilities(card);
+                    RunTriggeredAbilities(PlayerAction.Play, card);
                     Hand.Remove(card);
                     PlayedCards.Add(new PlayedCard(instance));
                     MoneyPlayed += t.Value;
@@ -332,6 +335,13 @@ namespace DominionWeb.Game.Player
         {
             return PlayStatus == PlayStatus.ActionRequestResponder
                    || PlayStatus == PlayStatus.Responder;
+        }
+
+        public bool HasReactionInHand()
+        {
+            return Hand.Select(x => CardFactory.Create(x))
+                .Any(x => x is IReaction);
+
         }
     }
 

@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
 namespace DominionWeb.Game.Cards
 {
     public class PlayedCard

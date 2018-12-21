@@ -1,7 +1,5 @@
-using System.Data.SqlTypes;
 using System.Linq;
 using DominionWeb.Game;
-using DominionWeb.Game.Cards.Base;
 using DominionWeb.Game.Player;
 using Xunit;
 
