@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Chapel : ICard, IAction, ISelectCardsResponseRequired
+    public class Chapel : ICard, IAction, IResponseRequired<IEnumerable<Card>>
     {
         public int Cost { get; } = 2;
 

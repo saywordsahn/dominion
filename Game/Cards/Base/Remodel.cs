@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Remodel : ICard, IAction, ISelectCardsResponseRequired
+    public class Remodel : ICard, IAction, IResponseRequired<IEnumerable<Card>>
     {
         public int Cost { get; } = 4;
 

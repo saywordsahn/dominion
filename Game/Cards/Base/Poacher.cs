@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Poacher : ICard, IAction, ISelectCardsResponseRequired
+    public class Poacher : ICard, IAction, IResponseRequired<IEnumerable<Card>>
     {
         public int Cost { get; } = 4;
 

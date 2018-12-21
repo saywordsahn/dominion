@@ -239,13 +239,7 @@ namespace DominionWeb.Game
 
             var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
 
-            //TODO: move to IResponseRequired<IEnumerable<Card>> interface
-            if (actionRequestType == ActionRequestType.SelectCards && instance is ISelectCardsResponseRequired sc)
-            {
-                sc.ResponseReceived(this, cards);
-                CheckPlayStack(player);
-            }
-            else if (actionRequestType == ActionRequestType.SelectCards && instance is IResponseRequired<IEnumerable<Card>> rr)
+            if (actionRequestType == ActionRequestType.SelectCards && instance is IResponseRequired<IEnumerable<Card>> rr)
             {
                 rr.ResponseReceived(this, cards);
                 CheckPlayStack(player);
