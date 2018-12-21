@@ -29,7 +29,7 @@ namespace DominionWeb.Game.Cards.Seaside
         public IEnumerable<IAbility> GetOnTurnStartAbilities(int numberOfTurnsActive)
         {
             Resolved = true;
-            return new List<IAbility>() { new PlusOneMoney() };
+            return new List<IAbility>() { new PlusMoney(1) };
         }
 
     }
