@@ -47,6 +47,8 @@ namespace DominionWeb.Game.Supply
             var nomadCamps = new Pile(Card.NomadCamp, 10);
             var ducats = new Pile(Card.Ducat, 10);
             
+            var lighthouses = new Pile(Card.Lighthouse, 10);
+            
             var tSupply = new List<Pile>()
             {
                 coppers, silvers, golds
@@ -60,7 +62,7 @@ namespace DominionWeb.Game.Supply
             var kSupply = new List<Pile>()
             {
                 ducats, moats, villages, remodels, poachers, mines, 
-                militias, bandits, artisans, throneRooms, bureaucrats, nomadCamps           
+                militias, bandits, artisans, throneRooms, bureaucrats, lighthouses           
             };
             
             return new Supply(tSupply, vSupply, kSupply);

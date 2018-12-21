@@ -181,7 +181,8 @@ namespace DominionWeb.Game.Player
             {
                 if (instance is IOnGainAbilityHolder ah)
                 {
-                    OnGainAbilities.Add(ah.OnGainAbility);
+                    PlayedAbilities.Add(ah.OnGainAbility);
+                    //OnGainAbilities.Add(ah.OnGainAbility);
                 }
                 
                 DiscardPile.Add(card); 
@@ -210,7 +211,8 @@ namespace DominionWeb.Game.Player
            
             if (instance is IOnGainAbilityHolder ah)
             {
-                OnGainAbilities.Add(ah.OnGainAbility);
+                PlayedAbilities.Add(ah.OnGainAbility);
+                //OnGainAbilities.Add(ah.OnGainAbility);
             }
         }
 
@@ -227,8 +229,16 @@ namespace DominionWeb.Game.Player
             DiscardPile = new List<Card>();
         }
 
-        public void StartTurn()
+        public void StartTurn(Game game)
         {
+            foreach (var card in PlayedCards)
+            {
+                if (card.Card is IDuration d)
+                {
+                    d.NumberOfTurnsActive++;
+                    PlayedAbilities.AddRange(d.GetOnTurnStartAbilities(d.NumberOfTurnsActive));
+                } 
+            }
             NumberOfActions = 1;
             NumberOfBuys = 1;
             MoneyPlayed = 0;
@@ -254,10 +264,14 @@ namespace DominionWeb.Game.Player
         
         public void EndTurn()
         {
-            DiscardPile.AddRange(GetPlayedCardEnums());
+            
+            bool CardIsResolved(PlayedCard x) => !(x.Card is IDuration d && d.Resolved == false);
+
+            DiscardPile.AddRange(PlayedCards.Where(CardIsResolved).Select(x => x.Card.Name));
+            PlayedCards.RemoveAll(CardIsResolved);
+
             DiscardPile.AddRange(Hand);
             TriggeredAbilities.Clear();
-            PlayedCards = new List<PlayedCard>();
             Hand = new List<Card>();
             Draw(5);
             PlayStatus = PlayStatus.WaitForTurn;
@@ -313,7 +327,12 @@ namespace DominionWeb.Game.Player
         {
             return Hand.Exists(x => x == card);
         }
-        
+
+        public bool IsRespondingToAbility()
+        {
+            return PlayStatus == PlayStatus.ActionRequestResponder
+                   || PlayStatus == PlayStatus.Responder;
+        }
     }
 
 }

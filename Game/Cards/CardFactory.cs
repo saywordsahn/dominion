@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DominionWeb.Game.Cards.Base;
 using DominionWeb.Game.Cards.Hinterlands;
 using DominionWeb.Game.Cards.Renaissance;
+using DominionWeb.Game.Cards.Seaside;
 
 namespace DominionWeb.Game.Cards
 {
@@ -44,6 +45,9 @@ namespace DominionWeb.Game.Cards
             { Card.Sentry, () => new Sentry() },
             { Card.Witch, () => new Witch() },
             { Card.Artisan, () => new Artisan() },
+            
+            //seaside
+            { Card.Lighthouse, () => new Lighthouse() },
             
             //hinterlands
             { Card.NomadCamp, () => new NomadCamp()},

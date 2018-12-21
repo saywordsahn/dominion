@@ -25,7 +25,7 @@ namespace DominionWeb.Game
         int VictoryTokens { get; set; }
         void Buy(Card card);
         void EndTurn();
-        void StartTurn();
+        void StartTurn(Game game);
         void EndActionPhase();
         ICard GetLastPlayedCard();
         bool HasActionInHand();
@@ -46,5 +46,6 @@ namespace DominionWeb.Game
         Stack<PlayedCard> PlayStack { get; set; }
         int Coffers { get; set; }
         bool HasCardInHand(Card card);
+        bool IsRespondingToAbility();
     }
 }

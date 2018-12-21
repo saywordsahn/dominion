@@ -61,12 +61,18 @@ namespace DominionWeb.Game
 
         public void CheckPlayStack(IPlayer player)
         {
-            while (player.OnGainAbilities.Count > 0 
-                && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true))
+//            while (player.OnGainAbilities.Count > 0 
+//                && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true))
+//            {
+//                var ability = player.OnGainAbilities.Last();
+//                player.OnGainAbilities.RemoveAt(player.OnGainAbilities.Count - 1);
+//                player.PlayedAbilities.Add(ability);
+//                ability.Resolve(player);
+//            }
+
+            while (!player.IsRespondingToAbility() && player.PlayedAbilities.Any(x => x.Resolved != true))
             {
-                var ability = player.OnGainAbilities.Last();
-                player.OnGainAbilities.RemoveAt(player.OnGainAbilities.Count - 1);
-                player.PlayedAbilities.Add(ability);
+                var ability = player.PlayedAbilities.First(x => x.Resolved == false);
                 ability.Resolve(player);
             }
             
@@ -151,7 +157,8 @@ namespace DominionWeb.Game
                 }
                 else
                 {
-                    nextPlayer.StartTurn();
+                    nextPlayer.StartTurn(this);
+                    CheckPlayStack(nextPlayer);
                 }
             }
             else if (playerAction == PlayerAction.PlayAllTreasure && player.PlayStatus == PlayStatus.BuyPhase)
