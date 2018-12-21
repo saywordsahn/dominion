@@ -48,6 +48,7 @@ namespace DominionWeb.Game.Cards
             
             //seaside
             { Card.Lighthouse, () => new Lighthouse() },
+            { Card.Wharf, () => new Wharf() },
             
             //hinterlands
             { Card.NomadCamp, () => new NomadCamp()},

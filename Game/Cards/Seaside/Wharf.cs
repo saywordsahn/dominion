@@ -3,10 +3,10 @@ using DominionWeb.Game.Cards.Abilities;
 
 namespace DominionWeb.Game.Cards.Seaside
 {
-    public class Lighthouse : ICard, IAction, IDuration
+    public class Wharf : ICard, IAction, IDuration
     {
-        public Card Name { get; } = Card.Lighthouse;
-        public int Cost { get; } = 2;
+        public Card Name { get; } = Card.Wharf;
+        public int Cost { get; } = 5;
         public CardType CardType { get; } = CardType.Action;
         public bool Resolved { get; set; }
         
@@ -15,14 +15,21 @@ namespace DominionWeb.Game.Cards.Seaside
         public void Resolve(Game game)
         {
             var player = game.GetActivePlayer();
-            player.NumberOfActions++;
+            player.Draw(2);
+            player.NumberOfBuys++;
+        }
+        
+        public void OnTurnStart(Game game)
+        {
+            var player = game.GetActivePlayer();
             player.MoneyPlayed++;
+            Resolved = true;
         }
         
         public IEnumerable<IAbility> GetOnTurnStartAbilities(int numberOfTurnsActive)
         {
             Resolved = true;
-            return new List<IAbility>() { new PlusMoney(1) };
+            return new List<IAbility>() { new PlusCards(2), new PlusBuys(1) };
         }
 
     }
