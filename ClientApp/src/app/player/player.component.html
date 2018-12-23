@@ -28,10 +28,8 @@
     <div *ngIf="playStatus == PlayStatus.WaitForTurn">
       Wait for you turn...
     </div>
-    <div *ngIf="playStatus == PlayStatus.Responder">
+    <div *ngIf="playStatus == PlayStatus.AttackResponder">
       Respond to attack with a reaction card or take the attack effect.
-      <button (click)="takeAttackEffect()">Take Attack Effect</button>
-      <button (click)="playMoat()">Play a moat</button>
     </div>
     <div *ngIf="playStatus == PlayStatus.Attacker">
       Wait for your opponents to respond to your attack.

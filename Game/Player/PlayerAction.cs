@@ -10,6 +10,7 @@ namespace DominionWeb.Game.Player
         TakeAttackEffect,
         PlayAllTreasure,
         GainToHand,
-        Trash
+        Trash,
+        Attacked
     }
 }

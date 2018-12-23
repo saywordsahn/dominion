@@ -3,7 +3,7 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Bandit : ICard, IAction, IAttack
+    public class Bandit : ICard, IAction
     {
         public int Cost { get; } = 5;
 

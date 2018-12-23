@@ -1,9 +1,11 @@
+using DominionWeb.Game.Cards.AttackEffects;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards
 {
     public interface IAttack
     {
-        void AttackEffect(IPlayer attackedPlayer, Game game);
+        IAttackEffect AttackEffect();
+        void AttackNextPlayer(Game game, IPlayer currentPlayer);
     }
 }

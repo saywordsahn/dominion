@@ -4,8 +4,10 @@ using System.Linq;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Utils;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Supply;
 using TriggeredAbilityDurationType = DominionWeb.Game.Cards.Abilities.TriggeredAbilities.TriggeredAbilityDurationType;
 
@@ -32,7 +34,13 @@ namespace DominionWeb.Game.Player
         public List<IAbility> OnGainAbilities { get; }
         public List<IAbility> PlayedAbilities { get; }
         public Stack<PlayedCard> PlayStack { get; set; }
+        public IEnumerable<IReaction> RevealedReactions { get; set; }
         public int Coffers { get; set; }
+        
+        //TODO: rethink rulestack
+        public Stack<IRule> RuleStack { get; set; }
+        public List<IRule> Rules { get; set; }
+        public List<Card> PlayedReactions { get; set; }
         
         private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand);
          
@@ -55,6 +63,10 @@ namespace DominionWeb.Game.Player
             VictoryTokens = 0;
             Coffers = 0;
             GameLog = new List<string>();
+
+            PlayedReactions = new List<Card>();
+            RuleStack = new Stack<IRule>();
+            Rules = new List<IRule>();
         }
 
         public void Play(Card card)
@@ -94,7 +106,7 @@ namespace DominionWeb.Game.Player
 
         //this may need to be updated for future triggered abilities
         //this only works for simple triggered abilities
-        private void RunTriggeredAbilities(PlayerAction playerAction, Card card)
+        public void RunTriggeredAbilities(PlayerAction playerAction, Card card)
         {
             foreach (var triggeredAbility in TriggeredAbilities.ToList())
             {
@@ -118,6 +130,23 @@ namespace DominionWeb.Game.Player
             GameLog.Add(PlayerName.Substring(0, 1) + " trashes a " + card.ToString());
             supply.AddToTrash(card);            
             RunTriggeredAbilities(PlayerAction.Trash, card);
+        }
+
+        public void SetAttacked(Game game)
+        {
+            //check for duration attack blockers - like champion, lighthouse
+            if (PlayedCards.Any(x => x.Card is IAttackBlocker && x.Card is IDuration))
+            {
+                var attackingPlayer = game.GetAttackingPlayer();
+                var attackCard = (IAttack)attackingPlayer.PlayedCards.Last(x => x.Card is IAttack).Card;
+
+                attackCard.AttackNextPlayer(game, this);
+            }
+            else
+            {
+                var rule = new RespondToAttackRule();
+                RuleStack.Push(rule);
+            }
         }
 
         public int GetVictoryPointCount()
@@ -334,13 +363,13 @@ namespace DominionWeb.Game.Player
         public bool IsRespondingToAbility()
         {
             return PlayStatus == PlayStatus.ActionRequestResponder
-                   || PlayStatus == PlayStatus.Responder;
+                   || PlayStatus == PlayStatus.AttackResponder;
         }
 
-        public bool HasReactionInHand()
+        public bool HasAttackReactionInHand()
         {
             return Hand.Select(x => CardFactory.Create(x))
-                .Any(x => x is IReaction);
+                .Any(x => x is IAttackReaction);
 
         }
     }

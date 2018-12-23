@@ -36,10 +36,14 @@ namespace DominionWeb.Game
             {
                 var coppers = Enumerable.Repeat(Supply.Take(Card.Copper), 7);
                 var estates = Enumerable.Repeat(Supply.Take(Card.Estate), 3);
+                var witches = Enumerable.Repeat(Card.Witch, 3);
+                var thrones = Enumerable.Repeat(Card.ThroneRoom, 3);
                 player.Gain(coppers);
 //                Console.WriteLine("{0} starts with 7 Coppers.", player.Name);
 //                Console.WriteLine("{0} starts with 3 Estates.", player.Name);
                 player.Gain(estates);
+                player.Gain(witches);
+                player.Gain(thrones);
                 player.Shuffle();
 //                Console.WriteLine("{0} shuffles their deck.", player.Name);
                 player.Draw(5);
@@ -57,37 +61,69 @@ namespace DominionWeb.Game
             }
         }
 
+        //TODO: heavy need of refactoring
         public void CheckPlayStack(IPlayer player)
         {
-//            while (player.OnGainAbilities.Count > 0 
-//                && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true))
-//            {
-//                var ability = player.OnGainAbilities.Last();
-//                player.OnGainAbilities.RemoveAt(player.OnGainAbilities.Count - 1);
-//                player.PlayedAbilities.Add(ability);
-//                ability.Resolve(player);
-//            }
 
-            while (!player.IsRespondingToAbility() && player.PlayedAbilities.Any(x => x.Resolved != true))
-            {
-                var ability = player.PlayedAbilities.First(x => x.Resolved == false);
-                ability.Resolve(player);
-            }
+            bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0 &&
+                                           p.PlayStatus == PlayStatus.AttackResponder;
+
+            bool CanPlayAbility(IPlayer p) =>
+                !p.IsRespondingToAbility() && p.PlayedAbilities.Any(x => x.Resolved != true);
             
-            while (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0
-                && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true) )
+            bool CanPlayCard(IPlayer p) => p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0 && (p.PlayedAbilities.Count == 0 || p.PlayedAbilities.Last().Resolved == true);
+            
+            while ((player.Rules.All(x => x.Resolved) && player.RuleStack.Count > 0 && player.PlayStatus == PlayStatus.AttackResponder)
+                   || (!player.IsRespondingToAbility() && player.PlayedAbilities.Any(x => x.Resolved != true))
+                   || (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0 && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true)))
             {
-                var card = player.PlayStack.Pop();
-
-                if (card.IsThronedCopy)
+                //rules are only implemented for AttackResponder for the moment - this will change but to
+                //narrow the scope of this feature we use it soley for now
+                while (player.Rules.All(x => x.Resolved) && player.RuleStack.Count > 0 && player.PlayStatus == PlayStatus.AttackResponder)
                 {
-                    player.PlayedCards.Add(card);
+                    var rule = player.RuleStack.Pop();
+
+                    player.Rules.Add(rule);
+
+                    rule.Resolve(this, player);
+                }
+
+                //we need to handle player switches in rules
+                //should be less ugly once we refactor
+                if (player != GetActivePlayer())
+                {
+                    player = GetActivePlayer();
+                    continue;
+                }
+
+                while (!player.IsRespondingToAbility() && player.PlayedAbilities.Any(x => x.Resolved != true))
+                {
+                    var ability = player.PlayedAbilities.First(x => x.Resolved == false);
+                    ability.Resolve(player);
+                }
+
+                while (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0 && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true))
+                {
+                    var card = player.PlayStack.Pop();
+
+                    if (card.IsThronedCopy)
+                    {
+                        player.PlayedCards.Add(card);
+                    }
+
+                    if (card.Card is IAction a) a.Resolve(this);
                 }
                 
-                if (card.Card is IAction a) a.Resolve(this);
+                if (player != GetActivePlayer())
+                {
+                    player = GetActivePlayer();
+                    continue;
+                }
+                
+//                break;
             }
         }
-        
+
         public void Submit(string playerName, PlayerAction action, Card card)
         {
             var player = Players.Single(x => x.PlayerName == playerName);
@@ -98,6 +134,9 @@ namespace DominionWeb.Game
             {
                 player.Play(instance);
                 a1.Resolve(this);
+                //with attack cards the player switches so we need to get the updated player
+                var activePlayer = GetActivePlayer();
+                CheckPlayStack(activePlayer);
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2)
             {
@@ -120,10 +159,10 @@ namespace DominionWeb.Game
                 //TODO: refactor
                 player.Play(instance);
             }
-            else if (action == PlayerAction.React && instance is IReaction r)
-            {
-                r.ReactionEffect(this);
-            }
+//            else if (action == PlayerAction.React && instance is IAttackReaction r)
+//            {
+//                r.ReactionEffect(this);
+//            }
             else if (action == PlayerAction.Buy)
             {                
                 if (Supply.Contains(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
@@ -162,29 +201,29 @@ namespace DominionWeb.Game
             {
                 player.PlayAllTreasure();
             }
-            else if (playerAction == PlayerAction.TakeAttackEffect && player.PlayStatus == PlayStatus.Responder)
-            {
-                var attacker = Players.Single(x => x.PlayStatus == PlayStatus.Attacker);
-                var lastPlayedAttack = attacker.GetLastPlayedCard();
-                
-                if (lastPlayedAttack is IAttack attack)
-                {
-                    attack.AttackEffect(player, this);
-                }
-
-                player.PlayStatus = PlayStatus.WaitForTurn;
-                
-                if (nextPlayer == attacker)
-                {
-                    attacker.PlayStatus = attacker.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
-                }
-                else
-                {
-                    nextPlayer.PlayStatus = PlayStatus.Responder;
-                }
-                
-
-            }
+//            else if (playerAction == PlayerAction.TakeAttackEffect && player.PlayStatus == PlayStatus.AttackResponder)
+//            {
+//                var attacker = Players.Single(x => x.PlayStatus == PlayStatus.Attacker);
+//                var lastPlayedAttack = attacker.GetLastPlayedCard();
+//                
+//                if (lastPlayedAttack is IAttack attack)
+//                {
+//                    attack.AttackEffect(this, player);
+//                }
+//
+//                player.PlayStatus = PlayStatus.WaitForTurn;
+//                
+//                if (nextPlayer == attacker)
+//                {
+//                    attacker.PlayStatus = attacker.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
+//                }
+//                else
+//                {
+//                    nextPlayer.PlayStatus = PlayStatus.AttackResponder;
+//                }
+//                
+//
+//            }
             else if (playerAction == PlayerAction.EndActionPhase)
             {
                 player.EndActionPhase();
@@ -206,9 +245,19 @@ namespace DominionWeb.Game
             //var card = player.ActionRequest.Requester;
 
             //TODO: rethink this through, likely bugs, if not now, in future when more cards are added
-            //TODO: this fails if there is a request from card that wasn't played
             //var instance = player.PlayedCards[player.PlayedCards.Count - 1];
-            if (player.PlayedAbilities.Last().Resolved == false)
+            if (player.Rules.Last().Resolved == false && player.PlayStatus == PlayStatus.ActionRequestResponder)
+            {
+                var rInstance = player.Rules.Last();
+
+                if (rInstance is IResponseRequired<ActionResponse> rr)
+                {
+                    rr.ResponseReceived(this, actionResponse);
+                }
+                
+                CheckPlayStack(player);
+            }
+            else if (player.PlayedAbilities.Last().Resolved == false)
             {
                 var aInstance = player.PlayedAbilities.Last();
 
@@ -237,13 +286,28 @@ namespace DominionWeb.Game
             var player = Players.Single(x => x.PlayerName == playerName);
 //            var card = player.ActionRequest.Requester;
 
-            var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
-
-            if (actionRequestType == ActionRequestType.SelectCards && instance is IResponseRequired<IEnumerable<Card>> rr)
+            if (player.Rules.Count > 0 && player.Rules.Last().Resolved == false)
             {
-                rr.ResponseReceived(this, cards);
+                var rInstance = player.Rules.Last();
+
+                if (rInstance is IResponseRequired<IEnumerable<Card>> rr)
+                {
+                    rr.ResponseReceived(this, cards);
+                }
+                
                 CheckPlayStack(player);
             }
+            else
+            {
+                var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
+
+                if (actionRequestType == ActionRequestType.SelectCards && instance is IResponseRequired<IEnumerable<Card>> rr)
+                {
+                    rr.ResponseReceived(this, cards);
+                    CheckPlayStack(player);
+                }
+            }
+            
         }
 
         public IPlayer GetNextPlayer(IPlayer currentPlayer)
@@ -251,6 +315,11 @@ namespace DominionWeb.Game
             var index = Players.IndexOf(currentPlayer);           
 
             return index >= Players.Count - 1 ? Players[0] : Players[index + 1];
+        }
+
+        public IPlayer GetAttackingPlayer()
+        {
+            return Players.Single(x => x.PlayStatus == PlayStatus.Attacker);
         }
         
         public string GetGameState()
@@ -270,7 +339,8 @@ namespace DominionWeb.Game
         {
             return Players.Single(x =>
                 x.PlayStatus == PlayStatus.ActionPhase || x.PlayStatus == PlayStatus.BuyPhase
-                || x.PlayStatus == PlayStatus.ActionRequestResponder);
+                || x.PlayStatus == PlayStatus.ActionRequestResponder
+                || x.PlayStatus == PlayStatus.AttackResponder);
         }
 
         public static Game Load(string gameState)

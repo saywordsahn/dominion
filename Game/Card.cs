@@ -119,6 +119,7 @@
         
         
         //not playable
-        Any
+        Any,
+        None
     }
 }

@@ -36,7 +36,6 @@ namespace DominionWeb.Game.Supply
             var poachers = new Pile(Card.Poacher, 10);
             var remodels = new Pile(Card.Remodel, 10);
             var cellars = new Pile(Card.Cellar, 10);
-            
             var sentrys = new Pile(Card.Sentry, 10);
             var mines = new Pile(Card.Mine, 10);
             var librarys = new Pile(Card.Library, 10);
@@ -46,6 +45,10 @@ namespace DominionWeb.Game.Supply
             var nomadCamps = new Pile(Card.NomadCamp, 10);
             var ducats = new Pile(Card.Ducat, 10);
             
+            //dark ages
+            var beggars = new Pile(Card.Beggar, 10);
+            
+            //seaside
             var lighthouses = new Pile(Card.Lighthouse, 10);
             
             var tSupply = new List<Pile>()
@@ -60,8 +63,8 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = new List<Pile>()
             {
-                ducats, moats, villages, remodels, poachers, mines, 
-                militias, bandits, artisans, throneRooms, bureaucrats, lighthouses           
+                ducats, moats, villages, remodels, poachers, witches, 
+                militias, bandits, artisans, throneRooms, beggars, lighthouses           
             };
             
             return new Supply(tSupply, vSupply, kSupply);

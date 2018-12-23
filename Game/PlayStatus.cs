@@ -8,7 +8,7 @@ namespace DominionWeb.Game
         BuyPhase,
         ActionPhase,
         Attacker,
-        Responder,
+        AttackResponder,
         ActionRequestResponder,
         GameEnd
     }

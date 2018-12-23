@@ -1,8 +1,10 @@
 using System;
+using DominionWeb.Game.Cards.Types;
+using DominionWeb.Game.Common.Rules;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Moat : ICard, IAction, IReaction
+    public class Moat : ICard, IAction, IAttackReaction, IAttackBlocker
     {
         public int Cost { get; } = 2;
 
@@ -19,6 +21,12 @@ namespace DominionWeb.Game.Cards.Base
         public void ReactionEffect(Game game)
         {
             throw new NotImplementedException();
+        }
+
+        public IRule ReactionEffect()
+        {
+            //TODO: code smell
+            throw new InvalidOperationException("This ability should not be called.");
         }
     }
 }

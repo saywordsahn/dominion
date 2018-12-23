@@ -1,8 +1,8 @@
+using DominionWeb.Game.Cards.AttackEffects;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    //TODO: add attack to cardType or reassess need for cardType on object
     public class Witch : ICard, IAction, IAttack
     {
         public int Cost { get; } = 5;
@@ -18,15 +18,28 @@ namespace DominionWeb.Game.Cards.Base
             
             player.Draw(2);
 
-            game.GetNextPlayer(player).PlayStatus = PlayStatus.Responder;
+            var nextPlayer = game.GetNextPlayer(player);
+            nextPlayer.PlayStatus = PlayStatus.AttackResponder;
+            nextPlayer.SetAttacked(game);
         }
 
-        public void AttackEffect(IPlayer attackedPlayer, Game game)
+        public IAttackEffect AttackEffect() => new GainCurseAttackEffect();
+
+        public void AttackNextPlayer(Game game, IPlayer currentPlayer)
         {
-            if (!game.Supply.Contains(Card.Curse)) return;
-            
-            attackedPlayer.Gain(Card.Curse);
-            game.Supply.Take(Card.Curse);
+            var nextPlayer = game.GetNextPlayer(currentPlayer);
+
+            if (nextPlayer == game.GetAttackingPlayer())
+            {
+                currentPlayer.PlayStatus = PlayStatus.WaitForTurn;
+                nextPlayer.PlayStatus = PlayStatus.ActionPhase;
+            }
+            else
+            {
+                currentPlayer.PlayStatus = PlayStatus.WaitForTurn;
+                nextPlayer.PlayStatus = PlayStatus.AttackResponder;
+                nextPlayer.SetAttacked(game);  
+            }
         }
     }
 }

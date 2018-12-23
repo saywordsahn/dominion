@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Supply;
 
 namespace DominionWeb.Game.Player
@@ -47,6 +49,11 @@ namespace DominionWeb.Game.Player
         int Coffers { get; set; }
         bool HasCardInHand(Card card);
         bool IsRespondingToAbility();
-        bool HasReactionInHand();
+        bool HasAttackReactionInHand();
+        void SetAttacked(Game game);
+        void RunTriggeredAbilities(PlayerAction playerAction, Card card);
+        Stack<IRule> RuleStack { get; set; }
+        List<IRule> Rules { get; set; }
+        List<Card> PlayedReactions { get; set; }
     }
 }

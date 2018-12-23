@@ -13,11 +13,8 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.ThroneRoom;
 
-        public bool FirstActionResolved { get; set; } = false;
         public Card CardSelected { get; private set; }
         
-        public IList<PlayedCard> PlayedCards { get; set; }
-
         public void Resolve(Game game)
         {
             var player = game.GetActivePlayer();

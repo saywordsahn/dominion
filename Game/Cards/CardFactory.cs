@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Base;
+using DominionWeb.Game.Cards.DarkAges;
 using DominionWeb.Game.Cards.Hinterlands;
 using DominionWeb.Game.Cards.Renaissance;
 using DominionWeb.Game.Cards.Seaside;
@@ -52,6 +53,9 @@ namespace DominionWeb.Game.Cards
             
             //hinterlands
             { Card.NomadCamp, () => new NomadCamp()},
+            
+            //dark ages
+            { Card.Beggar, () => new Beggar() },
             
             //renaissance
             { Card.Ducat, () => new Ducat() },

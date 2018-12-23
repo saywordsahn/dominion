@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.AttackEffects;
+using DominionWeb.Game.Common;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
@@ -26,7 +28,7 @@ namespace DominionWeb.Game.Cards.Base
 
             while (nextPlayer != attacker)
             {
-                if (PlayerIsAffected(nextPlayer))
+                if (PlayerCanBeAffected(nextPlayer))
                 {
                     break;
                 }
@@ -41,33 +43,29 @@ namespace DominionWeb.Game.Cards.Base
             }
             else
             {
-                if (nextPlayer.HasReactionInHand())
-                {
-                    //send action request to play reaction
-                }
-                else
-                {
-                    //player is forced to take attack
-                }
+//                var cardsToDiscard = nextPlayer.Hand.Count <= 3 ? 0 : nextPlayer.Hand.Count - 3;
+//                
+//                nextPlayer.ActionRequest = new SelectCardsActionRequest("Select " + cardsToDiscard + " card to discard.",
+//                    Card.Militia, nextPlayer.Hand, cardsToDiscard);
+
+                nextPlayer.PlayStatus = PlayStatus.AttackResponder;
+                nextPlayer.SetAttacked(game);               
             }
             
-            //if so send respondToAttackRequest
-            game.GetNextPlayer(attacker).PlayStatus = PlayStatus.Responder;
         }
 
-        private bool PlayerIsAffected(IPlayer player)
+        private bool PlayerCanBeAffected(IPlayer player)
         {
             //TODO: implement check from duration cards
             return player.Hand.Count > 3;
         }
 
-        public void AttackEffect(IPlayer attackedPlayer, Game game)
+        //TODO: implement militiaAttackEffect
+        public IAttackEffect AttackEffect() => new GainCurseAttackEffect();
+
+        public void AttackNextPlayer(Game game, IPlayer currentPlayer)
         {
-            if (attackedPlayer.Hand.Count <= 3)
-            {
-                
-            }
-                
+            throw new NotImplementedException();
         }
 
         public void ResponseReceived(Game game, IEnumerable<Card> response)

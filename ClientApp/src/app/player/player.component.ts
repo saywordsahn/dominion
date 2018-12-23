@@ -124,14 +124,6 @@ export class PlayerComponent implements Player {
     this.hubService.endActionPhase(this.gameService.gameId);
   }
 
-  takeAttackEffect() {
-   this.hubService.submitNonCardAction(this.gameService.gameId, PlayerAction.TakeAttackEffect);
-  }
-
-  playMoat() {
-    console.log('not enabled atm');
-  }
-
   //TODO: Remove PlayAllTreasures dialog when no treasures are present
   playAllTreasure() {
     this.hubService.submitNonCardAction(this.gameService.gameId, PlayerAction.PlayAllTreasure);

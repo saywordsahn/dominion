@@ -4,7 +4,7 @@ export enum PlayStatus {
   BuyPhase,
   ActionPhase,
   Attacker,
-  Responder,
+  AttackResponder,
   ActionRequestResponder,
   GameEnd
 }
