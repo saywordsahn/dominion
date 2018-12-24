@@ -31,8 +31,6 @@ namespace DominionWeb.Game.Player
         public int DominionCount => Dominion.Count();
         public int VictoryPoints => GetVictoryPointCount();
         public List<ITriggeredAbility> TriggeredAbilities { get; }
-        public List<IAbility> OnGainAbilities { get; }
-        public List<IAbility> PlayedAbilities { get; }
         public Stack<PlayedCard> PlayStack { get; set; }
         public IEnumerable<IReaction> RevealedReactions { get; set; }
         public int Coffers { get; set; }
@@ -54,8 +52,6 @@ namespace DominionWeb.Game.Player
             PlayedCards = new List<PlayedCard>();
             PlayStack = new Stack<PlayedCard>();
             TriggeredAbilities = new List<ITriggeredAbility>();
-            PlayedAbilities = new List<IAbility>();
-            OnGainAbilities = new List<IAbility>();
             PlayStatus = PlayStatus.GameStart;
             MoneyPlayed = 0;
             NumberOfBuys = 0;
@@ -113,7 +109,8 @@ namespace DominionWeb.Game.Player
                 if (triggeredAbility.Trigger.IsMet(playerAction, card))
                 {
                     //triggeredAbility.Ability.Resolve(this);
-                    PlayedAbilities.Add(triggeredAbility.Ability);
+                    //PlayedAbilities.Add(triggeredAbility.Ability);
+                    RuleStack.Push(triggeredAbility.Ability);
 
                     if (triggeredAbility.TriggeredAbilityDurationType == TriggeredAbilityDurationType.Once)
                     {
@@ -213,7 +210,7 @@ namespace DominionWeb.Game.Player
             {
                 if (instance is IOnGainAbilityHolder ah)
                 {
-                    PlayedAbilities.Add(ah.OnGainAbility);
+                    RuleStack.Push(ah.OnGainAbility);
                     //OnGainAbilities.Add(ah.OnGainAbility);
                 }
                 
@@ -277,7 +274,10 @@ namespace DominionWeb.Game.Player
                 if (card.Card is IDuration d)
                 {
                     d.NumberOfTurnsActive++;
-                    PlayedAbilities.AddRange(d.GetOnTurnStartAbilities(d.NumberOfTurnsActive));
+                    foreach (var ability in d.GetOnTurnStartAbilities(d.NumberOfTurnsActive))
+                    {
+                        RuleStack.Push(ability);
+                    }
                 } 
             }
             NumberOfActions = 1;
@@ -305,7 +305,6 @@ namespace DominionWeb.Game.Player
         
         public void EndTurn()
         {
-            
             bool CardIsResolved(PlayedCard x) => !(x.Card is IDuration d && d.Resolved == false);
 
             DiscardPile.AddRange(PlayedCards.Where(CardIsResolved).Select(x => x.Card.Name));

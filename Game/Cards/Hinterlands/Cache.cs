@@ -10,8 +10,7 @@ namespace DominionWeb.Game.Cards.Hinterlands
         public CardType CardType { get; } = CardType.Treasure;
         public int Value { get; } = 3;
         
-        //TODO: implement
-        public IAbility OnGainAbility { get; set; }
+        public IAbility OnGainAbility { get; set; } = new GainCard(Card.Copper, 2);
 
         public void OnGain(IPlayer player)
         {            

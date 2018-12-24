@@ -38,8 +38,6 @@ namespace DominionWeb.Game.Player
         List<PlayedCard> PlayedCards { get; }
         List<Card> Hand { get; }
         List<ITriggeredAbility> TriggeredAbilities { get; }
-        List<IAbility> OnGainAbilities { get; }
-        List<IAbility> PlayedAbilities { get; }
         ICollection<string> GameLog { get; }
         IActionRequest ActionRequest { get; set; }
         void Discard(Card card);

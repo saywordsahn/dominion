@@ -11,6 +11,7 @@ namespace DominionWeb.Game.Supply
         Card Take(Card card);
         Card Take(SupplyType supplyType, Card card);
         bool Contains(Card card);
+        bool Contains(Card card, int numberOfCards);
         void AddToTrash(Card card);
         bool NoProvincesRemain();
         bool ThreeOrMorePilesEmpty();

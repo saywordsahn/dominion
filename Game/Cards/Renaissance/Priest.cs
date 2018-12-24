@@ -11,6 +11,7 @@ namespace DominionWeb.Game.Cards.Renaissance
         public Card Name { get; } = Card.Priest;
         public int Cost { get; } = 4;
         public CardType CardType { get; } = CardType.Action;
+        
         public void Resolve(Game game)
         {
             var player = game.GetActivePlayer();

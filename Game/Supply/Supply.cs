@@ -70,6 +70,16 @@ namespace DominionWeb.Game.Supply
             return cards.Select(x => x.FirstOrDefault())
                 .Contains(card);
         }
+        
+        public bool Contains(Card card, int numberOfCards)
+        {
+            var cards = TreasureSupply.Select(x => x.Cards)
+                .Concat(VictorySupply.Select(x => x.Cards))
+                .Concat(KingdomSupply.Select(x => x.Cards));
+
+            return cards.Select(x => x.FirstOrDefault())
+                .Count(x => x == card) >= numberOfCards;
+        }
 
         public void AddToTrash(Card card)
         {

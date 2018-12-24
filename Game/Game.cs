@@ -68,14 +68,10 @@ namespace DominionWeb.Game
             bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0;
 //                                           && p.PlayStatus == PlayStatus.AttackResponder;
 
-            bool CanPlayAbility(IPlayer p) =>
-                !p.IsRespondingToAbility() && p.PlayedAbilities.Any(x => x.Resolved != true);
+            bool CanPlayCard(IPlayer p) =>
+                p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0;
             
-            bool CanPlayCard(IPlayer p) => 
-                p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0 
-                && (p.PlayedAbilities.Count == 0 || p.PlayedAbilities.Last().Resolved);
-            
-            while ( CanPlayRule(player) || CanPlayAbility(player) || CanPlayCard(player))
+            while ( CanPlayRule(player) || CanPlayCard(player))
             {
                 //rules are only implemented for AttackResponder for the moment - this will change but to
                 //narrow the scope of this feature we use it soley for now
@@ -94,12 +90,6 @@ namespace DominionWeb.Game
                 {
                     player = GetActivePlayer();
                     continue;
-                }
-
-                while (CanPlayAbility(player))
-                {
-                    var ability = player.PlayedAbilities.First(x => x.Resolved == false);
-                    ability.Resolve(this, player);
                 }
 
                 while (CanPlayCard(player))
@@ -268,16 +258,6 @@ namespace DominionWeb.Game
                     rr.ResponseReceived(this, actionResponse);
                 }
                 
-                CheckPlayStack(player);
-            }
-            else if (player.PlayedAbilities.Last().Resolved == false)
-            {
-                var aInstance = player.PlayedAbilities.Last();
-
-                if (aInstance is IResponseRequired<ActionResponse> rr)
-                {
-                    rr.ResponseReceived(this, actionResponse);
-                }
                 CheckPlayStack(player);
             }
             else

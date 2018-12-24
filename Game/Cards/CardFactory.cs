@@ -53,6 +53,7 @@ namespace DominionWeb.Game.Cards
             
             //hinterlands
             { Card.NomadCamp, () => new NomadCamp()},
+            { Card.Cache, () => new Cache() },
             
             //dark ages
             { Card.Beggar, () => new Beggar() },
