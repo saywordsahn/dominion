@@ -65,21 +65,21 @@ namespace DominionWeb.Game
         public void CheckPlayStack(IPlayer player)
         {
 
-            bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0 &&
-                                           p.PlayStatus == PlayStatus.AttackResponder;
+            bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0;
+//                                           && p.PlayStatus == PlayStatus.AttackResponder;
 
             bool CanPlayAbility(IPlayer p) =>
                 !p.IsRespondingToAbility() && p.PlayedAbilities.Any(x => x.Resolved != true);
             
-            bool CanPlayCard(IPlayer p) => p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0 && (p.PlayedAbilities.Count == 0 || p.PlayedAbilities.Last().Resolved == true);
+            bool CanPlayCard(IPlayer p) => 
+                p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0 
+                && (p.PlayedAbilities.Count == 0 || p.PlayedAbilities.Last().Resolved);
             
-            while ((player.Rules.All(x => x.Resolved) && player.RuleStack.Count > 0 && player.PlayStatus == PlayStatus.AttackResponder)
-                   || (!player.IsRespondingToAbility() && player.PlayedAbilities.Any(x => x.Resolved != true))
-                   || (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0 && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true)))
+            while ( CanPlayRule(player) || CanPlayAbility(player) || CanPlayCard(player))
             {
                 //rules are only implemented for AttackResponder for the moment - this will change but to
                 //narrow the scope of this feature we use it soley for now
-                while (player.Rules.All(x => x.Resolved) && player.RuleStack.Count > 0 && player.PlayStatus == PlayStatus.AttackResponder)
+                while (CanPlayRule(player))
                 {
                     var rule = player.RuleStack.Pop();
 
@@ -96,13 +96,13 @@ namespace DominionWeb.Game
                     continue;
                 }
 
-                while (!player.IsRespondingToAbility() && player.PlayedAbilities.Any(x => x.Resolved != true))
+                while (CanPlayAbility(player))
                 {
                     var ability = player.PlayedAbilities.First(x => x.Resolved == false);
-                    ability.Resolve(player);
+                    ability.Resolve(this, player);
                 }
 
-                while (player.PlayStatus == PlayStatus.ActionPhase && player.PlayStack.Count > 0 && (player.PlayedAbilities.Count == 0 || player.PlayedAbilities.Last().Resolved == true))
+                while (CanPlayCard(player))
                 {
                     var card = player.PlayStack.Pop();
 
@@ -137,6 +137,19 @@ namespace DominionWeb.Game
                 //with attack cards the player switches so we need to get the updated player
                 var activePlayer = GetActivePlayer();
                 CheckPlayStack(activePlayer);
+            }
+            else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase &&
+                     instance is IRuleHolder rh)
+            {
+                player.Play(instance);
+                player.RuleStack.Push(rh.GetRule(this, player));
+                CheckPlayStack(player);
+                //TODO: look into refactoring this to player object (ex. player.SetActionOrBuyPhase())
+                //TODO: check for number of actions remaining to move statuses automatically
+                if (player.PlayStatus != PlayStatus.ActionRequestResponder)
+                {
+                    player.PlayStatus = player.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
+                }
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2)
             {

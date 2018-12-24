@@ -138,7 +138,7 @@ namespace DominionWeb
 			await Clients.All.SendAsync("Send", game.Supply);
 		}
 				
-		public async Task ProcessAction(int gameId, DominionWeb.Game.Player.PlayerAction action, Card card)
+		public async Task ProcessAction(int gameId, PlayerAction action, Card card)
 		{
 			var gameState = await _context.GameState.Where(x => x.GameId == gameId).FirstAsync();
 			var game = Game.Game.Load(gameState.State);

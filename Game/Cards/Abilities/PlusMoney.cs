@@ -12,7 +12,7 @@ namespace DominionWeb.Game.Cards.Abilities
             Amount = amount;
         }
         
-        public void Resolve(IPlayer player)
+        public void Resolve(Game game, IPlayer player)
         {
             player.MoneyPlayed += Amount;
             Resolved = true;

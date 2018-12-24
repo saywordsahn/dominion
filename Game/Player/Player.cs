@@ -243,8 +243,17 @@ namespace DominionWeb.Game.Player
            
             if (instance is IOnGainAbilityHolder ah)
             {
-                PlayedAbilities.Add(ah.OnGainAbility);
+                RuleStack.Push(ah.OnGainAbility);
+                //PlayedAbilities.Add(ah.OnGainAbility);
                 //OnGainAbilities.Add(ah.OnGainAbility);
+            }
+        }
+
+        public void GainToHand(Card card, int amount)
+        {
+            for (var i = 0; i < amount; i++)
+            {
+                GainToHand(card);
             }
         }
 

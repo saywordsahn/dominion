@@ -4,7 +4,7 @@ using DominionWeb.Game.Player;
 namespace DominionWeb.Game.Cards.Abilities
 {
     //TODO: refactor this to be modifiable on card and number of cards
-    public class TrashFromHandAbility : IAbility, IResponseRequired<ActionResponse>
+    public class TrashFromHand : IAbility, IResponseRequired<ActionResponse>
     {
         public PlayStatus PriorStatus { get; set; }
         
@@ -12,7 +12,7 @@ namespace DominionWeb.Game.Cards.Abilities
         // Json Serializer needs access to set for serialization
         public bool Resolved { get; set; }
         
-        public void Resolve(IPlayer player)
+        public void Resolve(Game game, IPlayer player)
         {
             if (player.HasCardInHand(Card.Copper))
             {
