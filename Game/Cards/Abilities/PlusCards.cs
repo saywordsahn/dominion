@@ -14,7 +14,7 @@ namespace DominionWeb.Game.Cards.Abilities
         
         public void Resolve(Game game, IPlayer player)
         {
-            player.NumberOfBuys += Amount;
+            player.Draw(Amount);
             Resolved = true;
         }
     }

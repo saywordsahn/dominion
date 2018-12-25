@@ -37,8 +37,6 @@ namespace DominionWeb.Game.Common.Rules
                 player.RuleStack.Push(new TakeAttackEffect());
                 Resolved = true;
             }
-
-            
         }
 
         public void ResponseReceived(Game game, IEnumerable<Card> response)

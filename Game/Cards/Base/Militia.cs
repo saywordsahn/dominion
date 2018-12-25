@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.AttackEffects;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Militia : ICard, IAction, IAttack, IResponseRequired<IEnumerable<Card>>
+    public class Militia : ICard, IAction, IAttack
     {
         public int Cost { get; } = 4;
 
@@ -23,35 +24,9 @@ namespace DominionWeb.Game.Cards.Base
 
             attacker.MoneyPlayed += 2;
 
-
             var nextPlayer = game.GetNextPlayer(attacker);
-
-            while (nextPlayer != attacker)
-            {
-                if (PlayerCanBeAffected(nextPlayer))
-                {
-                    break;
-                }
-
-                nextPlayer = game.GetNextPlayer(nextPlayer);
-            }
-
-            if (nextPlayer == attacker)
-            {
-                //nobody affected - continue
-                attacker.PlayStatus = PlayStatus.ActionPhase;
-            }
-            else
-            {
-//                var cardsToDiscard = nextPlayer.Hand.Count <= 3 ? 0 : nextPlayer.Hand.Count - 3;
-//                
-//                nextPlayer.ActionRequest = new SelectCardsActionRequest("Select " + cardsToDiscard + " card to discard.",
-//                    Card.Militia, nextPlayer.Hand, cardsToDiscard);
-
-                nextPlayer.PlayStatus = PlayStatus.AttackResponder;
-                nextPlayer.SetAttacked(game);               
-            }
-            
+            nextPlayer.PlayStatus = PlayStatus.AttackResponder;
+            nextPlayer.SetAttacked(game);
         }
 
         private bool PlayerCanBeAffected(IPlayer player)
@@ -60,17 +35,24 @@ namespace DominionWeb.Game.Cards.Base
             return player.Hand.Count > 3;
         }
 
-        //TODO: implement militiaAttackEffect
-        public IAttackEffect AttackEffect() => new GainCurseAttackEffect();
+        public IAttackEffect AttackEffect() => new DiscardDownToX(3);
 
+        //TODO: this should be refactored as a Rule not associated with a card
         public void AttackNextPlayer(Game game, IPlayer currentPlayer)
         {
-            throw new NotImplementedException();
-        }
+            var nextPlayer = game.GetNextPlayer(currentPlayer);
 
-        public void ResponseReceived(Game game, IEnumerable<Card> response)
-        {
-            throw new NotImplementedException();
+            if (nextPlayer == game.GetAttackingPlayer())
+            {
+                currentPlayer.PlayStatus = PlayStatus.WaitForTurn;
+                nextPlayer.PlayStatus = PlayStatus.ActionPhase;
+            }
+            else
+            {
+                currentPlayer.PlayStatus = PlayStatus.WaitForTurn;
+                nextPlayer.PlayStatus = PlayStatus.AttackResponder;
+                nextPlayer.SetAttacked(game);  
+            }
         }
     }
 }
