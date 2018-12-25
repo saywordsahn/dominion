@@ -22,9 +22,7 @@ namespace DominionWeb.Game.Cards.DarkAges
 
         public IRule ReactionEffect() => new DiscardCardForTwoSilvers();
 
-        public IRule GetRule(Game game, IPlayer player)
-        {
-            return new GainCardToHand(Card.Copper, 3);
-        }
+        public IRule GetRule(Game game, IPlayer player) => new GainCardToHand(Card.Copper, 3);
+        
     }
 }

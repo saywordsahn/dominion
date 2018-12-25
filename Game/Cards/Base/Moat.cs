@@ -1,10 +1,12 @@
 using System;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Moat : ICard, IAction, IAttackReaction, IAttackBlocker
+    public class Moat : ICard, IAction, IAttackReaction, IAttackBlocker, IRuleHolder
     {
         public int Cost { get; } = 2;
 
@@ -28,5 +30,7 @@ namespace DominionWeb.Game.Cards.Base
             //TODO: code smell
             throw new InvalidOperationException("This ability should not be called.");
         }
+
+        public IRule GetRule(Game game, IPlayer player) => new PlusCards(2);
     }
 }

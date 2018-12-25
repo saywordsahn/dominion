@@ -42,8 +42,8 @@ namespace DominionWeb.Game
 //                Console.WriteLine("{0} starts with 7 Coppers.", player.Name);
 //                Console.WriteLine("{0} starts with 3 Estates.", player.Name);
                 player.Gain(estates);
-                player.Gain(witches);
-                player.Gain(thrones);
+//                player.Gain(witches);
+//                player.Gain(thrones);
                 player.Shuffle();
 //                Console.WriteLine("{0} shuffles their deck.", player.Name);
                 player.Draw(5);

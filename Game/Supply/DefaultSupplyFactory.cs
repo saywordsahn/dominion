@@ -66,6 +66,12 @@ namespace DominionWeb.Game.Supply
                 ducats, moats, villages, remodels, poachers, witches, 
                 militias, bandits, artisans, throneRooms, beggars, lighthouses           
             };
+
+            var workingSupply = new List<Pile>()
+            {
+                chapels, witches, beggars, remodels, lighthouses,
+                vassals, throneRooms, nomadCamps, markets, laboratorys
+            };
             
             return new Supply(tSupply, vSupply, kSupply);
         }

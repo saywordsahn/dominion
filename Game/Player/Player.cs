@@ -35,7 +35,6 @@ namespace DominionWeb.Game.Player
         public IEnumerable<IReaction> RevealedReactions { get; set; }
         public int Coffers { get; set; }
         
-        //TODO: rethink rulestack
         public Stack<IRule> RuleStack { get; set; }
         public List<IRule> Rules { get; set; }
         public List<Card> PlayedReactions { get; set; }
@@ -211,7 +210,6 @@ namespace DominionWeb.Game.Player
                 if (instance is IOnGainAbilityHolder ah)
                 {
                     RuleStack.Push(ah.OnGainAbility);
-                    //OnGainAbilities.Add(ah.OnGainAbility);
                 }
                 
                 DiscardPile.Add(card); 

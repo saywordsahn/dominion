@@ -49,10 +49,12 @@ namespace DominionWeb.Game.Common.Rules
 
             var cardList = response.ToList();
 
+            //TODO: test no selected reaction
             if (cardList.Count == 0)
             {
-                //take attack effect 
-                throw new NotImplementedException();
+                player.RuleStack.Push(new SetNextAttackedPlayer());
+                player.RuleStack.Push(new TakeAttackEffect());
+                Resolved = true;
             }
             else if (cardList.Count == 1)
             {
@@ -62,7 +64,9 @@ namespace DominionWeb.Game.Common.Rules
                 {
                     //attack is blocked. move to next player despite other attackResponse
                     //set next attacked player
-                    throw new NotImplementedException();
+                    //TODO: implement show card (for moat)
+                    player.RuleStack.Push(new SetNextAttackedPlayer());
+                    Resolved = true;
                 }
                 else if (card is IAttackReaction ar)
                 {
