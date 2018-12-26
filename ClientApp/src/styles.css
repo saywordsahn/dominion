@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.container {
+  max-width: 100%
+}
+
+.mini-card-template {
+  position: relative;
+}
+
+.card-counter {
+  position: absolute;
+  top: 0;
+  color: white;
+  background-color: black;
+  border-bottom-right-radius: 4px;
+  user-select: none;
+}
+
 .supplyPile {
   height: 50px;
   width: 75px;
@@ -7,6 +24,11 @@
 .kingdomCard {
   height: 125px;
   width: 90px;
+}
+
+.treasure-supply-pile {
+  max-height: 78px;
+  max-width: 94px;
 }
 
 body {

@@ -7,21 +7,21 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-sm">
+  <div class="col-sm-1">
     Discard
     {{ discardPile.length }}
   </div>
-  <div class="col-sm">
+  <div class="col-sm-1">
     Deck
     {{ deck.length }}
   </div>
   <div class="col-sm">
-
+    <d-hand-viewer></d-hand-viewer>
     <div *ngFor="let card of hand">
       <button (click)="play(card)">{{ Card[card] }}</button>
       </div>
   </div>
-  <div class="col-sm">
+  <div class="col-sm-3">
     <div *ngIf="playStatus == PlayStatus.GameEnd">
       The game is over. You have {{ victoryPoints }} Victory Points.
     </div>
@@ -60,7 +60,7 @@
       <button (click)="endTurn()">End Turn</button>
     </div>
   </div>
-  <div class="col-sm">
+  <div class="col-sm-2">
     <div class="form-group">
       <textarea [(ngModel)]="logText" style="font-size: small;" class="form-control" rows="5" id="comment"></textarea>
     </div>

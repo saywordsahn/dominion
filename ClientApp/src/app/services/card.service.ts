@@ -36,6 +36,9 @@ export class CardService {
       return `assets/img/${Card[card]}.jpg`;
   }
 
-
+  getSmallImgLoc(card: Card) : string
+  {
+    return `assets/img/treasureSupply/${Card[card]}_Small.jpg`;
+  }
 }
 

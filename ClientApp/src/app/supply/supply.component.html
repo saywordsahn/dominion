@@ -1,20 +1,27 @@
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col">
     <div *ngFor="let pile of treasureSupply">
-      <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[0]] }} ({{ pile.cards.length }})</button>
+      <div class="mini-card-template">
+        <img class="treasure-supply-pile" (click)="buy(pile)" [src]="cardService.getSmallImgLoc(pile.cards[0])" alt="treasure">
+        <div class="card-counter">{{pile.cards.length}} </div>
+      </div>
     </div>
   </div>
-  <div class="col-sm-2">
-    <div class="col-sm">
+  <div class="col">
       <div *ngFor="let pile of victorySupply">
         <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[0]] }} ({{ pile.cards.length }})</button>
       </div>
-    </div>
+  </div>
+  <div class="col-sm-1">
+
   </div>
   <div class="col-sm-8">
     <div class="row">
       <div class="col-sm-2" *ngFor="let pile of kingdomSupply">
-        <img oncontextmenu="return false;" (click)="buy(pile)" (contextmenu)="rightClick(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[0])" alt="image">
+        <div class="mini-card-template">
+          <img oncontextmenu="return false;" (click)="buy(pile)" (contextmenu)="rightClick(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[0])" alt="image">
+          <div class="card-counter">{{pile.cards.length}}</div>
+        </div>
       </div>
     </div>
     <!--373x598-->

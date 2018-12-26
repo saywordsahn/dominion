@@ -12,6 +12,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SupplyComponent } from './supply/supply.component';
 import { PlayerComponent } from './player/player.component';
+import { HandViewerComponent } from "./hand-viewer/hand-viewer.component";
 
 import { DataService } from './services/data.service';
 import { CardService } from './services/card.service';
@@ -32,7 +33,8 @@ import {Dialog, DialogModule} from 'primeng/dialog';
     CounterComponent,
     FetchDataComponent,
     SupplyComponent,
-    PlayerComponent
+    PlayerComponent,
+    HandViewerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
