@@ -55,7 +55,7 @@
         // Prosperity Expansion
         Bank, Bishop, City, Contraband, CountingHouse, Expand, Forge, Goons, GrandMarket, Hoard,
         KingsCourt, Loan, Mint, Monument, Mountebank, Peddler, Quarry, Rabble, RoyalSeal, Talisman,
-        TradeRoute, Vault, Venture, WatchTower, WorkersVillage,
+        TradeRoute, Vault, Venture, WatchTower, WorkersVillage, Colony, Platinum,
         // Cornucopia Expansion
         HornofPlenty, Fairgrounds, FarmingVillage, FortuneTeller, Hamlet, Harvest, HorseTraders,
         HuntingParty, Jester, Menagerie, Remake, Tournament, YoungWitch, BagofGold, Diadem,
@@ -116,10 +116,14 @@
         MountainVillage, Patron, Priest, Research, SilkMerchant, OldWitch, Recruiter, Scepter, Scholar, Sculptor,
         Seer, Spices, Swashbuckler, Treasurer, Villain,
         
-        
+        //promo
+        Sauna,
+        Avanto,
+        SaunaAvanto,
         
         //not playable
         Any,
-        None
+        None,
+        
     }
 }
