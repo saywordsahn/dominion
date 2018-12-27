@@ -46,6 +46,18 @@ body {
   max-width:298px;
 }
 
+.play-area {
+  min-height: 150px;
+  padding-top: 1%;
+  padding-left: 15%;
+}
+
+.player-component {
+  position: fixed;
+  bottom:1em;
+  width: 100%;
+}
+
 /*TODO: make background invisible*/
 /*.cardDetailDialogBox {*/
   /*background-color: transparent;*/

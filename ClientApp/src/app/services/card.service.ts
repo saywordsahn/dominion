@@ -22,12 +22,7 @@ export class CardService {
     this.costs = costs;
   }
 
-  getCard(cardId: number) {
-    return Card[cardId];
-  }
-
   getCardName(card: Card) : string {
-    console.log('getCardName:', Card[card]);
     return Card[card];
   }
 

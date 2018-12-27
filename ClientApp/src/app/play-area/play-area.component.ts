@@ -7,6 +7,16 @@ import {HubService} from "../services/hub.service";
 import {GameService} from "../services/game.service";
 import {PlayedCard} from "../models/playedCard";
 
+class PlayStack
+{
+  card: Card;
+  count: number;
+
+  constructor(card: Card) {
+   this.card = card;
+   this.count = 1;
+  }
+}
 
 @Component({
   selector: 'd-play-area',
@@ -14,15 +24,28 @@ import {PlayedCard} from "../models/playedCard";
 })
 export class PlayAreaComponent {
 
-  playStack: PlayedCard[];
+  playStack: PlayStack[];
+
 
   @Input()
   set playedCards(playedCards: PlayedCard[]) {
-    if (playedCards != undefined) {
-      this.playStack = playedCards;
+
+    this.playStack = [];
+    if (playedCards != undefined && playedCards.length > 0)
+    {
+      let current = new PlayStack(playedCards[0].card.name);
+
+      for (let x = 1; x < playedCards.length; x++)
+      {
+        if (playedCards[x].card.name === current.card) {
+          current.count++;
+        } else {
+          this.playStack.push(current);
+          current = new PlayStack(playedCards[x].card.name);
+        }
+      }
+      this.playStack.push(current);
     }
-    console.log('playStack');
-    console.log(this.playStack);
   }
 
   public Card: Card;

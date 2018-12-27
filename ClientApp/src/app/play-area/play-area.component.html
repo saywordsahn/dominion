@@ -1,9 +1,12 @@
-<div class="row">
-  <div class="col-lg">
-    <div *ngIf="playStack?.length > 0">
-      <div *ngFor="let stack of playStack">
-        {{ cardService.getCardName(stack.card.name) }} <div *ngIf="stack.isThronedCopy">*</div>
+<div class="row play-area">
+    <div *ngFor="let stack of playStack">
+      <div class="col-sm">
+        <div class="mini-card-template">
+          <img oncontextmenu="return false;" (contextmenu)="rightClick(stack.card)" class="kingdomCard" [src]="cardService.getImgLoc(stack.card)" alt="image">
+          <div *ngIf="stack.count > 1">
+            <div class="card-counter">{{stack.count}}</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
