@@ -1,11 +1,4 @@
-
-<div class="row">
-  <div class="col-lg">
-    <div *ngFor="let card of playedCards">
-      {{ Card[card.card.name] }} <div *ngIf="card.isThronedCopy">*</div>
-    </div>
-  </div>
-</div>
+<d-play-area [playedCards]="playedCards"></d-play-area>
 <div class="row">
   <div class="col-sm-1">
     Discard
@@ -16,10 +9,7 @@
     {{ deck.length }}
   </div>
   <div class="col-sm">
-    <d-hand-viewer></d-hand-viewer>
-    <div *ngFor="let card of hand">
-      <button (click)="play(card)">{{ Card[card] }}</button>
-      </div>
+    <d-hand-viewer [hand]="hand"></d-hand-viewer>
   </div>
   <div class="col-sm-3">
     <div *ngIf="playStatus == PlayStatus.GameEnd">

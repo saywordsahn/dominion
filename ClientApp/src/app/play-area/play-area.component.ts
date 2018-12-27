@@ -1,36 +1,28 @@
 import {Component} from '@angular/core';
 import {Input} from '@angular/core';
 import {Card} from "../models/card";
-import {PlayerAction} from "../models/playerAction";
 import {DataService} from "../services/data.service";
 import {CardService} from "../services/card.service";
 import {HubService} from "../services/hub.service";
 import {GameService} from "../services/game.service";
+import {PlayedCard} from "../models/playedCard";
 
-//
-// class SelectMultipleCardsActionRequest {
-//   message: string;
-//   cards: Card[];
-// }
 
 @Component({
-  selector: 'd-hand-viewer',
-  templateUrl: './hand-viewer.component.html',
+  selector: 'd-play-area',
+  templateUrl: './play-area.component.html',
 })
-export class HandViewerComponent {
+export class PlayAreaComponent {
 
-  organizedHand: Map<Card, number>;
+  playStack: PlayedCard[];
 
   @Input()
-  set hand(hand: Card[]) {
-    this.organizedHand = new Map();
-    hand.forEach(card => {
-      if (this.organizedHand.has(card)) {
-        this.organizedHand.set(card, this.organizedHand.get(card) + 1);
-      } else {
-        this.organizedHand.set(card, 1);
-      }
-    });
+  set playedCards(playedCards: PlayedCard[]) {
+    if (playedCards != undefined) {
+      this.playStack = playedCards;
+    }
+    console.log('playStack');
+    console.log(this.playStack);
   }
 
   public Card: Card;
@@ -44,12 +36,7 @@ export class HandViewerComponent {
     private hubService: HubService,
     private gameService: GameService
   ) {
-    this.hand = [];
-    this.organizedHand = new Map();
-  }
-
-  public play(card: Card) : void {
-    this.hubService.submitAction(this.gameService.gameId, PlayerAction.Play, card);
+    this.playStack = [];
   }
 
   rightClick(card) {

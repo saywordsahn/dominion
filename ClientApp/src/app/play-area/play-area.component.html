@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-lg">
+    <div *ngIf="playStack?.length > 0">
+      <div *ngFor="let stack of playStack">
+        {{ cardService.getCardName(stack.card.name) }} <div *ngIf="stack.isThronedCopy">*</div>
+      </div>
+    </div>
+  </div>
+</div>

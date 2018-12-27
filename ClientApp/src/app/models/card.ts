@@ -117,7 +117,7 @@ export enum Card {
 }
 
 export interface ICard {
-  name: string;
+  name: Card;
   cost: number;
   cardType: CardType
 }

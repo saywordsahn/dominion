@@ -26,6 +26,11 @@ export class CardService {
     return Card[cardId];
   }
 
+  getCardName(card: Card) : string {
+    console.log('getCardName:', Card[card]);
+    return Card[card];
+  }
+
   getCost(card: Card)
   {
     return this.costs[card];

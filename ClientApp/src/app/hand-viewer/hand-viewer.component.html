@@ -1,1 +1,13 @@
-Hi
+<div class="row justify-content-md-center">
+  <div *ngFor="let card of getKeys(organizedHand)">
+    <div class="col-sm">
+      <div class="mini-card-template">
+        <img oncontextmenu="return false;" (click)="play(card)" (contextmenu)="rightClick(card)" class="kingdomCard" [src]="cardService.getImgLoc(card)" alt="image">
+        <div class="card-counter">{{organizedHand.get(card)}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog class="cardDetailDialogBox" [showHeader]="false" [modal]="true" [dismissableMask]="true" [(visible)]="showCardDetail">
+  <img class="cardDetail" [src]="cardDetailLoc">
+</p-dialog>
