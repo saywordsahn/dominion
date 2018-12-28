@@ -26,7 +26,7 @@ namespace DominionWeb.Game.Supply
                 Card.Moat,
                 Card.Village,
                 Card.Remodel,
-                Card.Poacher,
+                Card.Cache,
                 Card.Witch,
                 Card.Militia,
                 Card.Bandit,
@@ -38,19 +38,19 @@ namespace DominionWeb.Game.Supply
 
             var workingSupply = pileFactory.Create(new List<Card>
             {
-                Card.Chapel,
-                Card.Witch,
-                Card.Beggar,
+                Card.Sacrifice,
+                Card.Plunder,
+                Card.Merchant,
                 Card.Remodel,
                 Card.Lighthouse,
-                Card.Vassal,
+                Card.Witch,
                 Card.ThroneRoom,
                 Card.NomadCamp,
                 Card.Market,
-                Card.Laboratory
+                Card.BanditCamp
             });
             
-            return new Supply(tSupply, vSupply, kSupply);
+            return new Supply(tSupply, vSupply, workingSupply);
         }
     }
 }

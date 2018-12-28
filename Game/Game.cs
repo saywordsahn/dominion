@@ -4,6 +4,7 @@ using System.Linq;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.GameComponents;
 using DominionWeb.Game.Player;
 using DominionWeb.Game.Supply;
 using Newtonsoft.Json;
@@ -16,6 +17,7 @@ namespace DominionWeb.Game
         public IList<IPlayer> Players { get; private set; }
         public ISupply Supply { get; private set; }
         public GameStatus GameStatus { get; private set; }
+        public Components Components { get; set; }
 
         public IVictoryCondition VictoryCondition { get; private set; }
 
@@ -25,6 +27,7 @@ namespace DominionWeb.Game
             Players = players;
             Supply = supply;
             VictoryCondition = victoryCondition;
+            Components = new Components();
         }
 
         public void Initialize()
@@ -129,10 +132,14 @@ namespace DominionWeb.Game
                 CheckPlayStack(activePlayer);
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase &&
-                     instance is IRuleHolder rh)
+                     instance is IRulesHolder rh)
             {
                 player.Play(instance);
-                player.RuleStack.Push(rh.GetRule(this, player));
+                foreach (var rule in rh.GetRules(this, player))
+                {
+                    player.RuleStack.Push(rule);
+                }
+//                player.RuleStack.Push(rh.GetRule(this, player));
                 CheckPlayStack(player);
                 //TODO: look into refactoring this to player object (ex. player.SetActionOrBuyPhase())
                 //TODO: check for number of actions remaining to move statuses automatically
@@ -161,6 +168,7 @@ namespace DominionWeb.Game
                 //maybe a different abstraction is better though
                 //TODO: refactor
                 player.Play(instance);
+                CheckPlayStack(player);
             }
 //            else if (action == PlayerAction.React && instance is IAttackReaction r)
 //            {

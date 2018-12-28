@@ -158,8 +158,8 @@ namespace DominionWeb.Game.Player
                     vpCount += v.GetVictoryPointValue(this);
                 }
             }
-
-            return vpCount;
+            
+            return vpCount + VictoryTokens;
         }
 
         //TODO: refactor

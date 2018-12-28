@@ -15,6 +15,7 @@ namespace DominionWeb.Game.Cards.Base
             var player = game.GetActivePlayer();
             player.Draw(1);
             player.NumberOfActions++;
+            //TODO: test triggered ability more - there are bugs
             player.TriggeredAbilities.Add(new PlusOneMoneyOnFirstSilverPlay());
         }
         

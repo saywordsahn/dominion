@@ -10,7 +10,7 @@ namespace DominionWeb.Game.Supply
         public IEnumerable<Pile> VictorySupply { get; }
         public IEnumerable<Pile> KingdomSupply { get; }
         public ICollection<Card> Trash { get; private set; }
-        
+                
         private IEnumerable<Pile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
         
         private readonly IDictionary<Card, SupplyType> _supplyTypeMap = new Dictionary<Card, SupplyType>();
@@ -144,5 +144,6 @@ namespace DominionWeb.Game.Supply
 
             throw new InvalidOperationException("Supply does not contain card.");
         }
+        
     }
 }

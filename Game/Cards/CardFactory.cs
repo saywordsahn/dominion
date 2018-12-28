@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Base;
 using DominionWeb.Game.Cards.DarkAges;
+using DominionWeb.Game.Cards.Empires;
 using DominionWeb.Game.Cards.Hinterlands;
 using DominionWeb.Game.Cards.Renaissance;
 using DominionWeb.Game.Cards.Seaside;
@@ -57,6 +58,12 @@ namespace DominionWeb.Game.Cards
             
             //dark ages
             { Card.Beggar, () => new Beggar() },
+            { Card.Spoils, () => new Spoils() }, 
+            { Card.BanditCamp, () => new BanditCamp() }, 
+            
+            //empires
+            { Card.Sacrifice, () => new Sacrifice() },
+            { Card.Plunder, () => new Plunder() },
             
             //renaissance
             { Card.Ducat, () => new Ducat() },

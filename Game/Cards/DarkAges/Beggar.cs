@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.AttackReactions;
@@ -8,7 +10,7 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.DarkAges
 {
-    public class Beggar : ICard, IAction, IReaction, IAttackReaction, IRuleHolder
+    public class Beggar : ICard, IAction, IReaction, IAttackReaction, IRulesHolder
     {
         public Card Name { get; } = Card.Beggar;
         public int Cost { get; } = 2;
@@ -16,13 +18,14 @@ namespace DominionWeb.Game.Cards.DarkAges
         
         public void Resolve(Game game)
         {
-            var player = game.GetActivePlayer();
-            player.GainToHand(Card.Copper, 3);
+            throw new NotImplementedException("Depreciating this method in favor of rules/abilities");
         }
 
         public IRule ReactionEffect() => new DiscardCardForTwoSilvers();
 
-        public IRule GetRule(Game game, IPlayer player) => new GainCardToHand(Card.Copper, 3);
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player) => 
+            new List<IRule> { new GainCardToHand(Card.Copper, 3) };
+        
         
     }
 }

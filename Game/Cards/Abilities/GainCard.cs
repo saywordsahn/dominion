@@ -17,14 +17,28 @@ namespace DominionWeb.Game.Cards.Abilities
 
         public void Resolve(Game game, IPlayer player)
         {
-            for (var i = 0; i < Amount; i++)
+            //TODO: include all nonSupply cards in this logic
+            if (CardToGain == Card.Spoils)
             {
-                if (!game.Supply.Contains(CardToGain)) break;
-                game.Supply.Take(CardToGain);
-                player.Gain(CardToGain);
+                //law of demeter broken, redesign?
+                if (game.Components.Spoils.Count > 0)
+                {
+                    player.Gain(game.Components.Spoils.Take());
+                    Resolved = true;
+                }
+            }
+            else
+            {
+                for (var i = 0; i < Amount; i++)
+                {
+                    if (!game.Supply.Contains(CardToGain)) break;
+                    game.Supply.Take(CardToGain);
+                    player.Gain(CardToGain);
+                }
+            
+                Resolved = true;
             }
             
-            Resolved = true;
         }
 
         
