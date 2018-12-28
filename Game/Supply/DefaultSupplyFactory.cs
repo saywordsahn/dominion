@@ -30,7 +30,7 @@ namespace DominionWeb.Game.Supply
                 Card.Witch,
                 Card.Militia,
                 Card.Bandit,
-                Card.Artisan,
+                Card.Lurker,
                 Card.ThroneRoom,
                 Card.Beggar,
                 Card.Lighthouse
@@ -50,7 +50,7 @@ namespace DominionWeb.Game.Supply
                 Card.BanditCamp
             });
             
-            return new Supply(tSupply, vSupply, workingSupply);
+            return new Supply(tSupply, vSupply, kSupply);
         }
     }
 }

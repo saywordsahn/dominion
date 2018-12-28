@@ -1,4 +1,5 @@
 export enum ActionRequestType {
   YesNo,
-  SelectMultipleCards
+  SelectMultipleCards,
+  SelectOptions
 }

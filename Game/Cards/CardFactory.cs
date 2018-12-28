@@ -4,6 +4,7 @@ using DominionWeb.Game.Cards.Base;
 using DominionWeb.Game.Cards.DarkAges;
 using DominionWeb.Game.Cards.Empires;
 using DominionWeb.Game.Cards.Hinterlands;
+using DominionWeb.Game.Cards.Intrigue;
 using DominionWeb.Game.Cards.Renaissance;
 using DominionWeb.Game.Cards.Seaside;
 
@@ -47,6 +48,9 @@ namespace DominionWeb.Game.Cards
             { Card.Sentry, () => new Sentry() },
             { Card.Witch, () => new Witch() },
             { Card.Artisan, () => new Artisan() },
+            
+            //intrigue
+            { Card.Lurker, () => new Lurker() },
             
             //seaside
             { Card.Lighthouse, () => new Lighthouse() },

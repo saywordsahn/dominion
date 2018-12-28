@@ -40,7 +40,12 @@
             [(ngModel)]="selectedCards"
             [showHeader]="false"></p-multiSelect>
         <button (click)="submitMultiSelect()">Submit</button>
-
+      </div>
+      <div *ngIf="actionRequest.actionRequestType == ActionRequestType.SelectOptions">
+        <p-multiSelect [options]="selectOptions"
+                       [(ngModel)]="selectedOptions"
+                       [showHeader]="false"></p-multiSelect>
+        <button (click)="submitSelectOptions()">Submit</button>
       </div>
     </div>
     <div *ngIf="playStatus == PlayStatus.BuyPhase">

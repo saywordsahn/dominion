@@ -123,4 +123,11 @@ export class HubService {
     this.hubConnection.send("ProcessSelectCardsActionResponse", gameId, actionRequestType, cards);
   }
 
+  submitSelectOptionsRequestResponse(gameId: number, actionRequestType: ActionRequestType, options: ActionResponse[])
+  {
+    console.log('hub');
+    console.log({gameId, actionRequestType, options});
+    this.hubConnection.send("ProcessSelectOptionsActionResponse", gameId, actionRequestType, options);
+  }
+
 }

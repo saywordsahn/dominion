@@ -44,6 +44,9 @@ export class PlayerComponent implements Player {
   selectCards: SelectItem[];
   selectedCards: any[];
 
+  selectOptions: SelectItem[];
+  selectedOptions: any[];
+
   logText: string;
   PlayStatus = PlayStatus;
   ActionRequestType = ActionRequestType;
@@ -103,6 +106,19 @@ export class PlayerComponent implements Player {
       {
         this.selectCards.push( {label: Card[this.actionRequest.cards[i]], value: {id: i, name: this.actionRequest.cards[i]}});
       }
+    }
+
+
+    this.selectOptions = [];
+    this.selectedOptions = [];
+    if (this.actionRequest != undefined && this.actionRequest.actionRequestType == ActionRequestType.SelectOptions) {
+      for (let i = 0; i < this.actionRequest.options.length; i++)
+      {
+        let option = {label: this.actionRequest.options[i].actionResponseText, value: {id: i, name: this.actionRequest.options[i].actionResponse}};
+        this.selectOptions.push(option);
+        console.log(option);
+        console.log(this.selectOptions);
+      }
       console.log('player updated:', this);
     }
 
@@ -146,6 +162,18 @@ export class PlayerComponent implements Player {
       cards.push(this.selectedCards[i].name);
     }
     this.hubService.submitSelectCardsRequestResponse(this.gameService.gameId, ActionRequestType.SelectMultipleCards, cards);
+  }
+
+  submitSelectOptions() {
+    console.log('selectedOptions');
+    console.log(this.selectedOptions);
+    //unadapt from primeNg format
+    let options = [];
+    for (let i = 0; i < this.selectedOptions.length; i++)
+    {
+      options.push(this.selectedOptions[i].name);
+    }
+    this.hubService.submitSelectOptionsRequestResponse(this.gameService.gameId, ActionRequestType.SelectOptions, options);
   }
 
 }

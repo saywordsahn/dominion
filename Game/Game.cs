@@ -104,7 +104,17 @@ namespace DominionWeb.Game
                         player.PlayedCards.Add(card);
                     }
 
-                    if (card.Card is IAction a) a.Resolve(this);
+                    if (card.Card is IRulesHolder rh)
+                    {
+                        foreach (var rule in rh.GetRules(this, player))
+                        {
+                            player.RuleStack.Push(rule);
+                        }
+                    }
+                    else if (card.Card is IAction a)
+                    {
+                        a.Resolve(this);
+                    }
                 }
                 
                 if (player != GetActivePlayer())
@@ -170,10 +180,6 @@ namespace DominionWeb.Game
                 player.Play(instance);
                 CheckPlayStack(player);
             }
-//            else if (action == PlayerAction.React && instance is IAttackReaction r)
-//            {
-//                r.ReactionEffect(this);
-//            }
             else if (action == PlayerAction.Buy)
             {                
                 if (Supply.Contains(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
@@ -212,29 +218,6 @@ namespace DominionWeb.Game
             {
                 player.PlayAllTreasure();
             }
-//            else if (playerAction == PlayerAction.TakeAttackEffect && player.PlayStatus == PlayStatus.AttackResponder)
-//            {
-//                var attacker = Players.Single(x => x.PlayStatus == PlayStatus.Attacker);
-//                var lastPlayedAttack = attacker.GetLastPlayedCard();
-//                
-//                if (lastPlayedAttack is IAttack attack)
-//                {
-//                    attack.AttackEffect(this, player);
-//                }
-//
-//                player.PlayStatus = PlayStatus.WaitForTurn;
-//                
-//                if (nextPlayer == attacker)
-//                {
-//                    attacker.PlayStatus = attacker.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
-//                }
-//                else
-//                {
-//                    nextPlayer.PlayStatus = PlayStatus.AttackResponder;
-//                }
-//                
-//
-//            }
             else if (playerAction == PlayerAction.EndActionPhase)
             {
                 player.EndActionPhase();
@@ -308,6 +291,36 @@ namespace DominionWeb.Game
                     CheckPlayStack(player);
                 }
             }
+            
+        }
+        
+        public void Submit(string playerName, ActionRequestType actionRequestType, IEnumerable<ActionResponse> options)
+        {
+            //for attack responders this won't work since they didn't play the card
+            var player = Players.Single(x => x.PlayerName == playerName);
+//            var card = player.ActionRequest.Requester;
+
+            if (player.Rules.Count > 0 && player.Rules.Last().Resolved == false)
+            {
+                var rInstance = player.Rules.Last();
+
+                if (rInstance is IResponseRequired<IEnumerable<ActionResponse>> rr)
+                {
+                    rr.ResponseReceived(this, options);
+                }
+                
+                CheckPlayStack(player);
+            }
+//            else
+//            {
+//                var instance = player.PlayedCards.Last(x => x.Card.Name == player.ActionRequest.Requester).Card;
+//
+//                if (actionRequestType == ActionRequestType.SelectCards && instance is IResponseRequired<IEnumerable<Card>> rr)
+//                {
+//                    rr.ResponseReceived(this, cards);
+//                    CheckPlayStack(player);
+//                }
+//            }
             
         }
 

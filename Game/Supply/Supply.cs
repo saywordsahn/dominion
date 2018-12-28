@@ -9,7 +9,7 @@ namespace DominionWeb.Game.Supply
         public IEnumerable<Pile> TreasureSupply { get; }
         public IEnumerable<Pile> VictorySupply { get; }
         public IEnumerable<Pile> KingdomSupply { get; }
-        public ICollection<Card> Trash { get; private set; }
+        public ICollection<Card> Trash { get; }
                 
         private IEnumerable<Pile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
         
@@ -103,6 +103,11 @@ namespace DominionWeb.Game.Supply
                 + KingdomSupply.Count(pile => pile.Cards.Count == 0);
         }
 
+        /// <summary>
+        /// Removes and returns a card from the supply.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns>Removed card.</returns>
         public Card Take(Card card)
         {
             var supplyType = _supplyTypeMap[card];
