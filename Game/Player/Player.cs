@@ -38,8 +38,9 @@ namespace DominionWeb.Game.Player
         public Stack<IRule> RuleStack { get; set; }
         public List<IRule> Rules { get; set; }
         public List<Card> PlayedReactions { get; set; }
-        
-        private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand);
+        public List<Card> Island { get; set; }
+
+        private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand).Concat(Island);
          
         public Player(int id, string playerName)
         {
@@ -62,6 +63,7 @@ namespace DominionWeb.Game.Player
             PlayedReactions = new List<Card>();
             RuleStack = new Stack<IRule>();
             Rules = new List<IRule>();
+            Island = new List<Card>();
         }
 
         public void Play(Card card)
@@ -149,7 +151,7 @@ namespace DominionWeb.Game.Player
         {
             var vpCount = 0;
 
-            foreach (var card in this.Dominion)
+            foreach (var card in Dominion)
             {
                 var instance = CardFactory.Create(card);
 

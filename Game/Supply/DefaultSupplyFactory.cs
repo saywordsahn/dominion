@@ -28,12 +28,12 @@ namespace DominionWeb.Game.Supply
                 Card.Remodel,
                 Card.Cache,
                 Card.Witch,
-                Card.Militia,
+                Card.Island,
                 Card.Bandit,
                 Card.Lurker,
                 Card.ThroneRoom,
-                Card.Beggar,
-                Card.Lighthouse
+                Card.Beggar
+                
             });
 
             var workingSupply = pileFactory.Create(new List<Card>

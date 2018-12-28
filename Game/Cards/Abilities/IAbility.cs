@@ -5,7 +5,7 @@ namespace DominionWeb.Game.Cards.Abilities
 {
     public interface IAbility : IRule
     {
-        void Resolve(Game game, IPlayer player);
         bool Resolved { get; set; }
+        void Resolve(Game game, IPlayer player);
     }
 }

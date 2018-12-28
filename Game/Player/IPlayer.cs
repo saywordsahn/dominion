@@ -54,5 +54,6 @@ namespace DominionWeb.Game.Player
         Stack<IRule> RuleStack { get; set; }
         List<IRule> Rules { get; set; }
         List<Card> PlayedReactions { get; set; }
+        List<Card> Island { get; set; }
     }
 }

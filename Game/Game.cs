@@ -103,7 +103,7 @@ namespace DominionWeb.Game
                     {
                         player.PlayedCards.Add(card);
                     }
-
+                    
                     if (card.Card is IRulesHolder rh)
                     {
                         foreach (var rule in rh.GetRules(this, player))
