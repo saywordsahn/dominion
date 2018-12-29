@@ -55,5 +55,7 @@ namespace DominionWeb.Game.Player
         List<IRule> Rules { get; set; }
         List<Card> PlayedReactions { get; set; }
         List<Card> Island { get; set; }
+        Card TopCard();
+        bool HasDrawableCards();
     }
 }

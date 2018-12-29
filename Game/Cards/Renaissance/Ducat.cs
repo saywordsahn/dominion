@@ -15,7 +15,7 @@ namespace DominionWeb.Game.Cards.Renaissance
         
         public PlayStatus PriorStatus { get; set; }
 
-        public IAbility OnGainAbility { get; set; } = new TrashFromHand();
+        public IAbility OnGainAbility { get; set; } = new TrashCopperFromHand();
 
         public void ResolveTreasureAbilities(IPlayer player)
         {

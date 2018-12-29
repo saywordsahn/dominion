@@ -351,6 +351,26 @@ namespace DominionWeb.Game.Player
             }
         }
 
+        public Card TopCard()
+        {
+            if (Deck.Count + DiscardPile.Count == 0)
+            {
+                throw new InvalidOperationException("There are no drawable cards. Call HasDrawableCards before this");
+            }
+            
+            if (Deck.Count > 0)
+            {
+                return Deck[Deck.Count - 1];
+            }
+            else
+            {
+                Shuffle();
+                return Deck[Deck.Count - 1];
+            }            
+        }
+
+        public bool HasDrawableCards() => Deck.Count + DiscardPile.Count > 0;
+
         public IEnumerable<Card> GetPlayedCardEnums()
         {
             var list = new List<Card>();

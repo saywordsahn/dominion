@@ -1,44 +1,47 @@
+using System.Collections.Generic;
+using System.Linq;
+using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    //TODO: refactor this to be modifiable on card and number of cards
-    public class TrashFromHand : IAbility, IResponseRequired<ActionResponse>
+    public class TrashFromHand : IAbility, IResponseRequired<IEnumerable<Card>>
     {
-        public PlayStatus PriorStatus { get; set; }
-        
-        // ReSharper disable once MemberCanBePrivate.Global
-        // Json Serializer needs access to set for serialization
+
+        public ICardFilter Filter;
         public bool Resolved { get; set; }
-        
-        public void Resolve(Game game, IPlayer player)
+
+        public TrashFromHand(ICardFilter filter)
         {
-            if (player.HasCardInHand(Card.Copper))
-            {
-                PriorStatus = player.PlayStatus;
-                player.ActionRequest = new YesNoActionRequest(Card.Vassal, "Would you like to trash a copper?");
-                player.PlayStatus = PlayStatus.ActionRequestResponder;
-            }
-            else
-            {
-                Resolved = true;
-            }
+            Filter = filter;
         }
 
-        public void ResponseReceived(Game game, ActionResponse response)
+        //TODO: need to set this as resolved if SelectCardFromHand resolves early (there are no cards in hand)
+        public void Resolve(Game game, IPlayer player)
+            => new SelectCardFromHand(new NoFilter(), "Select a card to trash.")
+                .Resolve(game, player);
+
+
+        public void ResponseReceived(Game game, IEnumerable<Card> response)
         {
             var player = game.GetActivePlayer();
 
-            if (response == ActionResponse.Yes)
+            var cardList = response.ToList();
+
+            if (cardList.Count == 1)
             {
-                player.Hand.Remove(Card.Copper);
-                game.Supply.AddToTrash(Card.Copper);
+                var instance = CardFactory.Create(cardList[0]);
+
+                if (Filter.Apply(instance))
+                {
+                    player.Hand.Remove(instance.Name);
+                    game.Supply.AddToTrash(instance.Name);
+                    player.PlayStatus = PlayStatus.ActionPhase;
+                    Resolved = true;
+                }
+
             }
-
-            player.PlayStatus = PriorStatus;
-            Resolved = true;
         }
-
     }
 }

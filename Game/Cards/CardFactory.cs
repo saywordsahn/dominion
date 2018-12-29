@@ -65,10 +65,13 @@ namespace DominionWeb.Game.Cards
             { Card.Beggar, () => new Beggar() },
             { Card.Spoils, () => new Spoils() }, 
             { Card.BanditCamp, () => new BanditCamp() }, 
+            { Card.JunkDealer, () => new JunkDealer() },
             
             //empires
             { Card.Sacrifice, () => new Sacrifice() },
             { Card.Plunder, () => new Plunder() },
+            { Card.Patrician, () => new Patrician() },
+            { Card.Emporium, () => new Emporium() },
             
             //renaissance
             { Card.Ducat, () => new Ducat() },

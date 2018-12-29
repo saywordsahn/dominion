@@ -15,7 +15,7 @@ namespace DominionWeb.Game.Supply
 
         
         //TODO: work victory card list into the builder
-        private Pile Create(Card card)
+        private IPile Create(Card card)
         {
             
             var victorySupplyAmount = _numberOfPlayers == 2 ? 8 : 12;
@@ -126,9 +126,9 @@ namespace DominionWeb.Game.Supply
         }
         
 
-        public IEnumerable<Pile> Create(IEnumerable<Card> cards)
+        public IEnumerable<IPile> Create(IEnumerable<Card> cards)
         {
-            return cards.Select(Create).ToList();
+            return cards.Select(Create).ToList();;
         }
     }
 }

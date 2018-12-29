@@ -55,6 +55,8 @@ namespace DominionWeb.Game.Cards.Base
                 game.Supply.Take(card);
                 player.Gain(card);
             }
+            
+            //TODO: Implement put card on deck
         }
     }
 }

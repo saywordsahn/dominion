@@ -41,17 +41,17 @@ export class SupplyComponent implements Supply {
 
   buy(pile: Pile): void {
     if (this.gameService.gainToHand) {
-      this.hubService.submitAction(this.gameService.gameId, PlayerAction.GainToHand, pile.cards[0])
+      this.hubService.submitAction(this.gameService.gameId, PlayerAction.GainToHand, pile.cards[pile.cards.length - 1])
     } else {
       if (pile.cards.length > 0) {
-        this.hubService.submitAction(this.gameService.gameId, PlayerAction.Buy, pile.cards[0]);
+        this.hubService.submitAction(this.gameService.gameId, PlayerAction.Buy, pile.cards[pile.cards.length - 1]);
       }
     }
   }
 
   rightClick(pile) {
     if (pile.cards.length > 0) {
-      this.cardDetailLoc = this.cardService.getImgLoc(pile.cards[0]);
+      this.cardDetailLoc = this.cardService.getImgLoc(pile.cards[pile.cards.length - 1]);
       console.log(this.cardDetailLoc);
       this.showCardDetail = true;
     }

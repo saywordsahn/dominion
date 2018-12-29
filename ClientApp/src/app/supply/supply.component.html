@@ -9,7 +9,7 @@
   </div>
   <div class="col">
       <div *ngFor="let pile of victorySupply">
-        <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[0]] }} ({{ pile.cards.length }})</button>
+        <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[pile.cards.length - 1]] }} ({{ pile.cards.length }})</button>
       </div>
   </div>
   <div class="col-sm-1">
@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-sm-2" *ngFor="let pile of kingdomSupply">
         <div class="mini-card-template">
-          <img oncontextmenu="return false;" (click)="buy(pile)" (contextmenu)="rightClick(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[0])" alt="image">
+          <img oncontextmenu="return false;" (click)="buy(pile)" (contextmenu)="rightClick(pile)" class="kingdomCard" [src]="cardService.getImgLoc(pile.cards[pile.cards.length - 1])" alt="image">
           <div class="card-counter">{{pile.cards.length}}</div>
         </div>
       </div>

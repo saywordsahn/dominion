@@ -182,7 +182,7 @@ namespace DominionWeb.Game
             }
             else if (action == PlayerAction.Buy)
             {                
-                if (Supply.Contains(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
+                if (Supply.CardIsVisible(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
                 {
                     player.Buy(card);
                     Supply.Take(card);

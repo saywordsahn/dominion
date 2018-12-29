@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace DominionWeb.Game.Supply
 {
-    public class Pile
+    public class Pile : IPile
     {
-        public readonly IList<Card> Cards;
+        public IList<Card> Cards { get; set; }
 
         public Pile()
         {

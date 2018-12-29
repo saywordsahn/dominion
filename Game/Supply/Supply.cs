@@ -6,12 +6,12 @@ namespace DominionWeb.Game.Supply
 {
     public class Supply : ISupply
     {
-        public IEnumerable<Pile> TreasureSupply { get; }
-        public IEnumerable<Pile> VictorySupply { get; }
-        public IEnumerable<Pile> KingdomSupply { get; }
+        public IEnumerable<IPile> TreasureSupply { get; }
+        public IEnumerable<IPile> VictorySupply { get; }
+        public IEnumerable<IPile> KingdomSupply { get; }
         public ICollection<Card> Trash { get; }
                 
-        private IEnumerable<Pile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
+        private IEnumerable<IPile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
         
         private readonly IDictionary<Card, SupplyType> _supplyTypeMap = new Dictionary<Card, SupplyType>();
 
@@ -22,9 +22,9 @@ namespace DominionWeb.Game.Supply
         }
         
         public Supply(
-            IEnumerable<Pile> treasureSupply,
-            IEnumerable<Pile> victorySupply,
-            IEnumerable<Pile> kingdomSupply
+            IEnumerable<IPile> treasureSupply,
+            IEnumerable<IPile> victorySupply,
+            IEnumerable<IPile> kingdomSupply
         )
         {
             TreasureSupply = treasureSupply;
@@ -36,11 +36,35 @@ namespace DominionWeb.Game.Supply
 
         private void MapSupplyType()
         {
+            
+//            TreasureSupply
+//                .Where(pile => pile.Cards.Count > 0)
+//                .Select(x => x.Cards.Distinct())
+//                .Aggregate((x, y) => x.Concat(y))
+//                .ToList()
+//                .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Treasure));
+//            
+//            VictorySupply
+//                .Where(pile => pile.Cards.Count > 0)
+//                .Select(x => x.Cards.Distinct())
+//                .Aggregate((x, y) => x.Concat(y))
+//                .ToList()
+//                .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Victory));
+//            
+//            KingdomSupply
+//                .Where(pile => pile.Cards.Count > 0)
+//                .Select(pile => pile.Cards.Distinct())
+//                .Aggregate((x, y) => x.Concat(y))
+//                .ToList()
+//                .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Kingdom));
+            
             foreach (var pile in TreasureSupply)
             {
                 if (pile.Cards.Count > 0)
                 {
-                    _supplyTypeMap.Add(pile.Cards[0], SupplyType.Treasure);
+                    pile.Cards
+                        .Distinct().ToList()
+                        .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Treasure));
                 }
             }
             
@@ -48,7 +72,9 @@ namespace DominionWeb.Game.Supply
             {
                 if (pile.Cards.Count > 0)
                 {
-                    _supplyTypeMap.Add(pile.Cards[0], SupplyType.Victory);
+                    pile.Cards
+                        .Distinct().ToList()
+                        .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Victory));
                 }
             }
             
@@ -56,11 +82,15 @@ namespace DominionWeb.Game.Supply
             {
                 if (pile.Cards.Count > 0)
                 {
-                    _supplyTypeMap.Add(pile.Cards[0], SupplyType.Kingdom);
+                    
+                    pile.Cards
+                        .Distinct().ToList()
+                        .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Kingdom));
                 }
             }
         }
 
+        //TODO: needs to be modified
         public bool Contains(Card card)
         {
             var cards = TreasureSupply.Select(x => x.Cards)
@@ -69,6 +99,19 @@ namespace DominionWeb.Game.Supply
 
             return cards.Select(x => x.FirstOrDefault())
                 .Contains(card);
+        }
+
+        public bool CardIsVisible(Card card)
+        {
+//            var cards = TreasureSupply.Select(x => x.Cards.Last())
+//                .Concat(VictorySupply.Select(x => x.Cards.Last()))
+//                .Concat(KingdomSupply.Select(x => x.Cards.Last()));
+
+            var cards = TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply)
+                .Where(pile => pile.Cards.Count > 0)
+                .Select(pile => pile.Cards.Last());
+
+            return cards.Contains(card);
         }
         
         public bool Contains(Card card, int numberOfCards)
@@ -133,13 +176,13 @@ namespace DominionWeb.Game.Supply
             }         
         }
 
-        private static Card Take(IEnumerable<Pile> supply, Card card)
+        private static Card Take(IEnumerable<IPile> supply, Card card)
         {
             foreach (var pile in supply)
             {
                 if (pile.Cards.Count > 0)
                 {
-                    if (pile.Cards[0] == card)
+                    if (pile.Cards[pile.Cards.Count - 1] == card)
                     {
                         pile.Cards.RemoveAt(pile.Cards.Count - 1);
                         return card;

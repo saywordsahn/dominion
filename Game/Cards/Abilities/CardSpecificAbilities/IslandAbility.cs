@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Player;
 
@@ -10,7 +11,7 @@ namespace DominionWeb.Game.Cards.Abilities.CardSpecificAbilities
         public bool Resolved { get; set; }
 
         public void Resolve(Game game, IPlayer player)
-            => new SelectCardFromHand("Select a card to place on your island mat.")
+            => new SelectCardFromHand(new NoFilter(), "Select a card to place on your island mat.")
                 .Resolve(game, player);
 
 

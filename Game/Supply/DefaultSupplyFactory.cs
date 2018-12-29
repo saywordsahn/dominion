@@ -23,7 +23,7 @@ namespace DominionWeb.Game.Supply
             var kSupply = pileFactory.Create(new List<Card>
             {
                 Card.Ducat,
-                Card.Moat,
+                Card.JunkDealer,
                 Card.Village,
                 Card.Remodel,
                 Card.Cache,
@@ -32,7 +32,7 @@ namespace DominionWeb.Game.Supply
                 Card.Bandit,
                 Card.Lurker,
                 Card.ThroneRoom,
-                Card.Beggar
+                Card.PatricianEmporium
                 
             });
 

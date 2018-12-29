@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
-using DominionWeb.Game.Cards.Filters;
+using DominionWeb.Game.Cards.Abilities.CardSpecificAbilities;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Empires
 {
-    
-    public class JunkDealer : ICard, IAction, IRulesHolder
+    public class Emporium : ICard, IAction, IRulesHolder, IOnGainAbilityHolder
     {
-        public Card Name { get; } = Card.JunkDealer;
+        public Card Name { get; } = Card.Emporium;
         public int Cost { get; } = 5;
         public CardType CardType { get; } = CardType.Action;
         public void Resolve(Game game)
@@ -20,12 +19,13 @@ namespace DominionWeb.Game.Cards.DarkAges
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
             return new List<IRule>
-            {        
-                new TrashFromHand(new NoFilter()),
+            {
                 new PlusMoney(1),
                 new PlusActions(1),
                 new PlusCards(1)
             };
         }
+
+        public IAbility OnGainAbility { get; set; } = new EmporiumOnGainAbility();
     }
 }
