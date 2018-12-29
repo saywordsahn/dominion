@@ -76,9 +76,4 @@ export class HomeComponent {
       this.user = this.userService.getUser();
     }
 
-    //TODO: make this admin functionality
-    gainToHandChanged() {
-      this.gameService.gainToHand = this.gainToHand;
-    }
-
 }

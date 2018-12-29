@@ -3,8 +3,9 @@ export enum PlayerAction {
   Buy,
   EndTurn,
   EndActionPhase,
-  React,
-  TakeAttackEffect,
   PlayAllTreasure,
-  GainToHand
+  Trash,
+  PlayCoffer,
+  PlayAllCoffers,
+  PlayVillager
 }

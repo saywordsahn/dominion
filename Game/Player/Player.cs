@@ -34,7 +34,8 @@ namespace DominionWeb.Game.Player
         public Stack<PlayedCard> PlayStack { get; set; }
         public IEnumerable<IReaction> RevealedReactions { get; set; }
         public int Coffers { get; set; }
-        
+        public int Villagers { get; set; }
+        public bool HasBoughtThisTurn { get; set; }
         public Stack<IRule> RuleStack { get; set; }
         public List<IRule> Rules { get; set; }
         public List<Card> PlayedReactions { get; set; }
@@ -58,6 +59,7 @@ namespace DominionWeb.Game.Player
             NumberOfActions = 0;
             VictoryTokens = 0;
             Coffers = 0;
+            Villagers = 0;
             GameLog = new List<string>();
 
             PlayedReactions = new List<Card>();
@@ -173,14 +175,31 @@ namespace DominionWeb.Game.Player
                 
                 if (instance is ITreasure t)
                 {
-                    RunTriggeredAbilities(PlayerAction.Play, card);
-                    Hand.Remove(card);
-                    PlayedCards.Add(new PlayedCard(instance));
-                    MoneyPlayed += t.Value;
+                    Play(instance);
+//                    RunTriggeredAbilities(PlayerAction.Play, card);
+//                    Hand.Remove(card);
+//                    PlayedCards.Add(new PlayedCard(instance));
+//                    MoneyPlayed += t.Value;
                 }
             }
         }
 
+        public void PlayCoffers(int amount)
+        {
+            if (Coffers < amount) return;
+
+            MoneyPlayed += amount;
+            Coffers -= amount;
+        }
+
+        public void PlayVillagers(int amount)
+        {
+            if (Villagers < amount) return;
+
+            NumberOfActions += amount;
+            Villagers -= amount;
+        }
+        
         public ICard GetLastPlayedCard()
         {
             return PlayedCards[PlayedCards.Count - 1].Card;
@@ -193,6 +212,8 @@ namespace DominionWeb.Game.Player
             var cardProperties = CardFactory.Create(card);
 
             if (cardProperties.Cost > MoneyPlayed) throw new InvalidOperationException("Cannot purchase card: not enough money.");
+
+            if (!HasBoughtThisTurn) HasBoughtThisTurn = true;
             
             Gain(card);
             MoneyPlayed -= cardProperties.Cost;
@@ -315,6 +336,7 @@ namespace DominionWeb.Game.Player
             Hand = new List<Card>();
             Draw(5);
             PlayStatus = PlayStatus.WaitForTurn;
+            HasBoughtThisTurn = false;
         }
 
         public void EndActionPhase()
@@ -398,7 +420,6 @@ namespace DominionWeb.Game.Player
         {
             return Hand.Select(x => CardFactory.Create(x))
                 .Any(x => x is IAttackReaction);
-
         }
     }
 

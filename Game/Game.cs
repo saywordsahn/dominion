@@ -142,7 +142,7 @@ namespace DominionWeb.Game
                 CheckPlayStack(activePlayer);
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase &&
-                     instance is IRulesHolder rh)
+                     instance is IRulesHolder rh && player.NumberOfActions > 0)
             {
                 player.Play(instance);
                 foreach (var rule in rh.GetRules(this, player))
@@ -158,7 +158,8 @@ namespace DominionWeb.Game
                     player.PlayStatus = player.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
                 }
             }
-            else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2)
+            else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2
+                     && player.NumberOfActions > 0)
             {
                 player.Play(instance);
                 a2.Resolve(this);
@@ -222,6 +223,19 @@ namespace DominionWeb.Game
             {
                 player.EndActionPhase();
             }
+            else if (playerAction == PlayerAction.PlayCoffer && player.PlayStatus == PlayStatus.BuyPhase && !player.HasBoughtThisTurn)
+            {
+                player.PlayCoffers(1);
+            }
+            else if (playerAction == PlayerAction.PlayAllCoffers && player.PlayStatus == PlayStatus.BuyPhase && !player.HasBoughtThisTurn)
+            {
+                player.PlayCoffers(player.Coffers);
+            }
+            else if (playerAction == PlayerAction.PlayVillager && player.PlayStatus == PlayStatus.ActionPhase)
+            {
+                player.PlayVillagers(1);
+            }
+           
         }
         
         private void OnGameEnd()

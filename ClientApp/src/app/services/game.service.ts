@@ -6,10 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class GameService {
   public gameId: number;
-  public gainToHand: boolean;
+
 
   constructor() {
-    this.gainToHand = false;
   }
 
 }

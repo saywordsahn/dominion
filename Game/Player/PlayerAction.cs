@@ -6,11 +6,11 @@ namespace DominionWeb.Game.Player
         Buy,
         EndTurn,
         EndActionPhase,
-        React,
-        TakeAttackEffect,
         PlayAllTreasure,
-        GainToHand,
         Trash,
-        Attacked
+        PlayCoffer,
+        PlayAllCoffers,
+        PlayVillager
     }
 }
+

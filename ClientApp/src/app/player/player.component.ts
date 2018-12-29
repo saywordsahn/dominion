@@ -37,6 +37,9 @@ export class PlayerComponent implements Player {
   gameLog: string[];
   victoryPoints: number;
 
+  coffers: number;
+  villagers: number;
+
   // private selectMultipleCardsActionRequest: SelectMultipleCardsActionRequest;
 
 
@@ -82,6 +85,9 @@ export class PlayerComponent implements Player {
     this.actionRequest = player.actionRequest;
     this.logText = player.gameLog.join('\n');
     this.victoryPoints = player.victoryPoints;
+
+    this.coffers = player.coffers;
+    this.villagers = player.villagers;
 
     // if (player.actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards) {
     //   this.selectMultipleCardsActionRequest = new SelectMultipleCardsActionRequest();
@@ -143,6 +149,18 @@ export class PlayerComponent implements Player {
   //TODO: Remove PlayAllTreasures dialog when no treasures are present
   playAllTreasure() {
     this.hubService.submitNonCardAction(this.gameService.gameId, PlayerAction.PlayAllTreasure);
+  }
+
+  playCoffer() {
+    this.hubService.submitNonCardAction(this.gameService.gameId, PlayerAction.PlayCoffer);
+  }
+
+  playAllCoffers() {
+    this.hubService.submitNonCardAction(this.gameService.gameId, PlayerAction.PlayAllCoffers);
+  }
+
+  playVillager() {
+    this.hubService.submitNonCardAction(this.gameService.gameId, PlayerAction.PlayVillager);
   }
 
   submitAction(obj) {

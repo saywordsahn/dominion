@@ -40,13 +40,9 @@ export class SupplyComponent implements Supply {
   }
 
   buy(pile: Pile): void {
-    if (this.gameService.gainToHand) {
-      this.hubService.submitAction(this.gameService.gameId, PlayerAction.GainToHand, pile.cards[pile.cards.length - 1])
-    } else {
       if (pile.cards.length > 0) {
         this.hubService.submitAction(this.gameService.gameId, PlayerAction.Buy, pile.cards[pile.cards.length - 1]);
       }
-    }
   }
 
   rightClick(pile) {

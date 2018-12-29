@@ -75,7 +75,8 @@ namespace DominionWeb.Game.Cards
             
             //renaissance
             { Card.Ducat, () => new Ducat() },
-            { Card.Priest, () => new Priest() }
+            { Card.Priest, () => new Priest() },
+            { Card.ActingTroupe, () => new ActingTroupe() }
         };
 
         public static ICard Create(Card card)

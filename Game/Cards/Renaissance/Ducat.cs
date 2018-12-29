@@ -19,8 +19,8 @@ namespace DominionWeb.Game.Cards.Renaissance
 
         public void ResolveTreasureAbilities(IPlayer player)
         {
-            player.NumberOfBuys++;
-            player.Coffers++;
+            player.RuleStack.Push(new PlusBuys(1));
+            player.RuleStack.Push(new PlusCoffers(1));
         }
 
     }

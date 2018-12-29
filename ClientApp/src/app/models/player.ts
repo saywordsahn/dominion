@@ -17,4 +17,6 @@ export class Player {
   actionRequest: any;
   gameLog: string[];
   victoryPoints: number;
+  coffers: number;
+  villagers: number;
 }

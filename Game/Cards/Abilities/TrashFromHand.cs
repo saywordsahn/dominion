@@ -23,6 +23,7 @@ namespace DominionWeb.Game.Cards.Abilities
                 .Resolve(game, player);
 
 
+        //TODO: need to include reactions to trashing
         public void ResponseReceived(Game game, IEnumerable<Card> response)
         {
             var player = game.GetActivePlayer();

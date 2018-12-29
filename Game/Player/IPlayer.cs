@@ -46,6 +46,7 @@ namespace DominionWeb.Game.Player
         void PlayWithoutCost(ICard instance);
         Stack<PlayedCard> PlayStack { get; set; }
         int Coffers { get; set; }
+        int Villagers { get; set; }
         bool HasCardInHand(Card card);
         bool IsRespondingToAbility();
         bool HasAttackReactionInHand();
@@ -57,5 +58,9 @@ namespace DominionWeb.Game.Player
         List<Card> Island { get; set; }
         Card TopCard();
         bool HasDrawableCards();
+        bool HasBoughtThisTurn { get; set; }
+        void PlayCoffers(int amount);
+        void PlayVillagers(int amount);
+
     }
 }

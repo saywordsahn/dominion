@@ -1,8 +1,16 @@
 <d-play-area [playedCards]="playedCards"></d-play-area>
 <div class="row player-component">
   <div class="col-sm-1">
-    Discard
-    {{ discardPile.length }}
+    <div>
+      Discard: {{ discardPile.length }}
+    </div>
+    <div *ngIf="coffers > 0">
+      Coffers: {{ coffers }}
+    </div>
+    <div *ngIf="villagers > 0">
+      Villagers: {{ villagers }}
+    </div>
+
   </div>
   <div class="col-sm-1">
     Deck
@@ -27,6 +35,9 @@
     <div *ngIf="playStatus == PlayStatus.ActionPhase">
       {{numberOfActions}} ACTIONS | {{numberOfBuys}} BUYS | ${{ moneyPlayed }}
       You may play action cards.
+      <div *ngIf="villagers > 0">
+        <button (click)="playVillager()">Play Villager</button>
+      </div>
       <button (click)="endActionPhase()">End Action Phase</button>
     </div>
     <div *ngIf="playStatus == PlayStatus.ActionRequestResponder">
@@ -52,6 +63,10 @@
       {{numberOfActions}} ACTIONS | {{numberOfBuys}} BUYS | ${{ moneyPlayed }}
       You may buy cards.
       <button (click)="playAllTreasure()">Play All Treasures</button>
+      <div *ngIf="coffers > 0">
+        <button (click)="playCoffer()">Play Coffer</button>
+        <button (click)="playAllCoffers()">Play All Coffers</button>
+      </div>
       <button (click)="endTurn()">End Turn</button>
     </div>
   </div>
