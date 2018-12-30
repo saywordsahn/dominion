@@ -32,8 +32,9 @@ namespace DominionWeb.Game.Cards.Abilities
 
             if (response == ActionResponse.Yes)
             {
-                player.Hand.Remove(Card.Copper);
-                game.Supply.AddToTrash(Card.Copper);
+//                player.Hand.Remove(Card.Copper);
+//                game.Supply.AddToTrash(Card.Copper);
+                player.TrashFromHand(game.Supply, Card.Copper);
             }
 
             player.PlayStatus = PriorStatus;

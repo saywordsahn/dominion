@@ -33,6 +33,10 @@ namespace DominionWeb.Game.Cards.Renaissance
             player.RuleStack.Push(new PlusCoffers(1));
         }
 
-        public IAbility OnTrashAbility { get; set; }
+        public void ResolveOnTrashAbilities(IPlayer player)
+        {
+            player.RuleStack.Push(new PlusVillagers(1));
+            player.RuleStack.Push(new PlusCoffers(1));
+        }
     }
 }

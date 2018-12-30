@@ -126,9 +126,16 @@ namespace DominionWeb.Game.Player
         public void TrashFromHand(ISupply supply, Card card)
         {
             var cardInHand = Hand.First(x => x == card);
+            var instance = CardFactory.Create(cardInHand);
             Hand.Remove(cardInHand);
-            GameLog.Add(PlayerName.Substring(0, 1) + " trashes a " + card.ToString());
-            supply.AddToTrash(card);            
+            GameLog.Add(PlayerName.Substring(0, 1) + " trashes a " + card);
+            supply.AddToTrash(card);
+
+            if (instance is IOnTrashAbilityHolder abilityHolder)
+            {
+                abilityHolder.ResolveOnTrashAbilities(this);
+            }
+            
             RunTriggeredAbilities(PlayerAction.Trash, card);
         }
 

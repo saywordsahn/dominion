@@ -36,10 +36,13 @@ namespace DominionWeb.Game.Cards.Abilities
 
                 if (Filter.Apply(instance))
                 {
-                    player.Hand.Remove(instance.Name);
-                    game.Supply.AddToTrash(instance.Name);
+                    //player.Hand.Remove(instance.Name);
+                    //game.Supply.AddToTrash(instance.Name);
+                    player.TrashFromHand(game.Supply, instance.Name);
                     player.PlayStatus = PlayStatus.ActionPhase;
                     Resolved = true;
+                    
+                    
                 }
 
             }
