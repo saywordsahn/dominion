@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Seaside
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class PearlDiver : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
-		public int Cost { get; } = 6;
+		public Card Name { get; } = Card.PearlDiver;
+		public int Cost { get; } = 2;
 		public CardType CardType { get; } = CardType.Action;
 
 		public void Resolve(Game game)

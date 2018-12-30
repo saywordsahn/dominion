@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Prosperity
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class Expand : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
-		public int Cost { get; } = 6;
+		public Card Name { get; } = Card.Expand;
+		public int Cost { get; } = 7;
 		public CardType CardType { get; } = CardType.Action;
 
 		public void Resolve(Game game)

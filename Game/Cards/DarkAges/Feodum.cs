@@ -4,21 +4,16 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.DarkAges
 {
-	public class DeathCart : ICard, IAction, IRulesHolder
+	public class Feodum : ICard
 	{
-		public Card Name { get; } = Card.DeathCart;
+		public Card Name { get; } = Card.Feodum;
 		public int Cost { get; } = 4;
-		public CardType CardType { get; } = CardType.Action;
+		public CardType CardType { get; }
 
 		public void Resolve(Game game)
 		{
 			throw new System.NotImplementedException();
 		}
 
-
-		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
-		{
-			throw new System.NotImplementedException();
-		}
 	}
 }

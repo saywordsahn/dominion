@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Hinterlands
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class Stables : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
-		public int Cost { get; } = 6;
+		public Card Name { get; } = Card.Stables;
+		public int Cost { get; } = 5;
 		public CardType CardType { get; } = CardType.Action;
 
 		public void Resolve(Game game)

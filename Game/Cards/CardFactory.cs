@@ -78,7 +78,8 @@ namespace DominionWeb.Game.Cards
             { Card.Priest, () => new Priest() },
             { Card.ActingTroupe, () => new ActingTroupe() },
             { Card.Lackeys, () => new Lackeys()},
-            { Card.SilkMerchant, () => new SilkMerchant()}
+            { Card.SilkMerchant, () => new SilkMerchant()},
+            { Card.FlagBearer, () => new FlagBearer() }
         };
 
         public static ICard Create(Card card)

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Guilds
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class CandlestickMaker : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
-		public int Cost { get; } = 6;
+		public Card Name { get; } = Card.CandlestickMaker;
+		public int Cost { get; } = 2;
 		public CardType CardType { get; } = CardType.Action;
 
 		public void Resolve(Game game)

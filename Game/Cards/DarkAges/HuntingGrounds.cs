@@ -4,9 +4,9 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.DarkAges
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class HuntingGrounds : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
+		public Card Name { get; } = Card.HuntingGrounds;
 		public int Cost { get; } = 6;
 		public CardType CardType { get; } = CardType.Action;
 

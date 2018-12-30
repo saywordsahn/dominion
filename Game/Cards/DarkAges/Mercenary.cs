@@ -4,10 +4,10 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.DarkAges
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class Mercenary : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
-		public int Cost { get; } = 6;
+		public Card Name { get; } = Card.Mercenary;
+		public int Cost { get; } = 0;
 		public CardType CardType { get; } = CardType.Action;
 
 		public void Resolve(Game game)

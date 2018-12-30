@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Alchemy
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class Possession : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
+		public Card Name { get; } = Card.Possession;
 		public int Cost { get; } = 6;
 		public CardType CardType { get; } = CardType.Action;
 

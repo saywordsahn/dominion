@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.DarkAges
+namespace DominionWeb.Game.Cards.Adventures
 {
-	public class Altar : ICard, IAction, IRulesHolder
+	public class Hireling : ICard, IAction, IRulesHolder
 	{
-		public Card Name { get; } = Card.Altar;
+		public Card Name { get; } = Card.Hireling;
 		public int Cost { get; } = 6;
 		public CardType CardType { get; } = CardType.Action;
 
