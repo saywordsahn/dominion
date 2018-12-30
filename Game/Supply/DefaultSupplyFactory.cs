@@ -24,8 +24,8 @@ namespace DominionWeb.Game.Supply
             {
                 Card.Ducat,
                 Card.JunkDealer,
-                Card.Village,
-                Card.Remodel,
+                Card.SilkMerchant,
+                Card.Lackeys,
                 Card.Cache,
                 Card.Witch,
                 Card.Island,

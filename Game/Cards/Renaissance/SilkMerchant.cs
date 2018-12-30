@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
-using DominionWeb.Game.Cards.Abilities.CardSpecificAbilities;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.Empires
+namespace DominionWeb.Game.Cards.Renaissance
 {
-    public class Emporium : ICard, IAction, IRulesHolder, IOnGainAbilityHolder
+    public class SilkMerchant : ICard, IAction, IRulesHolder, IOnGainAbilityHolder, IOnTrashAbilityHolder
     {
-        public Card Name { get; } = Card.Emporium;
-        public int Cost { get; } = 5;
+        public Card Name { get; } = Card.SilkMerchant;
+        public int Cost { get; } = 4;
         public CardType CardType { get; } = CardType.Action;
         public void Resolve(Game game)
         {
@@ -20,17 +20,19 @@ namespace DominionWeb.Game.Cards.Empires
         {
             return new List<IRule>
             {
-                new PlusMoney(1),
-                new PlusActions(1),
-                new PlusCards(1)
+                new PlusBuys(1),
+                new PlusCards(2)
             };
         }
 
-        public IAbility OnGainAbility { get; set; } = new EmporiumOnGainAbility();
+        public IAbility OnGainAbility { get; set; }
         
         public void ResolveOnGainAbilities(IPlayer player)
         {
-            player.RuleStack.Push(new EmporiumOnGainAbility());
+            player.RuleStack.Push(new PlusVillagers(1));
+            player.RuleStack.Push(new PlusCoffers(1));
         }
+
+        public IAbility OnTrashAbility { get; set; }
     }
 }

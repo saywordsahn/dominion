@@ -232,7 +232,7 @@ namespace DominionWeb.Game.Player
             {
                 if (instance is IOnGainAbilityHolder ah)
                 {
-                    RuleStack.Push(ah.OnGainAbility);
+                    ah.ResolveOnGainAbilities(this);
                 }
                 
                 DiscardPile.Add(card); 
@@ -261,7 +261,7 @@ namespace DominionWeb.Game.Player
            
             if (instance is IOnGainAbilityHolder ah)
             {
-                RuleStack.Push(ah.OnGainAbility);
+                ah.ResolveOnGainAbilities(this);
                 //PlayedAbilities.Add(ah.OnGainAbility);
                 //OnGainAbilities.Add(ah.OnGainAbility);
             }
