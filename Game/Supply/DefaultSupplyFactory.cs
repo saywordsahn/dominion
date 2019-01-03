@@ -23,14 +23,14 @@ namespace DominionWeb.Game.Supply
             var kSupply = pileFactory.Create(new List<Card>
             {
                 Card.Ducat,
-                Card.JunkDealer,
+                Card.FlagBearer,
                 Card.SilkMerchant,
                 Card.Lackeys,
                 Card.Cache,
                 Card.Witch,
                 Card.Island,
                 Card.ActingTroupe,
-                Card.Lurker,
+                Card.Hideout,
                 Card.ThroneRoom,
                 Card.PatricianEmporium
                 
@@ -38,15 +38,15 @@ namespace DominionWeb.Game.Supply
 
             var workingSupply = pileFactory.Create(new List<Card>
             {
-                Card.Sacrifice,
+                Card.Lurker,
                 Card.Plunder,
-                Card.Merchant,
-                Card.Remodel,
-                Card.Lighthouse,
+                Card.PatricianEmporium,
+                Card.Island,
+                Card.Monument,
                 Card.Witch,
                 Card.ThroneRoom,
                 Card.NomadCamp,
-                Card.Market,
+                Card.Ducat,
                 Card.BanditCamp
             });
             

@@ -9,7 +9,8 @@ namespace DominionWeb.Controllers
         [HttpGet("[action]")]
         public int[] CardCosts()
         {
-            return CardFactory.GetCardCostArray();
+            //return CardFactory.GetCardCostArray();
+            return new int[] {1, 2, 3};
         }
 
     }

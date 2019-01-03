@@ -92,6 +92,8 @@ namespace DominionWeb.Game
                 if (player != GetActivePlayer())
                 {
                     player = GetActivePlayer();
+
+                    if (player == null) return;
                     continue;
                 }
 
@@ -120,6 +122,7 @@ namespace DominionWeb.Game
                 if (player != GetActivePlayer())
                 {
                     player = GetActivePlayer();
+                    if (player == null) return;
                     continue;
                 }
                 
@@ -204,6 +207,7 @@ namespace DominionWeb.Game
             if (playerAction == PlayerAction.EndTurn)
             {
                 player.EndTurn();
+                CheckPlayStack(player);
                 
                 if (VictoryCondition.IsMet(Supply))
                 {
@@ -365,7 +369,7 @@ namespace DominionWeb.Game
 
         public IPlayer GetActivePlayer()
         {
-            return Players.Single(x =>
+            return Players.SingleOrDefault(x =>
                 x.PlayStatus == PlayStatus.ActionPhase || x.PlayStatus == PlayStatus.BuyPhase
                 || x.PlayStatus == PlayStatus.ActionRequestResponder
                 || x.PlayStatus == PlayStatus.AttackResponder);

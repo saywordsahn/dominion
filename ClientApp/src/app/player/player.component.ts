@@ -12,6 +12,7 @@ import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
 import {SelectItem} from "primeng/api";
 import {PlayedCard} from "../models/playedCard";
+import {Artifact, IArtifact} from "../models/artifact";
 
 //
 // class SelectMultipleCardsActionRequest {
@@ -39,6 +40,8 @@ export class PlayerComponent implements Player {
 
   coffers: number;
   villagers: number;
+  artifacts: IArtifact[];
+  displayArtifacts: string;
 
   // private selectMultipleCardsActionRequest: SelectMultipleCardsActionRequest;
 
@@ -65,6 +68,7 @@ export class PlayerComponent implements Player {
     this.hand = [];
     this.playedCards = [];
     this.gameLog = [];
+    this.artifacts = [];
   }
 
   public Card = Card;
@@ -74,6 +78,7 @@ export class PlayerComponent implements Player {
   }
 
   updatePlayer(player: Player) : void {
+    console.log('updatePlayer', player);
     this.deck = player.deck;
     this.discardPile = player.discardPile;
     this.hand = player.hand;
@@ -88,6 +93,15 @@ export class PlayerComponent implements Player {
 
     this.coffers = player.coffers;
     this.villagers = player.villagers;
+
+
+    this.artifacts = player.artifacts;
+    this.displayArtifacts = '';
+    let a = [];
+    player.artifacts.forEach((x) => {
+      a.push(Artifact[x.artifact]);
+    });
+    this.displayArtifacts = a.join(', ');
 
     // if (player.actionRequest.actionRequestType == ActionRequestType.SelectMultipleCards) {
     //   this.selectMultipleCardsActionRequest = new SelectMultipleCardsActionRequest();
@@ -125,8 +139,8 @@ export class PlayerComponent implements Player {
         console.log(option);
         console.log(this.selectOptions);
       }
-      console.log('player updated:', this);
     }
+    console.log('player updated:', this);
 
   }
 

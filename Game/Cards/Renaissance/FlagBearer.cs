@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.GameComponents.Artifacts;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Renaissance
@@ -18,18 +19,22 @@ namespace DominionWeb.Game.Cards.Renaissance
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
-            throw new System.NotImplementedException();
+            return new List<IRule>
+            {
+                new PlusMoney(2)
+            };
         }
 
         public IAbility OnGainAbility { get; set; }
+        
         public void ResolveOnGainAbilities(IPlayer player)
         {
-            throw new System.NotImplementedException();
+            player.RuleStack.Push(new GainArtifact(Artifact.Flag));
         }
 
         public void ResolveOnTrashAbilities(IPlayer player)
         {
-            throw new System.NotImplementedException();
+            player.RuleStack.Push(new GainArtifact(Artifact.Flag));
         }
     }
 }

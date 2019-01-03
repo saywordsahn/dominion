@@ -8,6 +8,7 @@ using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Utils;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.GameComponents.Artifacts;
 using DominionWeb.Game.Supply;
 using TriggeredAbilityDurationType = DominionWeb.Game.Cards.Abilities.TriggeredAbilities.TriggeredAbilityDurationType;
 
@@ -17,9 +18,9 @@ namespace DominionWeb.Game.Player
     {        
         public int PlayerId { get; }
         public string PlayerName { get; }
-        public List<Card> Hand { get; private set; }
-        public List<Card> Deck { get; private set; }
-        public List<Card> DiscardPile { get; private set; }
+        public List<Card> Hand { get; set; }
+        public List<Card> Deck { get; set; }
+        public List<Card> DiscardPile { get; set; }
         public List<PlayedCard> PlayedCards { get; private set; }
         public PlayStatus PlayStatus { get; set; }
         public int MoneyPlayed { get; set; }
@@ -40,6 +41,9 @@ namespace DominionWeb.Game.Player
         public List<IRule> Rules { get; set; }
         public List<Card> PlayedReactions { get; set; }
         public List<Card> Island { get; set; }
+        public List<IAbility> OnHandDrawAbilities { get; set; }
+        public List<IArtifact> Artifacts { get; set; }
+
 
         private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand).Concat(Island);
          
@@ -66,6 +70,8 @@ namespace DominionWeb.Game.Player
             RuleStack = new Stack<IRule>();
             Rules = new List<IRule>();
             Island = new List<Card>();
+            Artifacts = new List<IArtifact>();
+            OnHandDrawAbilities = new List<IAbility>();
         }
 
         public void Play(Card card)
@@ -333,17 +339,7 @@ namespace DominionWeb.Game.Player
         
         public void EndTurn()
         {
-            bool CardIsResolved(PlayedCard x) => !(x.Card is IDuration d && d.Resolved == false);
-
-            DiscardPile.AddRange(PlayedCards.Where(CardIsResolved).Select(x => x.Card.Name));
-            PlayedCards.RemoveAll(CardIsResolved);
-
-            DiscardPile.AddRange(Hand);
-            TriggeredAbilities.Clear();
-            Hand = new List<Card>();
-            Draw(5);
-            PlayStatus = PlayStatus.WaitForTurn;
-            HasBoughtThisTurn = false;
+           RuleStack.Push(new EndTurn());
         }
 
         public void EndActionPhase()

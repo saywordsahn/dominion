@@ -38,11 +38,9 @@ namespace DominionWeb
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             
+
             services.AddDbContext<DominionContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DominionConnection")));
             services.AddTransient<DominionContext, DominionContext>();
@@ -130,6 +128,8 @@ namespace DominionWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            
+            
 
             
             app.UseMvc(routes =>
@@ -154,7 +154,7 @@ namespace DominionWeb
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-
+                //spa.UseProxyToSpaDevelopmentServer("https://localhost:4200");
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

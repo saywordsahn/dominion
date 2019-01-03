@@ -5,6 +5,7 @@ using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.GameComponents.Artifacts;
 using DominionWeb.Game.Supply;
 
 namespace DominionWeb.Game.Player
@@ -36,7 +37,7 @@ namespace DominionWeb.Game.Player
         List<Card> Deck { get; }
         List<Card> DiscardPile { get; }
         List<PlayedCard> PlayedCards { get; }
-        List<Card> Hand { get; }
+        List<Card> Hand { get; set; }
         List<ITriggeredAbility> TriggeredAbilities { get; }
         ICollection<string> GameLog { get; }
         IActionRequest ActionRequest { get; set; }
@@ -61,6 +62,9 @@ namespace DominionWeb.Game.Player
         bool HasBoughtThisTurn { get; set; }
         void PlayCoffers(int amount);
         void PlayVillagers(int amount);
+        
+        List<IArtifact> Artifacts { get; set; }
+        List<IAbility> OnHandDrawAbilities { get; set; }
 
     }
 }

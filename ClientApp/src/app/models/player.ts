@@ -3,6 +3,7 @@ import {PlayStatus} from './playStatus';
 import {PlayArea} from "./playArea";
 import {ActionRequest} from "./actionRequest";
 import {PlayedCard} from "./playedCard";
+import {IArtifact} from "./artifact";
 
 export class Player {
   playerId: number;
@@ -19,4 +20,5 @@ export class Player {
   victoryPoints: number;
   coffers: number;
   villagers: number;
+  artifacts: IArtifact[];
 }
