@@ -15,6 +15,7 @@ namespace DominionWeb.Game.Player
         void Play(ICard card);
         void Play(Card card);
         void Gain(Card card);
+        void Gain(ICard card);
         void Gain(IEnumerable<Card> cards);
         void GainToHand(Card card);
         void GainToHand(Card card, int amount);

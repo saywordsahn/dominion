@@ -255,6 +255,25 @@ namespace DominionWeb.Game.Player
                 DiscardPile.Add(card); 
             }            
         }
+
+        public void Gain(ICard card)
+        {
+            if (card is IOnGainOverride o)
+            {
+                o.OnGain(this, card.Name);
+            }
+            else
+            {
+                if (card is IOnGainAbilityHolder ah)
+                {
+                    ah.ResolveOnGainAbilities(this);
+                }
+                
+                DiscardPile.Add(card.Name); 
+            }            
+        }
+        
+        
         
         public void Gain(IEnumerable<Card> cards)
         {

@@ -9,6 +9,7 @@ namespace DominionWeb.Game.Supply
         IEnumerable<IPile> KingdomSupply { get; }
         IEnumerable<Card> GetDistinctCards();
         ICollection<Card> Trash { get; }
+        void Return(Card card);
         Card Take(Card card);
         Card Take(SupplyType supplyType, Card card);
         bool Contains(Card card);

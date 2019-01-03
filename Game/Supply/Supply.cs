@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards;
 
 namespace DominionWeb.Game.Supply
 {
@@ -122,6 +123,21 @@ namespace DominionWeb.Game.Supply
 
             return cards.Select(x => x.FirstOrDefault())
                 .Count(x => x == card) >= numberOfCards;
+        }
+
+        //TODO: cardpileMap needs to be injectable for black market card mappings
+        public void Return(Card card)
+        {
+            if (CardLists.CardPileMap.ContainsKey(card))
+            {
+                var pile = FullSupply.Single(x => x.PileCard == CardLists.CardPileMap[card]);
+                pile.Cards.Add(card);
+            }
+            else
+            {
+                var pile = FullSupply.Single(x => x.PileCard == card);
+                pile.Cards.Add(card);
+            }
         }
 
         public void AddToTrash(Card card)

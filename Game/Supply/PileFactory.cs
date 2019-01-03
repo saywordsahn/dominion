@@ -71,19 +71,19 @@ namespace DominionWeb.Game.Supply
                 
                 //EMPIRES
                 case Card.PatricianEmporium:
-                    return new SplitPile(Card.Patrician, Card.Emporium);
+                    return new SplitPile(Card.PatricianEmporium, Card.Patrician, Card.Emporium);
                 case Card.EncampmentPlunder:
-                    return new SplitPile(Card.Encampment, Card.Plunder);
+                    return new SplitPile(Card.EncampmentPlunder,Card.Encampment, Card.Plunder);
                 case Card.SettlersBustlingVillage:
-                    return new SplitPile(Card.Settlers, Card.BustlingVillage);
+                    return new SplitPile(Card.SettlersBustlingVillage,Card.Settlers, Card.BustlingVillage);
                 case Card.CatapultRocks:
-                    return new SplitPile(Card.Catapult, Card.Rocks);
+                    return new SplitPile(Card.CatapultRocks,Card.Catapult, Card.Rocks);
                 case Card.GladiatorFortune:
-                    return new SplitPile(Card.Gladiator, Card.Fortune);
+                    return new SplitPile(Card.GladiatorFortune,Card.Gladiator, Card.Fortune);
                 case Card.Castles:
                     if (_numberOfPlayers > 2)
                     {
-                        return new Pile(new List<Card>
+                        return new Pile(Card.Knights, new List<Card>
                         {
                             Card.KingsCastle,
                             Card.GrandCastle,
@@ -116,7 +116,7 @@ namespace DominionWeb.Game.Supply
                         
                 //PROMO
                 case Card.SaunaAvanto:
-                    return new SplitPile(Card.Sauna, Card.Avanto);
+                    return new SplitPile(Card.SaunaAvanto,Card.Sauna, Card.Avanto);
                 
                 
                 default:

@@ -10,7 +10,7 @@ namespace DominionWeb.Tests.SupplyTests
         [Fact]
         public void split_pile_tests()
         {
-            var splitPile = new SplitPile(Card.Patrician, Card.Emporium);
+            var splitPile = new SplitPile(Card.PatricianEmporium, Card.Patrician, Card.Emporium);
 
             var expected = new List<Card>
             {

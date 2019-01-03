@@ -52,7 +52,7 @@ namespace DominionWeb.Game.Cards.Base
                 CardSelected = cardList[0];
                 player.PlayWithoutCost(instance);
 
-                player.PlayStack.Push(new PlayedCard(CardFactory.Create(cardList[0]), true));
+                player.PlayStack.Push(new PlayedCard(CardFactory.Create(cardList[0], true), true));
                 player.PlayStack.Push(new PlayedCard(instance, false));
                 player.PlayStatus = PlayStatus.ActionPhase;
             }

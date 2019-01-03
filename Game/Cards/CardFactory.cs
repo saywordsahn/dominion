@@ -415,6 +415,17 @@ namespace DominionWeb.Game.Cards
         {
             return _dictionary[card]();
         }
+        
+        public static ICard Create(Card card, bool isThroned)
+        {
+            switch (card)
+            {
+                case Card.Experiment:
+                    return new Experiment(false, isThroned);
+                default:
+                    return _dictionary[card]();
+            }
+        }
 
         public static int[] GetCardCostArray()
         {

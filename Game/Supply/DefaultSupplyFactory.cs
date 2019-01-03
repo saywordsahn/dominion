@@ -25,7 +25,7 @@ namespace DominionWeb.Game.Supply
                 Card.Scholar,
                 Card.FlagBearer,
                 Card.SilkMerchant,
-                Card.Lackeys,
+                Card.Experiment,
                 Card.Cache,
                 Card.Witch,
                 Card.Island,

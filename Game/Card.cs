@@ -73,7 +73,7 @@
         OvergrownEstate, AbandonedMine, RuinedLibrary, RuinedMarket, RuinedVillage, Survivors,
         Cultist, Urchin, Mercenary, Marauder, Hermit, Madman, Vagrant, DameAnna, DameJosephine,
         DameMolly, DameNatalie, DameSylvia, SirBailey, SirDestry, SirMartin, SirMichael, SirVander,
-        VirtualRuins, VirtualKnight,
+        VirtualRuins, VirtualKnight, Knights,
         // Guilds Expansion
         Advisor, Baker, Butcher, CandlestickMaker, Doctor, Herald, Journeyman, Masterpiece, MerchantGuild, Plaza, StoneMason, Soothsayer, Taxman,
 
