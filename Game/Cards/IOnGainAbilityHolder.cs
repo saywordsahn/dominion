@@ -6,7 +6,6 @@ namespace DominionWeb.Game.Cards
 {
     public interface IOnGainAbilityHolder
     {
-        IAbility OnGainAbility { get; set; }
         void ResolveOnGainAbilities(IPlayer player);
     }
 }

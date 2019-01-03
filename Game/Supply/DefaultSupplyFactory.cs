@@ -29,7 +29,7 @@ namespace DominionWeb.Game.Supply
                 Card.Cache,
                 Card.Witch,
                 Card.Island,
-                Card.ActingTroupe,
+                Card.Spices,
                 Card.Hideout,
                 Card.ThroneRoom,
                 Card.PatricianEmporium

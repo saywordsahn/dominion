@@ -15,7 +15,6 @@ namespace DominionWeb.Game.Cards.Renaissance
         
         public PlayStatus PriorStatus { get; set; }
 
-        public IAbility OnGainAbility { get; set; } = new TrashCopperFromHand();
         public void ResolveOnGainAbilities(IPlayer player)
         {
             player.RuleStack.Push(new TrashCopperFromHand());

@@ -25,8 +25,6 @@ namespace DominionWeb.Game.Cards.Empires
                 new PlusCards(1)
             };
         }
-
-        public IAbility OnGainAbility { get; set; } = new EmporiumOnGainAbility();
         
         public void ResolveOnGainAbilities(IPlayer player)
         {

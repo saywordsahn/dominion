@@ -14,8 +14,6 @@ namespace DominionWeb.Game.Cards.Renaissance
         {
             return new List<IRule> {new PlusCards(2)};
         }
-
-        public IAbility OnGainAbility { get; set; } = new PlusVillagers(2);
         
         public void ResolveOnGainAbilities(IPlayer player)
         {

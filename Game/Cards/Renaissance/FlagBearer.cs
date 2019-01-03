@@ -24,8 +24,6 @@ namespace DominionWeb.Game.Cards.Renaissance
                 new PlusMoney(2)
             };
         }
-
-        public IAbility OnGainAbility { get; set; }
         
         public void ResolveOnGainAbilities(IPlayer player)
         {
