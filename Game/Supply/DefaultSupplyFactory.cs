@@ -22,7 +22,7 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = pileFactory.Create(new List<Card>
             {
-                Card.Ducat,
+                Card.Scholar,
                 Card.FlagBearer,
                 Card.SilkMerchant,
                 Card.Lackeys,

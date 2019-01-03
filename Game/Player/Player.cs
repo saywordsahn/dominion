@@ -174,6 +174,10 @@ namespace DominionWeb.Game.Player
                 {
                     vpCount += v.GetVictoryPointValue(this);
                 }
+                else if (instance is ICurse c)
+                {
+                    vpCount += c.GetVictoryPointValue(this);
+                }
             }
             
             return vpCount + VictoryTokens;

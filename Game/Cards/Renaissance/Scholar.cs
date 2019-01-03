@@ -7,8 +7,8 @@ namespace DominionWeb.Game.Cards.Renaissance
 	public class Scholar : ICard
 	{
 		public Card Name { get; } = Card.Scholar;
-		public int Cost { get; }
-		public CardType CardType { get; }
+		public int Cost { get; } = 5;
+		public CardType CardType { get; } = CardType.Action;
 
 		public void Resolve(Game game)
 		{
