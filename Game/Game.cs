@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.GameComponents;
 using DominionWeb.Game.Player;
@@ -185,8 +186,10 @@ namespace DominionWeb.Game
                 CheckPlayStack(player);
             }
             else if (action == PlayerAction.Buy)
-            {                
-                if (Supply.CardIsVisible(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1)
+            {
+               
+                if (Supply.CardIsVisible(card) && instance.Cost <= player.MoneyPlayed && player.NumberOfBuys >= 1
+                    && (instance is IBuyConditionHolder bch && bch.ResolveBuyCondition(this, player) || !(instance is IBuyConditionHolder)))
                 {
                     player.Buy(card);
                     Supply.Take(card);

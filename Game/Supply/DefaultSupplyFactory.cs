@@ -32,7 +32,7 @@ namespace DominionWeb.Game.Supply
                 Card.Spices,
                 Card.Hideout,
                 Card.ThroneRoom,
-                Card.PatricianEmporium
+                Card.GrandMarket
                 
             });
 

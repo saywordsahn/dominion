@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
+using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Prosperity
 {
-	public class GrandMarket : ICard, IAction, IRulesHolder
+	public class GrandMarket : ICard, IAction, IRulesHolder, IBuyConditionHolder
 	{
 		public Card Name { get; } = Card.GrandMarket;
 		public int Cost { get; } = 6;
@@ -15,10 +18,25 @@ namespace DominionWeb.Game.Cards.Prosperity
 			throw new System.NotImplementedException();
 		}
 
-
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
-			throw new System.NotImplementedException();
+			return new List<IRule>
+			{
+				new PlusMoney(2),
+				new PlusBuys(1),
+				new PlusActions(1),
+				new PlusCards(1)
+			};
+		}
+
+		public bool ResolveBuyCondition(Game game, IPlayer player)
+		{
+			if (player.PlayedCards.Any(x => x.Card.Name == Card.Copper))
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }
