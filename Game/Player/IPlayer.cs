@@ -65,6 +65,8 @@ namespace DominionWeb.Game.Player
         void PlayCoffers(int amount);
         void PlayVillagers(int amount);
         int GetCardCount(ICardFilter filter);
+        TavernMat TavernMat { get; set; }
+        bool JourneyTokenIsFaceUp { get; set; }
 
         List<IArtifact> Artifacts { get; set; }
         List<IAbility> OnHandDrawAbilities { get; set; }

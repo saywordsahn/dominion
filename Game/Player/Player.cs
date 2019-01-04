@@ -44,7 +44,9 @@ namespace DominionWeb.Game.Player
         public List<Card> Island { get; set; }
         public List<IAbility> OnHandDrawAbilities { get; set; }
         public List<IArtifact> Artifacts { get; set; }
+        public TavernMat TavernMat { get; set; }
 
+        public bool JourneyTokenIsFaceUp { get; set; }
 
         private IEnumerable<Card> Dominion => Deck.Concat(DiscardPile).Concat(Hand).Concat(Island);
          
@@ -73,6 +75,8 @@ namespace DominionWeb.Game.Player
             Island = new List<Card>();
             Artifacts = new List<IArtifact>();
             OnHandDrawAbilities = new List<IAbility>();
+            TavernMat = new TavernMat();
+            JourneyTokenIsFaceUp = true;
         }
 
         public void Play(Card card)

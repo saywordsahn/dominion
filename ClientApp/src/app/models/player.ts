@@ -21,4 +21,5 @@ export class Player {
   coffers: number;
   villagers: number;
   artifacts: IArtifact[];
+  journeyTokenIsFaceUp: boolean;
 }

@@ -28,12 +28,12 @@ namespace DominionWeb.Game.Supply
                 Card.Experiment,
                 Card.Cache,
                 Card.Witch,
-                Card.ThroneRoom,
+                Card.Ranger,
                 Card.LostCity,
                 Card.Hideout,
                 Card.KingsCourt,
-                Card.GrandMarket,
-                Card.Laboratory,
+                Card.Ratcatcher,
+                Card.Miser,
                 
             });
 

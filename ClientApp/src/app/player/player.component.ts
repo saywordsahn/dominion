@@ -43,6 +43,8 @@ export class PlayerComponent implements Player {
   artifacts: IArtifact[];
   displayArtifacts: string;
 
+  journeyTokenIsFaceUp: boolean;
+
   // private selectMultipleCardsActionRequest: SelectMultipleCardsActionRequest;
 
 
@@ -93,6 +95,7 @@ export class PlayerComponent implements Player {
 
     this.coffers = player.coffers;
     this.villagers = player.villagers;
+    this.journeyTokenIsFaceUp = player.journeyTokenIsFaceUp;
 
 
     this.artifacts = player.artifacts;

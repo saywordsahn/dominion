@@ -13,6 +13,12 @@
     <div *ngIf="artifacts.length > 0">
       Artifacts: {{ displayArtifacts }}
     </div>
+    <div *ngIf="journeyTokenIsFaceUp">
+      JourneyToken: Face Up
+    </div>
+    <div *ngIf="!journeyTokenIsFaceUp">
+      JourneyToken: Face Down
+    </div>
 
   </div>
   <div class="col-sm-1">

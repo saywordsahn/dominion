@@ -5,6 +5,7 @@ namespace DominionWeb.Game.Common
         Yes,
         No,
         Trash,
-        Gain
+        Gain,
+        Put
     }
 }
