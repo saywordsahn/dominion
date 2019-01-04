@@ -28,6 +28,9 @@ namespace DominionWeb.Game.Cards.Abilities
             if (selectableCards.Count == 0)
             {
                 player.PlayStatus = PlayStatus.ActionPhase;
+                //TODO: find more elegant way to do this
+                var parent = player.Rules.Last(x => x.Resolved == false);
+                parent.Resolved = true;
                 Resolved = true;
             }
             else

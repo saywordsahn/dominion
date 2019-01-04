@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
@@ -18,7 +19,10 @@ namespace DominionWeb.Game.Cards.Prosperity
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
-			throw new System.NotImplementedException();
+			return new List<IRule>
+			{
+				new RepeatCard(3)
+			};
 		}
 	}
 }

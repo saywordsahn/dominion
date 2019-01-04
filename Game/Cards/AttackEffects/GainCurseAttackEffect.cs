@@ -10,7 +10,11 @@ namespace DominionWeb.Game.Cards.AttackEffects
         
         public void Resolve(Game game, IPlayer player)
         {
-            if (!game.Supply.Contains(Card.Curse)) return;
+            if (!game.Supply.Contains(Card.Curse))
+            {
+                Resolved = true;
+                return;
+            }
             
             player.Gain(Card.Curse);
             game.Supply.Take(Card.Curse);

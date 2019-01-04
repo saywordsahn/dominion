@@ -12,8 +12,6 @@ namespace DominionWeb.Game.Cards.Base
         public CardType CardType { get; } = CardType.Action;
 
         public Card Name { get; } = Card.ThroneRoom;
-
-        public Card CardSelected { get; private set; }
         
         public void Resolve(Game game)
         {
@@ -49,7 +47,6 @@ namespace DominionWeb.Game.Cards.Base
 
             if (instance is IAction a)
             {
-                CardSelected = cardList[0];
                 player.PlayWithoutCost(instance);
 
                 player.PlayStack.Push(new PlayedCard(CardFactory.Create(cardList[0], true), true));
