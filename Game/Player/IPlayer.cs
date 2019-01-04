@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
+using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.GameComponents.Artifacts;
@@ -63,7 +64,8 @@ namespace DominionWeb.Game.Player
         bool HasBoughtThisTurn { get; set; }
         void PlayCoffers(int amount);
         void PlayVillagers(int amount);
-        
+        int GetCardCount(ICardFilter filter);
+
         List<IArtifact> Artifacts { get; set; }
         List<IAbility> OnHandDrawAbilities { get; set; }
 

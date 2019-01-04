@@ -4,6 +4,7 @@ using System.Linq;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
+using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Utils;
 using DominionWeb.Game.Common;
@@ -431,6 +432,12 @@ namespace DominionWeb.Game.Player
             return list;
         }
 
+        public int GetCardCount(ICardFilter filter)
+        {
+            return Dominion.Select(CardFactory.Create)
+                .Count(filter.Apply);
+        }
+        
         public bool HasCardInHand(Card card)
         {
             return Hand.Exists(x => x == card);

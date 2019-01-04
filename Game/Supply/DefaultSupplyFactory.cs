@@ -29,7 +29,7 @@ namespace DominionWeb.Game.Supply
                 Card.Cache,
                 Card.Witch,
                 Card.ThroneRoom,
-                Card.Spices,
+                Card.LostCity,
                 Card.Hideout,
                 Card.KingsCourt,
                 Card.GrandMarket,
