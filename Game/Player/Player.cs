@@ -43,6 +43,7 @@ namespace DominionWeb.Game.Player
         public List<Card> PlayedReactions { get; set; }
         public List<Card> Island { get; set; }
         public List<IAbility> OnHandDrawAbilities { get; set; }
+
         public List<IArtifact> Artifacts { get; set; }
         public TavernMat TavernMat { get; set; }
 
@@ -373,6 +374,18 @@ namespace DominionWeb.Game.Player
         public void EndActionPhase()
         {
             PlayStatus = PlayStatus.BuyPhase;
+        }
+        
+        public IEnumerable<Card> GetTopCards(int number)
+        {
+            if (Deck.Count < number)
+            {
+                var topCards = Deck;
+                Shuffle();
+                Deck.AddRange(topCards);
+            }
+            
+            return Deck.TakeLast(number);
         }
         
         public void Draw(int numberToDraw)

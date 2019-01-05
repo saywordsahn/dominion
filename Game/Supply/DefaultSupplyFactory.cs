@@ -34,24 +34,23 @@ namespace DominionWeb.Game.Supply
                 Card.KingsCourt,
                 Card.Ratcatcher,
                 Card.Miser,
-                
             });
 
             var workingSupply = pileFactory.Create(new List<Card>
             {
-                Card.Lurker,
-                Card.Plunder,
-                Card.PatricianEmporium,
+                Card.Miser,
+                Card.Wharf,
+                Card.Harem,
                 Card.Island,
+                Card.SilkRoad,
                 Card.Monument,
-                Card.Witch,
-                Card.ThroneRoom,
-                Card.NomadCamp,
-                Card.Ducat,
-                Card.BanditCamp
+                Card.KingsCourt,
+                Card.GrandMarket,
+                Card.JunkDealer,
+                Card.ActingTroupe
             });
             
-            return new Supply(tSupply, vSupply, kSupply);
+            return new Supply(tSupply, vSupply, workingSupply);
         }
     }
 }

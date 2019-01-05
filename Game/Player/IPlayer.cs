@@ -67,6 +67,7 @@ namespace DominionWeb.Game.Player
         int GetCardCount(ICardFilter filter);
         TavernMat TavernMat { get; set; }
         bool JourneyTokenIsFaceUp { get; set; }
+        IEnumerable<Card> GetTopCards(int number);
 
         List<IArtifact> Artifacts { get; set; }
         List<IAbility> OnHandDrawAbilities { get; set; }

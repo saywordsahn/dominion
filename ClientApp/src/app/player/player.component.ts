@@ -1,18 +1,19 @@
 import {Component} from '@angular/core';
 import {DataService} from "../services/data.service";
 import {CardService} from "../services/card.service";
-import {Card, ICard} from "../models/card";
+import {Card} from "../models/card";
 import {Player} from "../models/player";
 import {HubService} from "../services/hub.service";
 import {PlayStatus} from "../models/playStatus";
 import {GameService} from "../services/game.service";
 import {PlayerAction} from '../models/playerAction';
-import {ActionRequest} from "../models/actionRequest";
 import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
 import {SelectItem} from "primeng/api";
 import {PlayedCard} from "../models/playedCard";
 import {Artifact, IArtifact} from "../models/artifact";
+import {MatDialog} from "@angular/material";
+import {CardOrganizerComponent} from "../card-organizer/card-organizer.component";
 
 //
 // class SelectMultipleCardsActionRequest {
@@ -63,7 +64,8 @@ export class PlayerComponent implements Player {
     private dataService: DataService,
     public cardService: CardService,
     private hubService: HubService,
-    private gameService: GameService
+    private gameService: GameService,
+    public dialog: MatDialog
   ) {
     this.deck = [];
     this.discardPile = [];
@@ -89,7 +91,16 @@ export class PlayerComponent implements Player {
     this.moneyPlayed = player.moneyPlayed;
     this.numberOfActions = player.numberOfActions;
     this.numberOfBuys = player.numberOfBuys;
+
     this.actionRequest = player.actionRequest;
+    console.log('actionRequest', player.actionRequest);
+    if (player.playStatus == PlayStatus.ActionRequestResponder && player.actionRequest.actionRequestType == ActionRequestType.OrganizeCards)
+    {
+      //TODO: card input
+      console.log('open the card organizer');
+      this.openCardOrganizer(player.actionRequest.cards);
+    }
+
     this.logText = player.gameLog.join('\n');
     this.victoryPoints = player.victoryPoints;
 
@@ -209,6 +220,21 @@ export class PlayerComponent implements Player {
       options.push(this.selectedOptions[i].name);
     }
     this.hubService.submitSelectOptionsRequestResponse(this.gameService.gameId, ActionRequestType.SelectOptions, options);
+  }
+
+  openCardOrganizer(cards: Card[]) {
+    //TODO: card input
+    let dialogRef = this.dialog.open(CardOrganizerComponent, {
+      data: {
+        cards: cards
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log('the output of the dialog is: ', result);
+      this.hubService.submitSelectCardsRequestResponse(this.gameService.gameId, ActionRequestType.SelectMultipleCards, [Card.Silver, Card.Copper]);
+    });
   }
 
 }

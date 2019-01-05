@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Order Cards</h1>
+<div mat-dialog-content>
+  <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let card of data.cards" cdkDrag>{{cardService.getCardName(card)}}</div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button [mat-dialog-close]="data.cards">Confirm Ordering</button>
+</div>
+
+
+
+<!--<div class="row justify-content-md-center">-->
+  <!--<div *ngFor="let card of getKeys(organizedHand)">-->
+    <!--<div class="col-sm">-->
+      <!--<div class="mini-card-template">-->
+        <!--<img oncontextmenu="return false;" (click)="play(card)" (contextmenu)="rightClick(card)" class="kingdomCard" [src]="cardService.getImgLoc(card)" alt="image">-->
+        <!--<div class="card-counter">{{organizedHand.get(card)}}</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<!--<p-dialog class="cardDetailDialogBox" [showHeader]="false" [modal]="true" [dismissableMask]="true" [(visible)]="showCardDetail">-->
+  <!--<img class="cardDetail" [src]="cardDetailLoc">-->
+<!--</p-dialog>-->

@@ -67,6 +67,9 @@
                        [showHeader]="false"></p-multiSelect>
         <button (click)="submitSelectOptions()">Submit</button>
       </div>
+      <div *ngIf="actionRequest.actionRequestType == ActionRequestType.OrganizeCards">
+        <button (click)="openCardOrganizer()">Organize Cards</button>
+      </div>
     </div>
     <div *ngIf="playStatus == PlayStatus.BuyPhase">
       {{numberOfActions}} ACTIONS | {{numberOfBuys}} BUYS | ${{ moneyPlayed }}

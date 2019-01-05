@@ -4,6 +4,7 @@ namespace DominionWeb.Game.Common
     {
         YesNo,
         SelectCards,
-        SelectOptions
+        SelectOptions,
+        OrganizeCards
     }
 }

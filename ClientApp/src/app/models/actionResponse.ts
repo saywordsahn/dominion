@@ -1,4 +1,8 @@
 export enum ActionResponse {
   Yes,
-  No
+  No,
+  Trash,
+  Gain,
+  Put,
+  Discard
 }

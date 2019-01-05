@@ -14,6 +14,7 @@ import { SupplyComponent } from './supply/supply.component';
 import { PlayerComponent } from './player/player.component';
 import { HandViewerComponent } from "./hand-viewer/hand-viewer.component";
 import {PlayAreaComponent} from "./play-area/play-area.component";
+import {CardOrganizerComponent}  from "./card-organizer/card-organizer.component";
 
 import { DataService } from './services/data.service';
 import { CardService } from './services/card.service';
@@ -24,7 +25,9 @@ import {UserService} from "./services/user.service";
 import {MultiSelectModule} from 'primeng/multiselect';
 import {Dialog, DialogModule} from 'primeng/dialog';
 
-
+//material
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatDialogModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -36,11 +39,12 @@ import {Dialog, DialogModule} from 'primeng/dialog';
     SupplyComponent,
     PlayerComponent,
     HandViewerComponent,
-    PlayAreaComponent
+    PlayAreaComponent,
+    CardOrganizerComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -49,7 +53,12 @@ import {Dialog, DialogModule} from 'primeng/dialog';
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
     MultiSelectModule,
-    DialogModule
+    DialogModule,
+    DragDropModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CardOrganizerComponent
   ],
   providers: [
       DataService,
