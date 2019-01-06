@@ -27,6 +27,13 @@ namespace DominionWeb.Game.Cards
             { Card.Sauna, Card.SaunaAvanto },
             { Card.Avanto, Card.SaunaAvanto }
         };
-       
+
+        public static List<Card> Looters = new List<Card>
+        {
+            Card.DeathCart,
+            Card.Marauder,
+            Card.Cultist
+        };
+
     }
 }

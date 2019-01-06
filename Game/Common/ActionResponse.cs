@@ -7,6 +7,8 @@ namespace DominionWeb.Game.Common
         Trash,
         Gain,
         Put,
-        Discard
+        Discard,
+        TrashActionCard,
+        TrashThis
     }
 }

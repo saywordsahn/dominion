@@ -18,6 +18,10 @@ export class SupplyComponent implements Supply {
   kingdomSupply: Pile[];
   victorySupply: Pile[];
 
+  includeRuins: boolean;
+  //todo: ruins pile should only show top card
+  ruinsPile: Pile;
+
   showCardDetail: boolean = false;
   cardDetailLoc: string;
 
@@ -37,6 +41,8 @@ export class SupplyComponent implements Supply {
     this.treasureSupply = supply.treasureSupply;
     this.victorySupply = supply.victorySupply;
     this.kingdomSupply = supply.kingdomSupply;
+    this.includeRuins = supply.includeRuins;
+    this.ruinsPile = supply.ruinsPile;
   }
 
   buy(pile: Pile): void {

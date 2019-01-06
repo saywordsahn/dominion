@@ -254,6 +254,7 @@ namespace DominionWeb.Game.Cards
             { Card.SirMartin, () => new SirMartin() },
             { Card.SirMichael, () => new SirMichael() },
             { Card.SirVander, () => new SirVander() },
+            { Card.VirtualRuins, () => new VirtualRuins() },
             
             //guilds
             { Card.Advisor, () => new Advisor() },

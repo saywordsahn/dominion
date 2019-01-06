@@ -4,6 +4,7 @@ namespace DominionWeb.Game.Cards
         Treasure,
         Victory,
         Action,
-        Curse
+        Curse,
+        Virtual
     }
 }

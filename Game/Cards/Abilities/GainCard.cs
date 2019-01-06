@@ -5,6 +5,8 @@ namespace DominionWeb.Game.Cards.Abilities
 {
     public class GainCard : IAbility
     {
+        // Experiment requires ICard to hold state about whether or not it can
+        // gain another card.
         public ICard CardToGain { get; set; }
         public int Amount { get; set; }
         public bool Resolved { get; set; }
@@ -28,12 +30,27 @@ namespace DominionWeb.Game.Cards.Abilities
         public void Resolve(Game game, IPlayer player)
         {
             //TODO: include all nonSupply cards in this logic
+            //TODO: allow only one gain at a time to make on gain actions work in proper order
             if (CardToGain.Name == Card.Spoils)
             {
                 //law of demeter broken, redesign?
                 if (game.Components.Spoils.Count > 0)
                 {
                     player.Gain(game.Components.Spoils.Take());
+                    Resolved = true;
+                }
+            }
+            else if (CardToGain.Name == Card.VirtualRuins)
+            {
+                if (game.Supply.IncludeRuins && game.Supply.RuinsPile.Cards.Count > 0)
+                {
+                    var topRuins = game.Supply.RuinsPile.Cards[game.Supply.RuinsPile.Cards.Count - 1];
+                    game.Supply.Take(topRuins);
+                    player.Gain(topRuins);
+                    Resolved = true;
+                }
+                else if (game.Supply.IncludeRuins && game.Supply.RuinsPile.Cards.Count == 0)
+                {
                     Resolved = true;
                 }
             }

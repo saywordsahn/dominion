@@ -19,7 +19,7 @@ namespace DominionWeb.Game.Cards.Abilities
 
         //TODO: need to set this as resolved if SelectCardFromHand resolves early (there are no cards in hand)
         public void Resolve(Game game, IPlayer player)
-            => new SelectCardFromHand(new NoFilter(), "Select a card to trash.")
+            => new SelectCardFromHand(Filter, "Select a card to trash.")
                 .Resolve(game, player);
 
 
@@ -36,15 +36,10 @@ namespace DominionWeb.Game.Cards.Abilities
 
                 if (Filter.Apply(instance))
                 {
-                    //player.Hand.Remove(instance.Name);
-                    //game.Supply.AddToTrash(instance.Name);
                     player.TrashFromHand(game.Supply, instance.Name);
                     player.PlayStatus = PlayStatus.ActionPhase;
                     Resolved = true;
-                    
-                    
                 }
-
             }
         }
     }

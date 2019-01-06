@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Utils;
 
 namespace DominionWeb.Game.Supply
 {
@@ -15,7 +16,7 @@ namespace DominionWeb.Game.Supply
 
         
         //TODO: work victory card list into the builder
-        private IPile Create(Card card)
+        public IPile Create(Card card)
         {
             
             var victorySupplyAmount = _numberOfPlayers == 2 ? 8 : 12;
@@ -36,7 +37,6 @@ namespace DominionWeb.Game.Supply
                     return new Pile(card, victorySupplyAmount);
                 case Card.Curse:
                     return new Pile(Card.Curse, (_numberOfPlayers - 1) * 10);
-                
                 
                 //INTRIGUE
                 case Card.Mill:
@@ -62,6 +62,16 @@ namespace DominionWeb.Game.Supply
                     return new Pile(card, victorySupplyAmount);
 
                 //DARK AGES
+                case Card.VirtualRuins:
+                    var list = Enumerable.Repeat(Card.AbandonedMine, 10)
+                        .Concat(Enumerable.Repeat(Card.RuinedLibrary, 10)
+                        .Concat(Enumerable.Repeat(Card.RuinedMarket, 10)
+                        .Concat(Enumerable.Repeat(Card.RuinedVillage, 10)
+                        .Concat(Enumerable.Repeat(Card.Survivors, 10))))).ToList();
+                    list.Shuffle();
+                    var numberToInclude = (_numberOfPlayers - 1) * 10;
+                    list.RemoveRange(numberToInclude - 1, list.Count - numberToInclude);
+                    return new Pile(Card.VirtualRuins, list);;
                 case Card.Feodum:
                     return new Pile(card, victorySupplyAmount);
                 
@@ -83,7 +93,7 @@ namespace DominionWeb.Game.Supply
                 case Card.Castles:
                     if (_numberOfPlayers > 2)
                     {
-                        return new Pile(Card.Knights, new List<Card>
+                        return new Pile(Card.Castles, new List<Card>
                         {
                             Card.KingsCastle,
                             Card.GrandCastle,
@@ -97,7 +107,7 @@ namespace DominionWeb.Game.Supply
                     }
                     else
                     {
-                        return new Pile(new List<Card>
+                        return new Pile(Card.Castles, new List<Card>
                         {
                             Card.KingsCastle,
                             Card.KingsCastle,

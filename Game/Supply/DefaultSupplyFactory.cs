@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards;
 
 namespace DominionWeb.Game.Supply
 {
     public class DefaultSupplyFactory : ISupplyFactory
     {
-        public Supply Create()
+        public Supply Create(int numberOfPlayers = 2)
         {
             
-            var pileFactory = new PileFactory(2);
+            var pileFactory = new PileFactory(numberOfPlayers);
 
             var tSupply = pileFactory.Create(new List<Card>
                 {
@@ -28,7 +29,7 @@ namespace DominionWeb.Game.Supply
                 Card.Experiment,
                 Card.Cache,
                 Card.Witch,
-                Card.Ranger,
+                Card.DeathCart,
                 Card.LostCity,
                 Card.Hideout,
                 Card.KingsCourt,
@@ -50,7 +51,14 @@ namespace DominionWeb.Game.Supply
                 Card.ActingTroupe
             });
             
-            return new Supply(tSupply, vSupply, workingSupply);
+            if (kSupply.Any(x => CardLists.Looters.Any(y => y == x.PileCard)))
+            {
+                //add ruins piles
+                var ruinsSupply = pileFactory.Create(Card.VirtualRuins);
+                return new Supply(tSupply, vSupply, kSupply, ruinsSupply);
+            }
+            
+            return new Supply(tSupply, vSupply, kSupply);
         }
     }
 }

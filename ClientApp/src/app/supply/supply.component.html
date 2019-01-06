@@ -8,9 +8,13 @@
     </div>
   </div>
   <div class="col">
-      <div *ngFor="let pile of victorySupply">
-        <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[pile.cards.length - 1]] }} ({{ pile.cards.length }})</button>
-      </div>
+    <div *ngFor="let pile of victorySupply">
+      <button class="supplyPile" (click)="buy(pile)">{{ Card[pile.cards[pile.cards.length - 1]] }} ({{ pile.cards.length }})</button>
+    </div>
+    <div *ngIf="includeRuins == true">
+      <button class="supplyPile" (click)="buy(ruinsPile)">{{ Card[ruinsPile.cards[ruinsPile.cards.length - 1]] }} ({{ ruinsPile.cards.length }})</button>
+    </div>
+
   </div>
   <div class="col-sm-1">
 

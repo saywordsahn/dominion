@@ -19,5 +19,7 @@ namespace DominionWeb.Game.Supply
         bool NoProvincesRemain();
         bool ThreeOrMorePilesEmpty();
         int EmptyPileCount();
+        bool IncludeRuins { get; set; }
+        IPile RuinsPile { get; set; }
     }
 }

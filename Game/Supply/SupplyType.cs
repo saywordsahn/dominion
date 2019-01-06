@@ -4,6 +4,7 @@ namespace DominionWeb.Game.Supply
     {
         Treasure,
         Victory,
-        Kingdom
+        Kingdom,
+        Ruins
     }
 }

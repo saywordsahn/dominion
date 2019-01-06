@@ -10,6 +10,10 @@ namespace DominionWeb.Game.Supply
         public IEnumerable<IPile> TreasureSupply { get; }
         public IEnumerable<IPile> VictorySupply { get; }
         public IEnumerable<IPile> KingdomSupply { get; }
+        
+        public bool IncludeRuins { get; set; } = false;
+        public IPile RuinsPile { get; set; }
+        
         public ICollection<Card> Trash { get; }
                 
         private IEnumerable<IPile> FullSupply => TreasureSupply.Concat(VictorySupply).Concat(KingdomSupply);
@@ -21,16 +25,23 @@ namespace DominionWeb.Game.Supply
         {
             return FullSupply.Where(x => x.Cards.Count > 0).Select(x => x.Cards[0]);
         }
-        
+
         public Supply(
             IEnumerable<IPile> treasureSupply,
             IEnumerable<IPile> victorySupply,
-            IEnumerable<IPile> kingdomSupply
-        )
+            IEnumerable<IPile> kingdomSupply,
+            IPile ruinsPile = null)
         {
             TreasureSupply = treasureSupply;
             VictorySupply = victorySupply;
             KingdomSupply = kingdomSupply;
+
+            if (ruinsPile != null)
+            {
+                RuinsPile = ruinsPile;
+                IncludeRuins = true;
+            }
+            
             Trash = new List<Card>();
             MapSupplyType();
         }
@@ -59,6 +70,8 @@ namespace DominionWeb.Game.Supply
 //                .ToList()
 //                .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Kingdom));
             
+            //TODO: use static list for this?
+            //think about pros/cons
             foreach (var pile in TreasureSupply)
             {
                 if (pile.Cards.Count > 0)
@@ -89,15 +102,28 @@ namespace DominionWeb.Game.Supply
                         .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Kingdom));
                 }
             }
+
+            if (IncludeRuins)
+            {
+                if (RuinsPile.Cards.Count > 0)
+                {
+                    RuinsPile.Cards
+                        .Distinct().ToList()
+                        .ForEach(x => _supplyTypeMap.Add(x, SupplyType.Ruins));
+                        
+                }
+            }
         }
 
         //TODO: needs to be modified
+        //TODO: implement ruins pile
         public bool Contains(Card card)
         {
+            
             var cards = TreasureSupply.Select(x => x.Cards)
                 .Concat(VictorySupply.Select(x => x.Cards))
                 .Concat(KingdomSupply.Select(x => x.Cards));
-
+            
             return cards.Select(x => x.FirstOrDefault())
                 .Contains(card);
         }
@@ -126,6 +152,7 @@ namespace DominionWeb.Game.Supply
         }
 
         //TODO: cardpileMap needs to be injectable for black market card mappings
+        //TODO: update for ruinsPile
         public void Return(Card card)
         {
             if (CardLists.CardPileMap.ContainsKey(card))
@@ -159,7 +186,8 @@ namespace DominionWeb.Game.Supply
         {
             return TreasureSupply.Count(pile => pile.Cards.Count == 0)
                 + VictorySupply.Count(pile => pile.Cards.Count == 0)
-                + KingdomSupply.Count(pile => pile.Cards.Count == 0);
+                + KingdomSupply.Count(pile => pile.Cards.Count == 0)
+                + RuinsPile.Cards.Count == 0 ? 1 : 0;
         }
 
         /// <summary>
@@ -180,16 +208,26 @@ namespace DominionWeb.Game.Supply
             {
                 case SupplyType.Victory:
                     return Take(VictorySupply, card);
-                    break;
                 case SupplyType.Treasure:
                     return Take(TreasureSupply, card);
-                    break;
                 case SupplyType.Kingdom:
                     return Take(KingdomSupply, card);
-                    break;
+                case SupplyType.Ruins:
+                    return Take(RuinsPile, card);
                 default:
                     throw new InvalidOperationException("There is no supply type mapping for this card.");
             }         
+        }
+
+        private static Card Take(IPile pile, Card card)
+        {
+            if (pile.Cards.Last() == card)
+            {
+                pile.Cards.RemoveAt(pile.Cards.Count - 1);
+                return card;
+            }
+            
+            throw new InvalidOperationException("Cannot take that card.");
         }
 
         private static Card Take(IEnumerable<IPile> supply, Card card)
@@ -206,7 +244,7 @@ namespace DominionWeb.Game.Supply
                 }                
             }
 
-            throw new InvalidOperationException("Supply does not contain card.");
+            throw new InvalidOperationException("Cannot take that card.");
         }
         
     }
