@@ -41,7 +41,7 @@ namespace DominionWeb.Game
             {
                 var coppers = Enumerable.Repeat(Supply.Take(Card.Copper), 7);
                 var estates = Enumerable.Repeat(Supply.Take(Card.Estate), 3);
-                var witches = Enumerable.Repeat(Card.Marauder, 3);
+                var witches = Enumerable.Repeat(Card.Seer, 3);
                 var thrones = Enumerable.Repeat(Card.KingsCourt, 3);
                 player.Gain(coppers);
 //                Console.WriteLine("{0} starts with 7 Coppers.", player.Name);
