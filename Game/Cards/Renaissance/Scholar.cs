@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
-using DominionWeb.Game.Cards.AttackEffects;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 

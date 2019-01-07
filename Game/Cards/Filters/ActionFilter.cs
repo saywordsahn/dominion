@@ -1,3 +1,5 @@
+using DominionWeb.Game.Cards.Types;
+
 namespace DominionWeb.Game.Cards.Filters
 {
     public class ActionFilter : ICardFilter

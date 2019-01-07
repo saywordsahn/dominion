@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Player;
-using Microsoft.AspNetCore.Rewrite;
 
-namespace DominionWeb.Game.Cards.AttackEffects
+namespace DominionWeb.Game.Cards.Abilities.Attacks.Effects
 {
     public class DiscardDownToX : IAttackEffect, IResponseRequired<IEnumerable<Card>>
     {

@@ -1,4 +1,5 @@
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
+using DominionWeb.Game.Cards.Types;
 
 namespace DominionWeb.Game.Cards.Base
 {

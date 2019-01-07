@@ -1,6 +1,6 @@
 using System;
 
-namespace DominionWeb.Game.Cards
+namespace DominionWeb.Game.Cards.Types
 {
     public interface IAction
     {

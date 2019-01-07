@@ -1,9 +1,14 @@
-using DominionWeb.Game.Cards.AttackEffects;
+using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.Attacks;
+using DominionWeb.Game.Cards.Abilities.Attacks.Effects;
+using DominionWeb.Game.Cards.Types;
+using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Witch : ICard, IAction, IAttack
+    public class Witch : ICard, IAction, IAttack, IRulesHolder
     {
         public int Cost { get; } = 5;
 
@@ -14,32 +19,20 @@ namespace DominionWeb.Game.Cards.Base
         public void Resolve(Game game)
         {
             var player = game.GetActivePlayer();
-            player.PlayStatus = PlayStatus.Attacker;
-            
-            player.Draw(2);
 
-            var nextPlayer = game.GetNextPlayer(player);
-            nextPlayer.PlayStatus = PlayStatus.AttackResponder;
-            nextPlayer.SetAttacked(game);
+            foreach (var rule in GetRules(game, player))
+            {
+                player.RuleStack.Push(rule);
+            }
         }
 
-        public IAttackEffect AttackEffect() => new GainCurseAttackEffect();
-
-        public void AttackNextPlayer(Game game, IPlayer currentPlayer)
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
-            var nextPlayer = game.GetNextPlayer(currentPlayer);
-
-            if (nextPlayer == game.GetAttackingPlayer())
+            return new List<IRule>
             {
-                currentPlayer.PlayStatus = PlayStatus.WaitForTurn;
-                nextPlayer.PlayStatus = PlayStatus.ActionPhase;
-            }
-            else
-            {
-                currentPlayer.PlayStatus = PlayStatus.WaitForTurn;
-                nextPlayer.PlayStatus = PlayStatus.AttackResponder;
-                nextPlayer.SetAttacked(game);  
-            }
+                new WitchAttack(),
+                new PlusCards(2)
+            };
         }
     }
 }

@@ -1,9 +1,11 @@
+using DominionWeb.Game.Cards.Abilities.Attacks.Effects;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    public class GainCard : IAbility
+    public class GainCard : IAbility, IAttackEffect
     {
         // Experiment requires ICard to hold state about whether or not it can
         // gain another card.

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Types;
 
 namespace DominionWeb.Game.Cards.Seaside
 {

@@ -1,3 +1,4 @@
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.DarkAges

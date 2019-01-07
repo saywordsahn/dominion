@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
@@ -13,9 +14,13 @@ namespace DominionWeb.Game.Cards.Prosperity
 
 		public void Resolve(Game game)
 		{
-			throw new System.NotImplementedException();
-		}
+			var player = game.GetActivePlayer();
 
+			foreach (var rule in GetRules(game, player))
+			{
+				player.RuleStack.Push(rule);
+			}
+		}
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{

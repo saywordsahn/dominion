@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.Attacks.Effects;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Player;
 
@@ -12,9 +13,23 @@ namespace DominionWeb.Game.Common.Rules
     public class RespondToAttackRule : IRule, IResponseRequired<IEnumerable<Card>>
     {
         public bool Resolved { get; set; }
+        public IAttackEffect AttackEffect { get; set; }
+
+        public RespondToAttackRule(IAttackEffect attackEffect)
+        {
+            AttackEffect = attackEffect;
+        }
         
         public void Resolve(Game game, IPlayer player)
         {
+            //check for duration attack blockers - like champion, lighthouse
+            if (player.PlayedCards.Any(x => x.Card is IAttackBlocker && x.Card is IDuration))
+            {
+                player.RuleStack.Push(new SetNextAttackedPlayer());
+                Resolved = true;
+                return;
+            }
+            
             //choose to reveal a attackReaction (moat, diplomat) before attack effect
             if (player.HasAttackReactionInHand())
             {
@@ -34,7 +49,7 @@ namespace DominionWeb.Game.Common.Rules
             else
             {
                 player.RuleStack.Push(new SetNextAttackedPlayer());
-                player.RuleStack.Push(new TakeAttackEffect());
+                player.RuleStack.Push(AttackEffect);
                 Resolved = true;
             }
         }
@@ -51,7 +66,7 @@ namespace DominionWeb.Game.Common.Rules
             if (cardList.Count == 0)
             {
                 player.RuleStack.Push(new SetNextAttackedPlayer());
-                player.RuleStack.Push(new TakeAttackEffect());
+                player.RuleStack.Push(AttackEffect);
                 Resolved = true;
             }
             else if (cardList.Count == 1)
@@ -69,7 +84,7 @@ namespace DominionWeb.Game.Common.Rules
                 else if (card is IAttackReaction ar)
                 {
                     player.PlayStatus = PlayStatus.AttackResponder;
-                    player.RuleStack.Push(new RespondToAttackRule());
+                    player.RuleStack.Push(new RespondToAttackRule(AttackEffect));
                     player.RuleStack.Push(ar.ReactionEffect());
 
                     Resolved = true;

@@ -13,6 +13,7 @@ using DominionWeb.Game.Cards.Nocturne;
 using DominionWeb.Game.Cards.Prosperity;
 using DominionWeb.Game.Cards.Renaissance;
 using DominionWeb.Game.Cards.Seaside;
+using DominionWeb.Game.Cards.Types;
 
 namespace DominionWeb.Game.Cards
 {

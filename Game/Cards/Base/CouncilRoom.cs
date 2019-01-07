@@ -1,4 +1,5 @@
 using System.Linq;
+using DominionWeb.Game.Cards.Types;
 
 namespace DominionWeb.Game.Cards.Base
 {

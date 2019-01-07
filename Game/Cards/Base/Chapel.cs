@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.Attacks.Effects;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
 using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Cards.Types;
@@ -11,7 +13,15 @@ using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.GameComponents.Artifacts;
 using DominionWeb.Game.Supply;
-using TriggeredAbilityDurationType = DominionWeb.Game.Cards.Abilities.TriggeredAbilities.TriggeredAbilityDurationType;
+using IAction = DominionWeb.Game.Cards.Types.IAction;
+using IAttackReaction = DominionWeb.Game.Cards.Types.IAttackReaction;
+using ICard = DominionWeb.Game.Cards.Types.ICard;
+using IDuration = DominionWeb.Game.Cards.Types.IDuration;
+using IOnGainAbilityHolder = DominionWeb.Game.Cards.Types.IOnGainAbilityHolder;
+using IOnGainOverride = DominionWeb.Game.Cards.Types.IOnGainOverride;
+using ITreasure = DominionWeb.Game.Cards.Types.ITreasure;
+using ITreasureAbilityHolder = DominionWeb.Game.Cards.Types.ITreasureAbilityHolder;
+using IVictory = DominionWeb.Game.Cards.Types.IVictory;
 
 namespace DominionWeb.Game.Player
 {
@@ -151,21 +161,9 @@ namespace DominionWeb.Game.Player
             RunTriggeredAbilities(PlayerAction.Trash, card);
         }
 
-        public void SetAttacked(Game game)
+        public void SetAttacked(Game game, IAttackEffect attackEffect)
         {
-            //check for duration attack blockers - like champion, lighthouse
-            if (PlayedCards.Any(x => x.Card is IAttackBlocker && x.Card is IDuration))
-            {
-                var attackingPlayer = game.GetAttackingPlayer();
-                var attackCard = (IAttack)attackingPlayer.PlayedCards.Last(x => x.Card is IAttack).Card;
-
-                attackCard.AttackNextPlayer(game, this);
-            }
-            else
-            {
-                var rule = new RespondToAttackRule();
-                RuleStack.Push(rule);
-            }
+            RuleStack.Push(new RespondToAttackRule(attackEffect));
         }
 
         public int GetVictoryPointCount()

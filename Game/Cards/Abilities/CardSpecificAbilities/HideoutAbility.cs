@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards.Filters;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities.CardSpecificAbilities

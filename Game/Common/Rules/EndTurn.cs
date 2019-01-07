@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Common.Rules
@@ -10,7 +11,7 @@ namespace DominionWeb.Game.Common.Rules
         public void Resolve(Game game, IPlayer player)
         {
             bool CardIsResolved(PlayedCard x) => !(x.Card is IDuration d && d.Resolved == false);
-
+            player.PlayedCards.RemoveAll(x => x.IsThronedCopy);
             player.DiscardPile.AddRange(player.PlayedCards.Where(CardIsResolved).Select(x => x.Card.Name));
             player.PlayedCards.RemoveAll(CardIsResolved);
 

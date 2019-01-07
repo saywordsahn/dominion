@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.Attacks.Effects;
 using DominionWeb.Game.Cards.Abilities.TriggeredAbilities;
 using DominionWeb.Game.Cards.Filters;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.GameComponents.Artifacts;
@@ -53,7 +54,7 @@ namespace DominionWeb.Game.Player
         bool HasCardInHand(Card card);
         bool IsRespondingToAbility();
         bool HasAttackReactionInHand();
-        void SetAttacked(Game game);
+        void SetAttacked(Game game, IAttackEffect attackEffect);
         void RunTriggeredAbilities(PlayerAction playerAction, Card card);
         Stack<IRule> RuleStack { get; set; }
         List<IRule> Rules { get; set; }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards.Abilities;
-using DominionWeb.Game.Cards.AttackReactions;
+using DominionWeb.Game.Cards.Abilities.Reactions;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;

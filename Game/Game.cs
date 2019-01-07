@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using DominionWeb.Game.Cards;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
@@ -40,14 +41,14 @@ namespace DominionWeb.Game
             {
                 var coppers = Enumerable.Repeat(Supply.Take(Card.Copper), 7);
                 var estates = Enumerable.Repeat(Supply.Take(Card.Estate), 3);
-//                var witches = Enumerable.Repeat(Card.Survivors, 3);
-//                var thrones = Enumerable.Repeat(Card.KingsCourt, 3);
+                var witches = Enumerable.Repeat(Card.Marauder, 3);
+                var thrones = Enumerable.Repeat(Card.KingsCourt, 3);
                 player.Gain(coppers);
 //                Console.WriteLine("{0} starts with 7 Coppers.", player.Name);
 //                Console.WriteLine("{0} starts with 3 Estates.", player.Name);
                 player.Gain(estates);
-//                player.Gain(witches);
-//                player.Gain(thrones);
+                player.Gain(witches);
+                player.Gain(thrones);
                 player.Shuffle();
 //                Console.WriteLine("{0} shuffles their deck.", player.Name);
                 player.Draw(5);
@@ -69,8 +70,8 @@ namespace DominionWeb.Game
         public void CheckPlayStack(IPlayer player)
         {
 
-            bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0;
-//                                           && p.PlayStatus == PlayStatus.AttackResponder;
+            bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0
+                                           && p == GetActivePlayer();
 
             bool CanPlayCard(IPlayer p) =>
                 p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0;

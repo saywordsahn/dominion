@@ -1,7 +1,6 @@
-using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.AttackEffects
+namespace DominionWeb.Game.Cards.Abilities.Attacks.Effects
 {
     //TODO: refactor this as gainCardAttackEffect or other
     public class GainCurseAttackEffect : IAttackEffect

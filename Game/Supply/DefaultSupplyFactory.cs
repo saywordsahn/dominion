@@ -23,17 +23,19 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = pileFactory.Create(new List<Card>
             {
-                Card.Ducat,
-                Card.FlagBearer,
+                Card.Militia,
+                //Card.FlagBearer,
+                Card.Beggar,
+                Card.Moat,
                 Card.SilkMerchant,
                 Card.Experiment,
                 Card.Cache,
                 Card.Witch,
-                Card.DeathCart,
+                Card.Marauder,
                 Card.LostCity,
                 Card.Hideout,
                 Card.KingsCourt,
-                Card.Ratcatcher,
+                //Card.Ratcatcher,
                 Card.Miser,
             });
 

@@ -1,11 +1,8 @@
-
 using System.Linq;
-using DominionWeb.Game.Cards.Abilities;
-using DominionWeb.Game.Common;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards.AttackReactions
+namespace DominionWeb.Game.Cards.Abilities.Reactions
 {
     public class DiscardCardForTwoSilvers : IRule
     {

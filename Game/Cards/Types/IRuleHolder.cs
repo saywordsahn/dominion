@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
-namespace DominionWeb.Game.Cards
+namespace DominionWeb.Game.Cards.Types
 {
     /// <summary>
     /// A temporary class to allow cards to be played as rules during the action phase.
