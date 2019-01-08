@@ -9,7 +9,7 @@ namespace DominionWeb.Game.Cards.Nocturne
 	public class CursedGold : ICard, ITreasure, ITreasureAbilityHolder, IHeirloom
 	{
 		public Card Name { get; } = Card.CursedGold;
-		public int Cost { get; } = 0;
+		public int Cost { get; } = 4;
 		public CardType CardType { get; } = CardType.Treasure;
 
 		public int Value { get; } = 3;

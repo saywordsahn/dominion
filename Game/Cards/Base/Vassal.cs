@@ -4,6 +4,8 @@ using DominionWeb.Game.Common;
 
 namespace DominionWeb.Game.Cards.Base
 {
+    
+    //TODO: rework without playstack
     public class Vassal : ICard, IAction, IResponseRequired<ActionResponse>
     {
         public int Cost { get; } = 3;

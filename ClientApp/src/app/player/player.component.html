@@ -4,6 +4,9 @@
     <div>
       Discard: {{ discardPile.length }}
     </div>
+    <div *ngIf="victoryTokens > 0">
+      Victory Tokens: {{ victoryTokens }}
+    </div>
     <div *ngIf="coffers > 0">
       Coffers: {{ coffers }}
     </div>

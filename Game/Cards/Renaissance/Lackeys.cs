@@ -23,7 +23,7 @@ namespace DominionWeb.Game.Cards.Renaissance
 
         public void Resolve(Game game)
         {
-            throw new System.NotImplementedException();
+//            throw new System.NotImplementedException();
         }
     }
 }

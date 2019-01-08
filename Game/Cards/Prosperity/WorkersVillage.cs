@@ -14,7 +14,7 @@ namespace DominionWeb.Game.Cards.Prosperity
 
 		public void Resolve(Game game)
 		{
-			throw new System.NotImplementedException();
+			//throw new System.NotImplementedException();
 		}
 
 

@@ -4,5 +4,6 @@ export enum ActionResponse {
   Trash,
   Gain,
   Put,
-  Discard
+  Discard,
+  Draw
 }

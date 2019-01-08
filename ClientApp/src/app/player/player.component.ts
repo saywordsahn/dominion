@@ -38,6 +38,7 @@ export class PlayerComponent implements Player {
   actionRequest: any;
   gameLog: string[];
   victoryPoints: number;
+  victoryTokens: number;
 
   coffers: number;
   villagers: number;
@@ -91,6 +92,7 @@ export class PlayerComponent implements Player {
     this.moneyPlayed = player.moneyPlayed;
     this.numberOfActions = player.numberOfActions;
     this.numberOfBuys = player.numberOfBuys;
+    this.victoryTokens = player.victoryTokens;
 
     this.actionRequest = player.actionRequest;
     console.log('actionRequest', player.actionRequest);

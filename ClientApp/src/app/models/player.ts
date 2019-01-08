@@ -22,4 +22,5 @@ export class Player {
   villagers: number;
   artifacts: IArtifact[];
   journeyTokenIsFaceUp: boolean;
+  victoryTokens: number;
 }

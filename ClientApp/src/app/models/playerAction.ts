@@ -7,5 +7,6 @@ export enum PlayerAction {
   Trash,
   PlayCoffer,
   PlayAllCoffers,
-  PlayVillager
+  PlayVillager,
+  Gain
 }

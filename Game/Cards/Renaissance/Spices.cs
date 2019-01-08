@@ -11,12 +11,6 @@ namespace DominionWeb.Game.Cards.Renaissance
 		public Card Name { get; } = Card.Spices;
 		public int Cost { get; } = 5;
 		public CardType CardType { get; } = CardType.Treasure;
-
-		public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
-
 		public int Value { get; } = 2;
 		
 		public void ResolveTreasureAbilities(IPlayer player)

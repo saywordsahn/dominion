@@ -244,20 +244,7 @@ namespace DominionWeb.Game.Player
         public void Gain(Card card)
         {
             var instance = CardFactory.Create(card);
-
-            if (instance is IOnGainOverride o)
-            {
-                o.OnGain(this, card);
-            }
-            else
-            {
-                if (instance is IOnGainAbilityHolder ah)
-                {
-                    ah.ResolveOnGainAbilities(this);
-                }
-                
-                DiscardPile.Add(card); 
-            }            
+            Gain(instance);
         }
 
         public void Gain(ICard card)
@@ -274,7 +261,11 @@ namespace DominionWeb.Game.Player
                 }
                 
                 DiscardPile.Add(card.Name); 
-            }            
+            }     
+            
+            //check on gain triggers
+            RunTriggeredAbilities(PlayerAction.Gain, card.Name);
+           
         }
         
         

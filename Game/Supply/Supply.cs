@@ -184,10 +184,16 @@ namespace DominionWeb.Game.Supply
 
         public int EmptyPileCount()
         {
-            return TreasureSupply.Count(pile => pile.Cards.Count == 0)
-                + VictorySupply.Count(pile => pile.Cards.Count == 0)
-                + KingdomSupply.Count(pile => pile.Cards.Count == 0)
-                + RuinsPile.Cards.Count == 0 ? 1 : 0;
+            var count = TreasureSupply.Count(pile => pile.Cards.Count == 0)
+                        + VictorySupply.Count(pile => pile.Cards.Count == 0)
+                        + KingdomSupply.Count(pile => pile.Cards.Count == 0);
+
+            if (RuinsPile != null)
+            {
+                count += + RuinsPile.Cards.Count == 0 ? 1 : 0;
+            }
+
+            return count;
         }
 
         /// <summary>

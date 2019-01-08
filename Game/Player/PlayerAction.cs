@@ -10,7 +10,8 @@ namespace DominionWeb.Game.Player
         Trash,
         PlayCoffer,
         PlayAllCoffers,
-        PlayVillager
+        PlayVillager,
+        Gain
     }
 }
 

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards;
+using DominionWeb.Game.Utils;
 
 namespace DominionWeb.Game.Supply
 {
-    public class DefaultSupplyFactory : ISupplyFactory
+    public class RandomizedSupplyFactory : ISupplyFactory
     {
         public Supply Create(int numberOfPlayers = 2)
         {
@@ -12,32 +13,22 @@ namespace DominionWeb.Game.Supply
             var pileFactory = new PileFactory(numberOfPlayers);
 
             var tSupply = pileFactory.Create(new List<Card>
-                {
-                    Card.Copper, Card.Silver, Card.Gold
-                });
+            {
+                Card.Copper, Card.Silver, Card.Gold
+            });
 
             var vSupply = pileFactory.Create(new List<Card>
             {
                 Card.Estate, Card.Duchy, Card.Province, Card.Curse
             });
 
-            var kSupply = pileFactory.Create(new List<Card>
-            {
-                Card.Militia,
-                //Card.FlagBearer,
-                Card.Groundskeeper,
-                Card.Moat,
-                Card.Pooka,
-                Card.Experiment,
-                Card.Steward,
-                Card.Witch,
-                Card.Marauder,
-                Card.LostCity,
-                Card.Hideout,
-                Card.KingsCourt,
-                //Card.Ratcatcher,
-                Card.SettlersBustlingVillage,
-            });
+            var availableCards = CardLists.AvailableCards.ToList();
+            
+            availableCards.Shuffle();
+
+            var topTen = availableCards.Take(10);
+
+            var kSupply = pileFactory.Create(topTen);
             
             if (kSupply.Any(x => CardLists.Looters.Any(y => y == x.PileCard)))
             {

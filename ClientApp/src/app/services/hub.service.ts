@@ -78,8 +78,8 @@ export class HubService {
 
 
 
-  newGame() {
-    this.hubConnection.invoke("Echo", { UserName: "Benj", Message: 'start new game' });
+  newGame(randomizedKingdom: boolean) {
+    this.hubConnection.invoke("NewGame", randomizedKingdom);
   }
 
   submitAction(gameId: number, action: PlayerAction, card: Card) {

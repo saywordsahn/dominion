@@ -16,6 +16,7 @@ namespace DominionWeb.Game.Common.Rules
             player.PlayedCards.RemoveAll(CardIsResolved);
 
             player.DiscardPile.AddRange(player.Hand);
+            //at some point we'll have to rework triggered ability clear
             player.TriggeredAbilities.Clear();
             player.Hand = new List<Card>();
             player.Draw(5);

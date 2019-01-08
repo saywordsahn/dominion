@@ -27,7 +27,7 @@ namespace DominionWeb
 		//TODO: refactor game startup as builder or factory
 		//TODO: performance add homogenous pile class for most piles
 		//you're going to invoke this method from the client app
-		public void Echo(ChatMessage message)
+		public void NewGame(bool randomizedKingdom)
 		{
 			var gameModel = new Models.Game()
 			{
@@ -36,9 +36,19 @@ namespace DominionWeb
 
 			_context.Game.Add(gameModel);
 			_context.SaveChanges();
+
+			ISupplyFactory supplyFactory;
 			
-			var supplyFactory = new DefaultSupplyFactory();
-			var supply = supplyFactory.Create();
+			if (randomizedKingdom)
+			{
+				supplyFactory = new RandomizedSupplyFactory();
+			}
+			else
+			{
+				supplyFactory = new DefaultSupplyFactory();
+			}
+				
+			var supply = supplyFactory.Create(2);
 
 			var ben = new Player(1, "ben@gmail.com");
 			var maria = new Player(2, "maria@gmail.com");
@@ -241,14 +251,5 @@ namespace DominionWeb
 		{
 			await Clients.All.SendAsync("ReceiveChatMessage", $"{Context.UserIdentifier}: {message}");
 		}
-	
-
-}
-
-    public class ChatMessage
-    {
-        public string UserName { get; set; }
-        public string Message { get; set; }
-    }
-
+	}
 }

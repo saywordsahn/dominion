@@ -8,7 +8,8 @@
      <d-supply></d-supply>
     </div>
     <div class="col-sm-2">
-      <button (click)="send()">New Game</button>
+      <button (click)="newGame(true)">New Random Game</button>
+      <button (click)="newGame(false)">New Dev Game</button>
       Current User: {{ user.userName }} <button (click)="changeUser()">Change User</button>
       <button (click)="loadPrevious(gameToLoad)">Load Previous Game</button>
       <input type="text" [(ngModel)]="gameToLoad" name="gameToLoad">

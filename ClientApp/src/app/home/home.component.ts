@@ -47,8 +47,8 @@ export class HomeComponent {
         console.log(data);
     }
 
-    send() {
-      this.hubService.newGame();
+    newGame(randomizeKingdom: boolean) {
+      this.hubService.newGame(randomizeKingdom);
     }
 
     loadPrevious(gameId: number) {
