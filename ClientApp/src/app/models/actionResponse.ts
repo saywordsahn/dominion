@@ -5,5 +5,7 @@ export enum ActionResponse {
   Gain,
   Put,
   Discard,
-  Draw
+  Draw,
+  Action,
+  Buy
 }

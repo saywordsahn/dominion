@@ -28,7 +28,7 @@ namespace DominionWeb.Game.Supply
                 Card.Groundskeeper,
                 Card.Moat,
                 Card.Pooka,
-                Card.Experiment,
+                Card.Pawn,
                 Card.Steward,
                 Card.Witch,
                 Card.Marauder,
