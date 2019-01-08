@@ -31,7 +31,6 @@ namespace DominionWeb.Game.Cards.Abilities.CardSpecificAbilities
                 player.ActionRequest = new SelectCardsActionRequest("Select a card to trash",
                     Card.Pooka, selectableCards, 1);
                 player.PlayStatus = PlayStatus.ActionRequestResponder;
-                Resolved = true;
             }
         }
 

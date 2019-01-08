@@ -36,7 +36,7 @@ namespace DominionWeb.Game.Supply
                 Card.Hideout,
                 Card.KingsCourt,
                 //Card.Ratcatcher,
-                Card.Miser,
+                Card.SettlersBustlingVillage,
             });
 
             var workingSupply = pileFactory.Create(new List<Card>

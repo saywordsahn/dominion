@@ -6,7 +6,7 @@ namespace DominionWeb.Game.Cards.Filters
     {
         public bool Apply(ICard card)
         {
-            return card is ITreasure && card.Name != Card.Pooka;
+            return card is ITreasure && card.Name != Card.CursedGold;
         }
     }
 }

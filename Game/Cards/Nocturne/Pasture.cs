@@ -5,16 +5,16 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Nocturne
 {
-	public class Pasture : ICard
+	public class Pasture : ICard, ITreasure, IVictory, IHeirloom
 	{
 		public Card Name { get; } = Card.Pasture;
-		public int Cost { get; }
-		public CardType CardType { get; }
+		public int Cost { get; } = 2;
+		public CardType CardType { get; } = CardType.Treasure;
 
-		public void Resolve(Game game)
+		public int Value { get; } = 1;
+		public int GetVictoryPointValue(IPlayer player)
 		{
 			throw new System.NotImplementedException();
 		}
-
 	}
 }

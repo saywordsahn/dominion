@@ -14,7 +14,12 @@ namespace DominionWeb.Game.Cards.Nocturne
 
 		public void Resolve(Game game)
 		{
-			throw new System.NotImplementedException();
+			var player = game.GetActivePlayer();
+
+			foreach (var rule in GetRules(game, player))
+			{
+				player.RuleStack.Push(rule);
+			}
 		}
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)

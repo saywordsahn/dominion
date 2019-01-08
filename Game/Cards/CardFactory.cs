@@ -345,6 +345,7 @@ namespace DominionWeb.Game.Cards
             { Card.GladiatorFortune, () => new GladiatorFortune() },
             { Card.PatricianEmporium, () => new PatricianEmporium() },
             { Card.SettlersBustlingVillage, () => new SettlersBustlingVillage() },
+            { Card.BustlingVillage, () => new BustlingVillage()},
             
             //nocturne
             { Card.Exorcist, () => new Exorcist() },
