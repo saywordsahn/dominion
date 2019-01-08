@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
@@ -13,13 +14,17 @@ namespace DominionWeb.Game.Cards.Seaside
 
 		public void Resolve(Game game)
 		{
-			throw new System.NotImplementedException();
+			throw new System.InvalidOperationException();
 		}
-
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
-			throw new System.NotImplementedException();
+			return new List<IRule>
+			{
+				new PlusMoney(1),
+				new PlusActions(2),
+				new PlusCards(1)
+			};
 		}
 	}
 }
