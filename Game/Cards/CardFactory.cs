@@ -382,7 +382,7 @@ namespace DominionWeb.Game.Cards
             { Card.ZombieApprentice, () => new ZombieApprentice() },
             { Card.ZombieMason, () => new ZombieMason() },
             { Card.ZombieSpy, () => new ZombieSpy() },
-
+            { Card.CursedGold, () => new CursedGold() },
             
             //renaissance
             { Card.BorderGuard, () => new BorderGuard() },

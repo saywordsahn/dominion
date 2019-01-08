@@ -1,20 +1,22 @@
 using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities.Attacks.Effects;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Nocturne
 {
-	public class CursedGold : ICard
+	public class CursedGold : ICard, ITreasure, ITreasureAbilityHolder, IHeirloom
 	{
 		public Card Name { get; } = Card.CursedGold;
-		public int Cost { get; }
-		public CardType CardType { get; }
+		public int Cost { get; } = 0;
+		public CardType CardType { get; } = CardType.Treasure;
 
-		public void Resolve(Game game)
+		public int Value { get; } = 3;
+		
+		public void ResolveTreasureAbilities(IPlayer player)
 		{
-			throw new System.NotImplementedException();
+			player.RuleStack.Push(new GainCurseAttackEffect());
 		}
-
 	}
 }

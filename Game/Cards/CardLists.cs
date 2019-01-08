@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack;
 
 namespace DominionWeb.Game.Cards
 {
@@ -33,6 +34,17 @@ namespace DominionWeb.Game.Cards
             Card.DeathCart,
             Card.Marauder,
             Card.Cultist
+        };
+
+        public static Dictionary<Card, Card> Heirlooms = new Dictionary<Card, Card>
+        {
+            { Card.Pooka, Card.CursedGold },
+            { Card.Pixie, Card.Goat },
+            { Card.Tracker, Card.Pouch },
+            { Card.Fool, Card.LuckyCoin },
+            { Card.SecretCave, Card.MagicLamp },
+            { Card.Cemetery, Card.HauntedMirror },
+            { Card.Shepherd, Card.Pasture }
         };
 
     }

@@ -27,7 +27,7 @@ namespace DominionWeb.Game.Supply
                 //Card.FlagBearer,
                 Card.Beggar,
                 Card.Moat,
-                Card.SilkMerchant,
+                Card.Pooka,
                 Card.Experiment,
                 Card.Cache,
                 Card.Witch,
