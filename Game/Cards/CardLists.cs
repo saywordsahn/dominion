@@ -63,7 +63,7 @@ namespace DominionWeb.Game.Cards
             Card.Market,
             Card.Merchant,
             Card.Militia,
-            Card.Mine,
+            //Card.Mine,
             Card.Moneylender,
             //Card.Poacher,
             Card.Remodel,
