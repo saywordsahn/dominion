@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.Conditions;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
@@ -13,13 +15,19 @@ namespace DominionWeb.Game.Cards.Prosperity
 
 		public void Resolve(Game game)
 		{
-			throw new System.NotImplementedException();
 		}
 
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
-			throw new System.NotImplementedException();
+			return new List<IRule>
+			{
+				new ConditionalAbility(new EmptySupplyPileCondition(2), new PlusMoney(1)),
+				new ConditionalAbility(new EmptySupplyPileCondition(2), new PlusBuys(1)),
+				new ConditionalAbility(new EmptySupplyPileCondition(1), new PlusCards(1)),
+				new PlusActions(2),
+				new PlusCards(1)
+			};
 		}
 	}
 }
