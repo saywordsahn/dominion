@@ -28,7 +28,7 @@ namespace DominionWeb.Game.Supply
                 Card.Groundskeeper,
                 Card.Moat,
                 Card.City,
-                Card.Pawn,
+                Card.Armory,
                 Card.Steward,
                 Card.Witch,
                 Card.Magpie,

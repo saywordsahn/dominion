@@ -3,13 +3,14 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    public class GainCardToHand : IAbility
+    //TODO: consolidate GainCard, GainCardToDeck, and GainCardToHand (GainCardFromTrash)?
+    public class GainCardToDeck : IAbility
     {
         public Card CardToGain { get; set; }
         public int Amount { get; set; }
         public bool Resolved { get; set; }
 
-        public GainCardToHand(Card card, int amount)
+        public GainCardToDeck(Card card, int amount = 1)
         {
             CardToGain = card;
             Amount = amount;
@@ -28,7 +29,7 @@ namespace DominionWeb.Game.Cards.Abilities
             {
                 if (!game.Supply.Contains(CardToGain)) break;
                 game.Supply.Take(CardToGain);
-                player.GainToHand(CardToGain);
+                player.Deck.Add(CardToGain);
             }
             
             Resolved = true;
