@@ -225,7 +225,7 @@ namespace DominionWeb.Game.Cards
 
 
 //            Card.Altar,
-//            Card.Armory,
+            Card.Armory,
 //            Card.BandOfMisfits,
             Card.BanditCamp,
             Card.Beggar,
@@ -291,7 +291,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Gear,
 //            Card.Guide,
 //            Card.Duplicate,
-//            Card.Magpie,
+            Card.Magpie,
 //            Card.Messenger,
             Card.Miser,
 //            Card.Port,
