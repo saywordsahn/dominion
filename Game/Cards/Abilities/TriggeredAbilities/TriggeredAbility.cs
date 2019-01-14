@@ -4,9 +4,9 @@ namespace DominionWeb.Game.Cards.Abilities.TriggeredAbilities
 {
     public class TriggeredAbility : ITriggeredAbility
     {
-        public ITrigger Trigger { get; }
-        public IAbility Ability { get; }
-        public TriggeredAbilityDurationType TriggeredAbilityDurationType { get; }
+        public ITrigger Trigger { get; set; }
+        public IAbility Ability { get; set; }
+        public TriggeredAbilityDurationType TriggeredAbilityDurationType { get; set; }
         
         public TriggeredAbility(ITrigger trigger, IAbility ability,
             TriggeredAbilityDurationType durationType)

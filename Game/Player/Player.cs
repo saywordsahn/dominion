@@ -133,14 +133,19 @@ namespace DominionWeb.Game.Player
             {
                 if (triggeredAbility.Trigger.IsMet(playerAction, card))
                 {
-                    //triggeredAbility.Ability.Resolve(this);
-                    //PlayedAbilities.Add(triggeredAbility.Ability);
+                    
+                    if (triggeredAbility.TriggeredAbilityDurationType != TriggeredAbilityDurationType.Once)
+                    {
+                        triggeredAbility.Ability.Resolved = false;
+                    }
+                    
                     RuleStack.Push(triggeredAbility.Ability);
 
-                    if (triggeredAbility.TriggeredAbilityDurationType == TriggeredAbilityDurationType.Once)
-                    {
-                        TriggeredAbilities.Remove(triggeredAbility);
-                    }
+                    //we may not need this since resolved abilities won't play 2 times anyway
+//                    if (triggeredAbility.TriggeredAbilityDurationType == TriggeredAbilityDurationType.Once)
+//                    {
+//                        TriggeredAbilities.Remove(triggeredAbility);
+//                    }
                 }
             }
         }
@@ -239,6 +244,8 @@ namespace DominionWeb.Game.Player
             Gain(card);
             MoneyPlayed -= cardProperties.Cost;
             NumberOfBuys--;
+            
+            RunTriggeredAbilities(PlayerAction.Buy, card);
         }
 
         public void Gain(Card card)

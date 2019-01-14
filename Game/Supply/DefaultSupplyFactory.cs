@@ -29,7 +29,7 @@ namespace DominionWeb.Game.Supply
                 Card.Moat,
                 Card.City,
                 Card.Armory,
-                Card.Workshop,
+                Card.Goons,
                 Card.Witch,
                 Card.Magpie,
                 Card.LostCity,
