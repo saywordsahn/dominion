@@ -100,6 +100,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Replace,
 //            Card.SecretPassage
             Card.Lurker,
+            Card.Nobles,
 
 
 //            Card.Hoard,
@@ -332,7 +333,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Engineer,
 //            Card.FarmersMarket,
 //            Card.Fortune,
-//            Card.Forum,
+            Card.Forum,
 //            Card.Gladiator,
             Card.Groundskeeper,
 //            Card.Legionary,

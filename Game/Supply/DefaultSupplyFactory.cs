@@ -27,7 +27,7 @@ namespace DominionWeb.Game.Supply
                 //Card.FlagBearer,
                 Card.Groundskeeper,
                 Card.Moat,
-                Card.City,
+                Card.Nobles,
                 Card.Armory,
                 Card.Goons,
                 Card.Witch,

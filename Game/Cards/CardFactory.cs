@@ -82,6 +82,7 @@ namespace DominionWeb.Game.Cards
             { Card.Patrol, () => new Patrol() },
             { Card.Replace, () => new Replace() },
             { Card.SecretPassage, () => new SecretPassage() },
+            { Card.Nobles, () => new Nobles() },
             
             //seaside
             { Card.Outpost, () => new Outpost() },
