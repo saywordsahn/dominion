@@ -30,7 +30,7 @@ namespace DominionWeb.Game.Supply
                 Card.Nobles,
                 Card.Armory,
                 Card.Goons,
-                Card.Witch,
+                Card.Embassy,
                 Card.Magpie,
                 Card.Forum,
                 Card.Hideout,

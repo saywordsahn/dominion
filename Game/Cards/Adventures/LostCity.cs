@@ -28,7 +28,7 @@ namespace DominionWeb.Game.Cards.Adventures
 
 		public void ResolveOnGainAbilities(IPlayer player)
 		{
-			player.RuleStack.Push(new OtherPlayersGainCard());
+			player.RuleStack.Push(new OtherPlayersDrawCard());
 		}
 	}
 }

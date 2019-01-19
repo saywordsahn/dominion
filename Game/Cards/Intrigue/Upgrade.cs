@@ -21,6 +21,7 @@ namespace DominionWeb.Game.Cards.Intrigue
 		{
 			return new List<IRule>
 			{
+				//TODO implement upgrade action
 				new PlusActions(1),
 				new PlusCards(1)
 			};
