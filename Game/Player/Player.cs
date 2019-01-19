@@ -235,17 +235,23 @@ namespace DominionWeb.Game.Player
         {
             if (NumberOfBuys == 0) throw new InvalidOperationException("Cannot purchase card: no buys remaining.");
             
-            var cardProperties = CardFactory.Create(card);
+            var instance = CardFactory.Create(card);
 
-            if (cardProperties.Cost > MoneyPlayed) throw new InvalidOperationException("Cannot purchase card: not enough money.");
+            if (instance.Cost > MoneyPlayed) throw new InvalidOperationException("Cannot purchase card: not enough money.");
 
             if (!HasBoughtThisTurn) HasBoughtThisTurn = true;
             
             Gain(card);
-            MoneyPlayed -= cardProperties.Cost;
+            MoneyPlayed -= instance.Cost;
             NumberOfBuys--;
-            
+
             RunTriggeredAbilities(PlayerAction.Buy, card);
+            
+            if (instance is IOnBuyAbilityHolder b)
+            {
+                //TODO, rework?
+                b.ResolveOnGainAbilities(this);
+            }
         }
 
         public void Gain(Card card)

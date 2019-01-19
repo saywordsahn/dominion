@@ -294,7 +294,7 @@ namespace DominionWeb.Game.Cards
             Card.Magpie,
 //            Card.Messenger,
             Card.Miser,
-//            Card.Port,
+            Card.Port,
             Card.Ranger,
 //            Card.Transmogrify,
 //            Card.Artificer,

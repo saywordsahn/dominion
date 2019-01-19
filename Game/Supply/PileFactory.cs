@@ -78,6 +78,8 @@ namespace DominionWeb.Game.Supply
                 //ADVENTURES
                 case Card.DistantLands:
                     return new Pile(card, victorySupplyAmount);
+                case Card.Port:
+                    return new Pile(card, 12);
                 
                 //EMPIRES
                 case Card.PatricianEmporium:

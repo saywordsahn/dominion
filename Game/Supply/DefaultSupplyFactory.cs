@@ -32,7 +32,7 @@ namespace DominionWeb.Game.Supply
                 Card.Goons,
                 Card.Witch,
                 Card.Magpie,
-                Card.LostCity,
+                Card.Forum,
                 Card.Hideout,
                 Card.KingsCourt,
                 //Card.Ratcatcher,
