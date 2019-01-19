@@ -6,12 +6,13 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    public class Discard : IAbility, IResponseRequired<IEnumerable<Card>>
+    public class Discard : IAbility, IResponseRequired<IEnumerable<Card>>, IDiscardAbility
     {
         public int Amount { get; set; }
         public Discard(int amount)
         {
             Amount = amount;
+            CardsDiscarded = 0;
         }
         
         public void Resolve(Game game, IPlayer player)
@@ -51,11 +52,14 @@ namespace DominionWeb.Game.Cards.Abilities
                 foreach (var card in cardList)
                 {
                     player.DiscardFromHand(card);
+                    CardsDiscarded++;
                 }
                 
                 player.PlayStatus = PlayStatus.ActionPhase;
                 Resolved = true;
             }
         }
+
+        public int CardsDiscarded { get; set; }
     }
 }

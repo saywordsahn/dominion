@@ -13,7 +13,7 @@ namespace DominionWeb.Game.Cards.Intrigue
 
 		public void Resolve(Game game)
 		{
-			throw new System.NotImplementedException();
+			
 		}
 
 

@@ -94,8 +94,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Upgrade,
 //            Card.Courtier,
 //            Card.Diplomat,
-//            Card.Lurker,
-//            Card.Mill,
+            Card.Mill,
 //            Card.Patrol,
 //            Card.Replace,
 //            Card.SecretPassage
@@ -202,7 +201,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Crossroads,
 //            Card.Develop,
 //            Card.Duchess,
-//            Card.Embassy,
+            Card.Embassy,
 //            Card.Farmland,
 //            Card.FoolsGold,
 //            Card.Haggler,
