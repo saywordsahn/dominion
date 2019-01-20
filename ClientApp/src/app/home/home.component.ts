@@ -4,6 +4,8 @@ import {HubService} from "../services/hub.service";
 import {UserService} from "../services/user.service";
 import {GameService} from "../services/game.service";
 import {User} from "../models/user";
+import {MatDialog} from "@angular/material";
+import { LoginDialogComponent } from './login-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ export class HomeComponent {
       private dataService: DataService,
       private hubService: HubService,
       private userService: UserService,
-      private gameService: GameService
+      private gameService: GameService,
+      private loginDialog: MatDialog
       ) {
     }
 
@@ -74,6 +77,20 @@ export class HomeComponent {
       }
 
       this.user = this.userService.getUser();
+    }
+
+    login() {
+      const dialogRef = this.loginDialog.open(LoginDialogComponent, {
+        width: '250px',
+        data: {}
+      });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+          this.dataService.login(result.userName, result.password)
+          .subscribe(x => this.loginReturn(x));
+      });
+      
     }
 
 }

@@ -16,6 +16,8 @@ import { HandViewerComponent } from "./hand-viewer/hand-viewer.component";
 import {PlayAreaComponent} from "./play-area/play-area.component";
 import {CardOrganizerComponent}  from "./card-organizer/card-organizer.component";
 
+import {LoginDialogComponent} from './home/login-dialog.component';
+
 import { DataService } from './services/data.service';
 import { CardService } from './services/card.service';
 import { HubService } from './services/hub.service';
@@ -28,6 +30,10 @@ import {Dialog, DialogModule} from 'primeng/dialog';
 //material
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDialogModule} from "@angular/material";
+import {MatMenuModule} from "@angular/material";
+import {MatFormFieldModule} from "@angular/material";
+import {MatInputModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +46,8 @@ import {MatDialogModule} from "@angular/material";
     PlayerComponent,
     HandViewerComponent,
     PlayAreaComponent,
-    CardOrganizerComponent
+    CardOrganizerComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -55,10 +62,14 @@ import {MatDialogModule} from "@angular/material";
     MultiSelectModule,
     DialogModule,
     DragDropModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   entryComponents: [
-    CardOrganizerComponent
+      CardOrganizerComponent,
+      LoginDialogComponent
   ],
   providers: [
       DataService,

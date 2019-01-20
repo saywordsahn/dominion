@@ -8,11 +8,16 @@
      <d-supply></d-supply>
     </div>
     <div class="col-sm-2">
-      <button (click)="newGame(true)">New Random Game</button>
-      <button (click)="newGame(false)">New Dev Game</button>
-      Current User: {{ user.userName }} <button (click)="changeUser()">Change User</button>
-      <button (click)="loadPrevious(gameToLoad)">Load Previous Game</button>
-      <input type="text" [(ngModel)]="gameToLoad" name="gameToLoad">
+        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="login()">Login</button>
+            <button mat-menu-item>Item 2</button>
+        </mat-menu>
+        <button (click)="newGame(true)">New Random Game</button>
+        <button (click)="newGame(false)">New Dev Game</button>
+        Current User: {{ user.userName }} <button (click)="changeUser()">Change User</button>
+        <button (click)="loadPrevious(gameToLoad)">Load Previous Game</button>
+        <input type="text" [(ngModel)]="gameToLoad" name="gameToLoad">
     </div>
   </div>
   <div class="row">

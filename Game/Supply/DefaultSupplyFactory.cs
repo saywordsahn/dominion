@@ -31,7 +31,7 @@ namespace DominionWeb.Game.Supply
                 Card.Armory,
                 Card.Goons,
                 Card.Embassy,
-                Card.Magpie,
+                Card.Ironworks,
                 Card.Forum,
                 Card.Hideout,
                 Card.KingsCourt,

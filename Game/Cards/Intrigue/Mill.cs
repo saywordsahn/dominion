@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Rewrite.Internal.IISUrlRewrite;
 
 namespace DominionWeb.Game.Cards.Intrigue
 {
-	public class Mill : ICard, IAction, IRulesHolder
+	public class Mill : ICard, IAction, IRulesHolder, IVictory
 	{
 		public Card Name { get; } = Card.Mill;
 		public int Cost { get; } = 4;
@@ -26,6 +26,11 @@ namespace DominionWeb.Game.Cards.Intrigue
 				new PlusActions(1),
 				new PlusCards(1)
 			};
+		}
+
+		public int GetVictoryPointValue(IPlayer player)
+		{
+			return 1;
 		}
 	}
 }

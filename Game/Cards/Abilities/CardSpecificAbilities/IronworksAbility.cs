@@ -6,7 +6,7 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities.CardSpecificAbilities
 {
-    public class WorkshopAbility : IAbility, IResponseRequired<IEnumerable<Card>>
+    public class IronworksAbility : IAbility, IResponseRequired<IEnumerable<Card>>
     {        
         public void Resolve(Game game, IPlayer player)
         {
@@ -23,7 +23,24 @@ namespace DominionWeb.Game.Cards.Abilities.CardSpecificAbilities
 
             if (cardList.Count == 1)
             {
-                player.RuleStack.Push(new GainCard(cardList[0]));
+                var instance = CardFactory.Create(cardList[0]);
+
+                if (instance is IAction)
+                {
+                    player.RuleStack.Push(new PlusActions(1));
+                }
+
+                if (instance is ITreasure)
+                {
+                    player.RuleStack.Push(new PlusMoney(1));
+                }
+
+                if (instance is IVictory)
+                {
+                    player.RuleStack.Push(new PlusCards(1));
+                }
+                
+                player.RuleStack.Push(new GainCard(instance));
                 player.PlayStatus = PlayStatus.ActionPhase;
                 Resolved = true;
             }
