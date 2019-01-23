@@ -8,6 +8,9 @@ import {Player} from "../models/player";
 import {ActionRequestType} from "../models/actionRequestType";
 import {ActionResponse} from "../models/actionResponse";
 import {Action} from "rxjs/internal/scheduler/Action";
+import {Observable, Subject} from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 
 @Injectable({
@@ -16,8 +19,11 @@ import {Action} from "rxjs/internal/scheduler/Action";
 export class HubService {
   public hubConnection: HubConnection;
 
+    public connected : Subject<boolean> = new Subject();
+
   constructor(private dataService: DataService,
-    private gameService: GameService
+      private gameService: GameService,
+            private router: Router
   ) { }
 
   public connect(accessToken: string): void {
@@ -61,12 +67,33 @@ export class HubService {
       console.log(message);
     });
 
+    this.hubConnection.on("LobbyCreated", (lobby) => {
+       lobby.users = [];
+      this.dataService.LobbySubject.next(lobby);
+    });
+
+      this.hubConnection.on("LobbiesUpdated", (lobbies) => {
+          this.dataService.LobbySubject.next(lobbies);
+      })
+
+      this.hubConnection.on("JoinLobby", (user, lobby) => {
+          console.log('hubService', user, lobby);
+        this.dataService.LobbySubject.next(lobby);
+      });
+
+      this.hubConnection.on("GoToGame", (gameId) => {
+        this.router.navigate(['/game']);
+    });
+    
+
     // this.hubConnection.on("Update", (message) => {
     //   this.messages.push("MY GAME MESSAGE");
     // });
 
     // starting the connection
-    this.hubConnection.start();
+      this.hubConnection.start();
+          //.then(this.connected.next(true))
+         //.then(this.hubConnection.invoke("GetLobbies"));
   }
 
   async disconnect() {
@@ -76,7 +103,24 @@ export class HubService {
     }
   }
 
+    getLobbies(): void {
+        this.hubConnection.invoke("GetLobbies");
+    }
+  createLobby(name: string) {
+    this.hubConnection.invoke("CreateLobby", name);
+  }
 
+  joinLobby(lobbyId: number) {
+     this.hubConnection.invoke("JoinLobby", lobbyId);
+  }
+
+  leaveLobby(lobbyId: number) {
+      this.hubConnection.invoke("LeaveLobby", lobbyId);
+  }
+
+   startGame(lobbyId: number) : void {
+    this.hubConnection.invoke("StartGame", lobbyId);
+   }
 
   newGame(randomizedKingdom: boolean) {
     this.hubConnection.invoke("NewGame", randomizedKingdom);

@@ -1,4 +1,7 @@
-﻿namespace DominionWeb.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace DominionWeb.Models
 {
     public partial class GameState
     {
@@ -6,6 +9,6 @@
         public int GameId { get; set; }
         public string State { get; set; }
 
-        public Game Game { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

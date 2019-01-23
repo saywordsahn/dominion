@@ -63,7 +63,9 @@ namespace SignalRAuthenticationSample.Controllers
                         signingCredentials: SigningCreds);
                     return Json(new
                     {
-                        token = _tokenHandler.WriteToken(token)
+                        token = _tokenHandler.WriteToken(token),
+                        userId = user.Id,
+                        userName = user.UserName
                     });
                 }
                 else

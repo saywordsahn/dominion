@@ -13,6 +13,6 @@ namespace DominionWeb.Models
         public int GameId { get; set; }
         public DateTime DateTime { get; set; }
 
-        public ICollection<GameState> GameState { get; set; }
+        public virtual ICollection<GameState> GameState { get; set; }
     }
 }

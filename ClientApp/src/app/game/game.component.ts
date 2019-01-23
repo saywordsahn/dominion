@@ -6,13 +6,12 @@ import {GameService} from "../services/game.service";
 import {User} from "../models/user";
 import {MatDialog} from "@angular/material";
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'd-game',
+  templateUrl: './game.component.html',
 })
-export class HomeComponent {
+export class GameComponent {
 
     public user: User;
     public gameToLoad: number;
@@ -23,17 +22,16 @@ export class HomeComponent {
       private hubService: HubService,
       private userService: UserService,
       private gameService: GameService,
-      private loginDialog: MatDialog,
-      private router: Router
+      private loginDialog: MatDialog
       ) {
     }
 
     ngOnInit() {
+      //connect to data service
+      //this.dataService.getData()
+       //.subscribe(x => GameComponent.dataReturned(x));
 
       this.user = this.userService.getUser();
-
-      this.dataService.login('ben@gmail.com', 'a!1bmtickleP')
-        .subscribe(x => this.loginReturn(x));
 
       // this.dataService.register()
       //   .subscribe(x => console.log(x));
@@ -43,7 +41,6 @@ export class HomeComponent {
       console.log(x);
         this.userService.loginToken = x["token"];
         this.userService.userName = x["userName"];
-        this.userService.user = new User(x["userId"], x["userName"]);
       this.hubService.connect(this.userService.loginToken);
     }
 
@@ -59,7 +56,27 @@ export class HomeComponent {
 
       this.hubService.loadGame(gameId);
     }
-       
+
+
+    changeUser() {
+
+      //logout current user by disconnecting from hub and removing token
+      this.hubService.disconnect();
+      this.userService.loginToken = null;
+
+      if (this.user.userId == '21d52470-9a75-4012-ad6b-da787c348f09') {
+        this.dataService.login('maria@gmail.com', 'b!1bmtickleP')
+          .subscribe(x => this.loginReturn(x));
+        this.userService.setUser('add58dab-0f7a-495e-98c6-13f060b367dc2');
+      } else {
+        this.dataService.login('ben@gmail.com', 'a!1bmtickleP')
+          .subscribe(x => this.loginReturn(x));
+        this.userService.setUser('21d52470-9a75-4012-ad6b-da787c348f09');
+      }
+
+      this.user = this.userService.getUser();
+    }
+
     login() {
       const dialogRef = this.loginDialog.open(LoginDialogComponent, {
         width: '250px',
@@ -71,10 +88,7 @@ export class HomeComponent {
           this.dataService.login(result.userName, result.password)
           .subscribe(x => this.loginReturn(x));
       });
-    }
-
-    goToLobby() {
-      this.router.navigate(['/lobby']);
+      
     }
 
 }

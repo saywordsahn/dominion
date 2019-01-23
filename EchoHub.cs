@@ -9,6 +9,7 @@ using DominionWeb.Game.Supply;
 using Microsoft.AspNetCore.Authorization;
 using DominionWeb.Game.Player;
 using Microsoft.EntityFrameworkCore;
+using DominionWeb.Game.Utils;
 
 namespace DominionWeb
 {
@@ -23,11 +24,152 @@ namespace DominionWeb
 			_context = context;
 		}
 
-		//TODO: rename echo hub or move logic to GameHub
-		//TODO: refactor game startup as builder or factory
-		//TODO: performance add homogenous pile class for most piles
-		//you're going to invoke this method from the client app
-		public void NewGame(bool randomizedKingdom)
+        public async Task CreateLobby(string lobbyName)
+        {
+            var userId = _context.Users.Single(x => x.UserName == Context.UserIdentifier).Id;
+
+            var userInLobby = _context.LobbyUser.Any(x => x.UserId == userId);
+
+            if (userInLobby) {
+                await Clients.User(Context.UserIdentifier).SendAsync("ReceiveSystemMessage", "You cannot create a lobby while you are already in one.");
+                return;
+            }
+
+            var lobbyUser = new Models.LobbyUser
+            {
+                UserId = userId
+            };
+
+            var lobby = new Models.Lobby()
+            {
+                Name = lobbyName,
+                HostId = userId,
+                LobbyUser = new List<Models.LobbyUser> {
+                    lobbyUser
+                }
+            };
+
+            _context.Lobby.Add(lobby);
+
+            await _context.SaveChangesAsync();
+
+            var lobbies = _context.Lobby.ToList();
+
+            await Clients.All.SendAsync("LobbyCreated", lobbies);
+            //await Clients.User(Context.UserIdentifier).SendAsync("JoinLobby", Context.UserIdentifier, lobby);
+        }
+
+        //TODO: make restful instead of socket
+        public async Task GetLobbies()
+        {
+            var lobbies = _context.Lobby;
+            await Clients.All.SendAsync("LobbiesUpdated", lobbies);
+        }
+
+        public async Task JoinLobby(int lobbyId)
+        {
+
+            var lobby = _context.Lobby.Find(lobbyId);
+            var userId = _context.Users.Single(x => x.UserName == Context.UserIdentifier).Id;
+
+            var userInLobby = _context.LobbyUser.Any(x => x.UserId == userId);
+
+            if (userInLobby) {
+                await Clients.User(Context.UserIdentifier).SendAsync("ReceiveSystemMessage", "You cannot join another lobby while you are already in one.");
+                return;
+            }
+
+            lobby.LobbyUser.Add(new Models.LobbyUser() { UserId = userId });
+            await _context.SaveChangesAsync();
+
+            var lobbies = _context.Lobby.Include(x => x.LobbyUser);
+            await Clients.All.SendAsync("LobbiesUpdated", lobbies);
+            //await Clients.All.SendAsync("JoinLobby", Context.UserIdentifier, lobby);
+        }
+
+        public async Task LeaveLobby(int lobbyId)
+        {
+            var lobby = _context.Lobby.Find(lobbyId);
+            var userId = _context.Users.Single(x => x.UserName == Context.UserIdentifier).Id;
+
+            var userInLobby = _context.LobbyUser.Single(x => x.LobbyId == lobby.LobbyId && x.UserId == userId);
+
+            _context.LobbyUser.Remove(userInLobby);
+            await _context.SaveChangesAsync();
+
+            var remainingUsers = _context.LobbyUser.Where(x => x.LobbyId == lobby.LobbyId).ToList();
+
+            if (remainingUsers.Count == 0) {
+                _context.Lobby.Remove(_context.Lobby.Find(lobbyId));
+            }
+
+            await _context.SaveChangesAsync();
+            
+            var lobbies = _context.Lobby.ToList();
+
+            await Clients.All.SendAsync("LobbiesUpdated", lobbies);
+        }
+
+        //eventually StartGame will replace newGame
+        public void StartGame(int lobbyId)
+        {
+
+            var lobby = _context.Lobby.Include(x => x.LobbyUser)
+                                .Single(x => x.LobbyId == lobbyId);
+
+            var gameModel = new Models.Game()
+            {
+                DateTime = DateTime.Now
+            };
+
+            _context.Game.Add(gameModel);
+            _context.SaveChanges();
+
+            ISupplyFactory supplyFactory;
+
+            supplyFactory = new RandomizedSupplyFactory();
+
+            var userIds = lobby.LobbyUser.Select(x => x.UserId).ToList();
+           
+
+            var supply = supplyFactory.Create(userIds.Count);
+
+            userIds.Shuffle();
+
+            var players = new List<IPlayer>();
+            for (int i = 0; i < userIds.Count; i++)
+            {
+                var userName = _context.Users.Find(userIds[i]).UserName;
+                players.Add(new Player(i + 1, userName));
+            }
+
+            var game = new Game.Game(gameModel.GameId, players, supply, new VictoryCondition());
+
+            game.Initialize();
+
+            var gameState = new Models.GameState()
+            {
+                GameId = game.GameId,
+                State = game.GetGameState()
+            };
+
+            _context.GameState.Add(gameState);
+            _context.SaveChanges();
+
+            //you're going to configure your client app to listen for this
+            Clients.All.SendAsync("Send", supply);
+            Clients.All.SendAsync("Game", game.GameId);
+            foreach (var player in players) {
+                Clients.User(player.PlayerName).SendAsync("GoToGame", game.GameId);
+                Clients.User(player.PlayerName).SendAsync("Player", player);
+            }
+        }
+
+        //TODO: rename echo hub or move logic to GameHub
+        //TODO: refactor game startup as builder or factory
+        //TODO: performance add homogenous pile class for most piles
+        //you're going to invoke this method from the client app
+        public void NewGame(bool randomizedKingdom)
 		{
 			var gameModel = new Models.Game()
 			{

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DominionWeb.Models
 {
@@ -17,12 +19,22 @@ namespace DominionWeb.Models
         public virtual DbSet<Connection> Connection { get; set; }
         public virtual DbSet<Game> Game { get; set; }
         public virtual DbSet<GameState> GameState { get; set; }
+        public virtual DbSet<Lobby> Lobby { get; set; }
+        public virtual DbSet<LobbyUser> LobbyUser { get; set; }
         public virtual DbSet<Player> Player { get; set; }
         public virtual DbSet<User> User { get; set; }
+
+        // Unable to generate entity type for table 'Dominion.Card'. Please see the warning messages.
+        // Unable to generate entity type for table 'Dominion.Set'. Please see the warning messages.
+
+   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
             modelBuilder.Entity<Connection>(entity =>
             {
                 entity.ToTable("Connection", "Dominion");
@@ -56,6 +68,35 @@ namespace DominionWeb.Models
                     .HasForeignKey(d => d.GameId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_gamestate_game");
+            });
+
+            modelBuilder.Entity<Lobby>(entity =>
+            {
+                entity.ToTable("Lobby", "Dominion");
+
+                entity.Property(e => e.HostId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<LobbyUser>(entity =>
+            {
+                entity.ToTable("LobbyUser", "Dominion");
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.Lobby)
+                    .WithMany(p => p.LobbyUser)
+                    .HasForeignKey(d => d.LobbyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LobbyId");
             });
 
             modelBuilder.Entity<Player>(entity =>

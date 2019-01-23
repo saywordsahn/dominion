@@ -15,8 +15,11 @@ import { PlayerComponent } from './player/player.component';
 import { HandViewerComponent } from "./hand-viewer/hand-viewer.component";
 import {PlayAreaComponent} from "./play-area/play-area.component";
 import {CardOrganizerComponent}  from "./card-organizer/card-organizer.component";
+import {GameComponent} from './game/game.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
-import {LoginDialogComponent} from './home/login-dialog.component';
+
+import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 
 import { DataService } from './services/data.service';
 import { CardService } from './services/card.service';
@@ -47,7 +50,9 @@ import {MatInputModule} from '@angular/material';
     HandViewerComponent,
     PlayAreaComponent,
     CardOrganizerComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    GameComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -58,6 +63,8 @@ import {MatInputModule} from '@angular/material';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'lobby', component: LobbyComponent},
+      { path: 'game', component: GameComponent},
     ]),
     MultiSelectModule,
     DialogModule,

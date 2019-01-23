@@ -1,0 +1,20 @@
+<div class="container">
+  <button (click)="createLobby()">Create Lobby</button>
+  <div class="row">
+    <div class="col-sm">
+      <div *ngFor="let lobby of gameList">
+        <button (click)="view(lobby)">{{lobby.name}}</button> <button (click)="join(lobby)">Join</button>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div *ngIf="currentLobby">
+        <h1>{{currentLobby.name}}</h1><button (click)="leaveCurrentLobby()">Leave</button>
+        {{currentLobby.host}} (Host)
+        <div *ngFor="let user of currentLobby.lobbyUser">
+          {{user.userId}}
+        </div>
+        <button (click)="startGame(currentLobby.lobbyId)">Start Game</button>
+      </div>
+    </div>
+  </div>
+</div>
