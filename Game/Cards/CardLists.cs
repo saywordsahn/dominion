@@ -213,7 +213,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Margrave,
 //            Card.NobleBrigand,
             Card.NomadCamp,
-//            Card.Oasis,
+            Card.Oasis,
 //            Card.Oracle,
 //            Card.Scheme,
             Card.SilkRoad,

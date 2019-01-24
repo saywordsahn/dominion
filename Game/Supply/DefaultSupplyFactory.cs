@@ -36,7 +36,7 @@ namespace DominionWeb.Game.Supply
                 Card.Hideout,
                 Card.KingsCourt,
                 //Card.Ratcatcher,
-                Card.SettlersBustlingVillage,
+                Card.Oasis,
             });
             
             if (kSupply.Any(x => CardLists.Looters.Any(y => y == x.PileCard)))
