@@ -249,7 +249,7 @@ namespace DominionWeb.Game.Cards
 //            Card.Rebuild,
 //            Card.Rogue,
 //            Card.Sage,
-//            Card.Scavenger,
+            Card.Scavenger,
 //            Card.Spoils,
 //            Card.Squire,
 //            Card.Storeroom,

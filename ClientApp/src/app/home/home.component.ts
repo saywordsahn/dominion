@@ -31,10 +31,7 @@ export class HomeComponent {
     ngOnInit() {
 
       this.user = this.userService.getUser();
-
-      this.dataService.login('ben@gmail.com', 'a!1bmtickleP')
-        .subscribe(x => this.loginReturn(x));
-
+      
       // this.dataService.register()
       //   .subscribe(x => console.log(x));
     }
@@ -67,9 +64,18 @@ export class HomeComponent {
       });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
-          this.dataService.login(result.userName, result.password)
-          .subscribe(x => this.loginReturn(x));
+            if (result.userName == 'b') {
+                this.dataService.login('ben@gmail.com', 'a!1bmtickleP')
+                  .subscribe(x => this.loginReturn(x));
+            }
+            else if (result.userName === 'm') {
+                this.dataService.login('maria@gmail.com', 'b!1bmtickleP')
+                  .subscribe(x => this.loginReturn(x));
+            }
+            else {
+                this.dataService.login(result.userName, result.password)
+                  .subscribe(x => this.loginReturn(x));
+            }
       });
     }
 
