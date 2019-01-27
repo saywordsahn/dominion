@@ -9,7 +9,7 @@ namespace DominionWeb.Game.Cards.Abilities
         public int Amount { get; set; }
         public bool Resolved { get; set; }
 
-        public GainCardToHand(Card card, int amount)
+        public GainCardToHand(Card card, int amount = 1)
         {
             CardToGain = card;
             Amount = amount;

@@ -26,7 +26,7 @@ namespace DominionWeb.Game.Cards.Base
         {
             return new List<IRule>
             {
-                new WorkshopAbility()
+                new GainCardCostingUpToX(4, GainTarget.DiscardPile)
             };
         }
     }

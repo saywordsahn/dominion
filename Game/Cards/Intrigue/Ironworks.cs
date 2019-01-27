@@ -23,7 +23,6 @@ namespace DominionWeb.Game.Cards.Intrigue
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
-			var workShopAbility = new WorkshopAbility();
 			return new List<IRule>
 			{
 				new IronworksAbility()

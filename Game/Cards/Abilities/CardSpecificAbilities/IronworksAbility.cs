@@ -23,6 +23,8 @@ namespace DominionWeb.Game.Cards.Abilities.CardSpecificAbilities
 
             if (cardList.Count == 1)
             {
+
+                //TODO: check cost of card here
                 var instance = CardFactory.Create(cardList[0]);
 
                 if (instance is IAction)

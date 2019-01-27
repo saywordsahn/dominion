@@ -31,12 +31,12 @@ namespace DominionWeb.Game.Supply
                 Card.PoorHouse,
                 Card.Goons,
                 Card.Embassy,
-                Card.Forager,
+                Card.Altar,
                 Card.Remodel,
-                Card.PatricianEmporium,
+                Card.Artisan,
                 Card.KingsCourt,
                 //Card.Ratcatcher,
-                Card.Oasis,
+                Card.Workshop,
             });
             
             if (kSupply.Any(x => CardLists.Looters.Any(y => y == x.PileCard)))
