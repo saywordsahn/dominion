@@ -6,6 +6,7 @@ import {GameService} from "../services/game.service";
 import {User} from "../models/user";
 import {MatDialog} from "@angular/material";
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { GameLogService } from '../services/game-log.service';
 
 @Component({
   selector: 'd-game',
@@ -22,7 +23,8 @@ export class GameComponent {
       private hubService: HubService,
       private userService: UserService,
       private gameService: GameService,
-      private loginDialog: MatDialog
+      private loginDialog: MatDialog,
+      public gameLogService: GameLogService
       ) {
     }
 
@@ -56,27 +58,7 @@ export class GameComponent {
 
       this.hubService.loadGame(gameId);
     }
-
-
-    changeUser() {
-
-      //logout current user by disconnecting from hub and removing token
-      this.hubService.disconnect();
-      this.userService.loginToken = null;
-
-      if (this.user.userId == '21d52470-9a75-4012-ad6b-da787c348f09') {
-        this.dataService.login('maria@gmail.com', 'b!1bmtickleP')
-          .subscribe(x => this.loginReturn(x));
-        this.userService.setUser('add58dab-0f7a-495e-98c6-13f060b367dc2');
-      } else {
-        this.dataService.login('ben@gmail.com', 'a!1bmtickleP')
-          .subscribe(x => this.loginReturn(x));
-        this.userService.setUser('21d52470-9a75-4012-ad6b-da787c348f09');
-      }
-
-      this.user = this.userService.getUser();
-    }
-
+   
     login() {
       const dialogRef = this.loginDialog.open(LoginDialogComponent, {
         width: '250px',

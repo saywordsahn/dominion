@@ -6,5 +6,6 @@ export enum PlayStatus {
   Attacker,
   AttackResponder,
   ActionRequestResponder,
-  GameEnd
+  GameEnd,
+  StartOfTurn
 }

@@ -14,6 +14,7 @@ import {PlayedCard} from "../models/playedCard";
 import {Artifact, IArtifact} from "../models/artifact";
 import {MatDialog} from "@angular/material";
 import {CardOrganizerComponent} from "../card-organizer/card-organizer.component";
+import {GameLogService} from "../services/game-log.service";
 
 //
 // class SelectMultipleCardsActionRequest {
@@ -66,7 +67,8 @@ export class PlayerComponent implements Player {
     public cardService: CardService,
     private hubService: HubService,
     private gameService: GameService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private logService: GameLogService
   ) {
     this.deck = [];
     this.discardPile = [];
@@ -103,7 +105,7 @@ export class PlayerComponent implements Player {
       this.openCardOrganizer(player.actionRequest.cards);
     }
 
-    this.logText = player.gameLog.join('\n');
+    this.logService.log = player.gameLog.join('\n');
     this.victoryPoints = player.victoryPoints;
 
     this.coffers = player.coffers;

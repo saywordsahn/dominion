@@ -7,7 +7,7 @@ namespace DominionWeb.Game.Supply
         IEnumerable<IPile> VictorySupply { get; }
         IEnumerable<IPile> TreasureSupply { get; }
         IEnumerable<IPile> KingdomSupply { get; }
-        IEnumerable<Card> GetDistinctCards();
+        IEnumerable<Card> GetGainableCards();
         ICollection<Card> Trash { get; }
         void Return(Card card);
         Card Take(Card card);

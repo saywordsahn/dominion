@@ -18,7 +18,7 @@ namespace DominionWeb.Game.Cards.Base
         {
             var player = game.GetActivePlayer();
 
-            var selectableCards = game.Supply.GetDistinctCards()
+            var selectableCards = game.Supply.GetGainableCards()
                 .Select(CardFactory.Create)
                 .Where(x => x.Cost <= 5)
                 .Select(x => x.Name)

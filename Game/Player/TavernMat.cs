@@ -15,5 +15,6 @@ namespace DominionWeb.Game.Player
         {
             Cards.Add(card);
         }
+
     }
 }

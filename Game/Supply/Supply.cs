@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace DominionWeb.Game.Supply
         private readonly IDictionary<Card, SupplyType> _supplyTypeMap = new Dictionary<Card, SupplyType>();
 
         //TODO: figure out why we can't make this a property (json serialization issue)
-        public IEnumerable<Card> GetDistinctCards()
+        public IEnumerable<Card> GetGainableCards()
         {
-            return FullSupply.Where(x => x.Cards.Count > 0).Select(x => x.Cards[0]);
+            return FullSupply.Where(x => x.Cards.Count > 0).Select(x => x.Cards[x.Cards.Count - 1]);
         }
 
         public Supply(

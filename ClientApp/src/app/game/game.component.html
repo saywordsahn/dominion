@@ -1,23 +1,25 @@
 <!--Include the above line to pass e2e test (ng e2e in the ClientApp dir)-->
 <div class="container">
   <div class="row">
-    <div class="player2"></div>
-  </div>
-  <div class="row">
     <div class="col-sm-10">
-      <d-supply></d-supply>
+      <div class="row">
+        <div class="player2"></div>
+      </div>
+      <div class="row">
+        <d-supply></d-supply>
+      </div>
+      <div class="row">
+        <d-player></d-player>
+      </div>
     </div>
     <div class="col-sm-2">
       <button (click)="newGame(true)">New Random Game</button>
       <button (click)="newGame(false)">New Dev Game</button>
-      Current User: {{ user.userName }} <button (click)="changeUser()">Change User</button>
       <button (click)="loadPrevious(gameToLoad)">Load Previous Game</button>
       <input type="text" [(ngModel)]="gameToLoad" name="gameToLoad">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm">
-      <d-player></d-player>
+      <div class="form-group">
+        <textarea [(ngModel)]="gameLogService.log" style="font-size: small;" class="form-control" rows="5" id="comment"></textarea>
+      </div>
     </div>
   </div>
 </div>

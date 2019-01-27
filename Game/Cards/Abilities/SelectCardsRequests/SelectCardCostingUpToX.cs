@@ -17,7 +17,7 @@ namespace DominionWeb.Game.Cards.Abilities.SelectCardsRequests
         
         public void Resolve(Game game, IPlayer player)
         {
-            var selectableCards = game.Supply.GetDistinctCards()
+            var selectableCards = game.Supply.GetGainableCards()
                 .Select(CardFactory.Create)
                 .Where(x => x.Cost <= X)
                 .Select(x => x.Name)

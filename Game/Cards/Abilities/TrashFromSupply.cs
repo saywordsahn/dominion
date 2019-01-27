@@ -23,7 +23,7 @@ namespace DominionWeb.Game.Cards.Abilities
         
         public void Resolve(Game game, IPlayer player)
         {
-            var selectableCards = game.Supply.GetDistinctCards()
+            var selectableCards = game.Supply.GetGainableCards()
                 .Select(CardFactory.Create)
                 .Where(Filter.Apply)
                 .Select(x => x.Name)

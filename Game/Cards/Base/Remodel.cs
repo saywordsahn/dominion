@@ -59,7 +59,7 @@ namespace DominionWeb.Game.Cards.Base
             IsCardTrashed = true;
             TrashedCard = card.Name;
 
-            var selectableCards = game.Supply.GetDistinctCards()
+            var selectableCards = game.Supply.GetGainableCards()
                 .Select(CardFactory.Create)
                 .Where(x => x.Cost <= card.Cost + 2)
                 .Select(x => x.Name)

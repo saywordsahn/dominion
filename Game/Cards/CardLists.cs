@@ -337,7 +337,7 @@ namespace DominionWeb.Game.Cards
             Card.Groundskeeper,
 //            Card.Legionary,
 //            Card.Overlord,
-//            Card.Plunder,
+            Card.Plunder,
 //            Card.Rocks,
 //            Card.RoyalBlacksmith,
 //            Card.Sacrifice,

@@ -25,6 +25,7 @@ import { DataService } from './services/data.service';
 import { CardService } from './services/card.service';
 import { HubService } from './services/hub.service';
 import {UserService} from "./services/user.service";
+import {GameLogService} from './services/game-log.service';
 
 //primeng
 import {MultiSelectModule} from 'primeng/multiselect';
@@ -82,7 +83,8 @@ import {MatInputModule} from '@angular/material';
       DataService,
       CardService,
       HubService,
-      UserService
+      UserService,
+      GameLogService
     ],
   bootstrap: [AppComponent]
 })

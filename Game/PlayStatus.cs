@@ -10,6 +10,7 @@ namespace DominionWeb.Game
         Attacker,
         AttackResponder,
         ActionRequestResponder,
-        GameEnd
+        GameEnd,
+        StartOfTurn
     }
 }
