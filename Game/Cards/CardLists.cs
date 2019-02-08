@@ -124,7 +124,7 @@ namespace DominionWeb.Game.Cards
 //             Card.City,
 //             Card.Contraband,
          Card.CountingHouse,
-// Card.Expand,
+         Card.Expand,
 //            Card.Forge, Card.Goons, Card.GrandMarket
             
 
@@ -224,7 +224,7 @@ namespace DominionWeb.Game.Cards
 
 
 
-//            Card.Altar,
+            Card.Altar,
             Card.Armory,
 //            Card.BandOfMisfits,
             Card.BanditCamp,

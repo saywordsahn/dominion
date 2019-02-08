@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards.Abilities.Types;
 using DominionWeb.Game.Cards.Filters;
+using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    public class TrashFromHand : IAbility, IResponseRequired<IEnumerable<Card>>
+    public class TrashFromHand : IAbility, IResponseRequired<IEnumerable<Card>>, ICardSelector
     {
-
         public ICardFilter Filter;
         public bool Resolved { get; set; }
         public int Amount { get; set; }
+        public ICard SelectedCard { get; set; }
 
         public TrashFromHand(ICardFilter filter, int amount = 1)
         {
@@ -75,6 +77,7 @@ namespace DominionWeb.Game.Cards.Abilities
 
                     if (Filter.Apply(instance))
                     {
+                        SelectedCard = instance;
                         player.TrashFromHand(game.Supply, instance.Name);
                         player.PlayStatus = PlayStatus.ActionPhase;
                         Resolved = true;

@@ -28,7 +28,7 @@ namespace DominionWeb.Game.Supply
                 Card.Groundskeeper,
                 Card.Moat,
                 Card.Scavenger,
-                Card.PoorHouse,
+                Card.Expand,
                 Card.Armory,
                 Card.Embassy,
                 Card.Altar,
