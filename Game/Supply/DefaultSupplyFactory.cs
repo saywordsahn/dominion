@@ -29,7 +29,7 @@ namespace DominionWeb.Game.Supply
                 Card.Moat,
                 Card.Scavenger,
                 Card.PoorHouse,
-                Card.Goons,
+                Card.Armory,
                 Card.Embassy,
                 Card.Altar,
                 Card.Remodel,

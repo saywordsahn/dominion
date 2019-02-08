@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Abilities.CardSpecificAbilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common.Rules;
@@ -18,9 +19,9 @@ namespace DominionWeb.Game.Cards.DarkAges
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
-			return new List<IRule>
-			{
-				new ArmoryAbility()
+            return new List<IRule>
+            {
+                new GainCardCostingUpToX(4, GainTarget.Deck)
 			};
 		}
 	}
