@@ -26,7 +26,7 @@ namespace DominionWeb.Game.Supply
                 Card.Chapel,
                 //Card.FlagBearer,
                 Card.Groundskeeper,
-                Card.Moat,
+                Card.CouncilRoom,
                 Card.Scavenger,
                 Card.Expand,
                 Card.Armory,

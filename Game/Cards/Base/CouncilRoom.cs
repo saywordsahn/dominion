@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using System.Linq;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
+using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class CouncilRoom : ICard, IAction
+    public class CouncilRoom : ICard, IAction, IRulesHolder
     {
         public int Cost { get; } = 5;
 
@@ -11,16 +15,19 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.CouncilRoom;
 
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
+        {
+            return new List<IRule>
+            {
+                new OtherPlayersDrawCard(),
+                new PlusBuys(1),
+                new PlusCards(4)
+            };
+        }
+
         public void Resolve(Game game)
         {
-            var player = game.GetActivePlayer();
-            player.Draw(4);
-            player.NumberOfBuys++;
-            
-            foreach (var otherPlayer in game.Players.Where(x => x != player))
-            {
-                otherPlayer.Draw(1);
-            }
+
         }
     }
 }
