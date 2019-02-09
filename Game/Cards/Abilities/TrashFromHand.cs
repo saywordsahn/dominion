@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using DominionWeb.Game.Cards.Abilities.Types;
 using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
@@ -8,20 +7,21 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Abilities
 {
-    public class TrashFromHand : IAbility, IResponseRequired<IEnumerable<Card>>, ICardSelector
+    public class TrashFromHand : IAbility, IResponseRequired<IEnumerable<Card>>
     {
         public ICardFilter Filter;
         public bool Resolved { get; set; }
         public int Amount { get; set; }
         public ICard SelectedCard { get; set; }
+        public bool TrashingIsRequired { get; set; }
 
-        public TrashFromHand(ICardFilter filter, int amount = 1)
+        public TrashFromHand(ICardFilter filter, int amount = 1, bool trashingIsRequired = true)
         {
             Filter = filter;
             Amount = amount;
+            TrashingIsRequired = trashingIsRequired;
         }
 
-        //TODO: need to set this as resolved if SelectCardFromHand resolves early (there are no cards in hand)
         public void Resolve(Game game, IPlayer player)
         {
             string message;
@@ -36,7 +36,7 @@ namespace DominionWeb.Game.Cards.Abilities
             {
                 Resolved = true;
             }
-            if (selectableCards.Count > 0 && selectableCards.Count <= Amount)
+            if (selectableCards.Count > 0 && selectableCards.Count <= Amount && TrashingIsRequired)
             {
                 //trash automatically and move on
                 foreach (var card in selectableCards)
@@ -69,7 +69,7 @@ namespace DominionWeb.Game.Cards.Abilities
 
             var cardList = response.ToList();
 
-            if (cardList.Count == Amount)
+            if ((cardList.Count == Amount && TrashingIsRequired) || (cardList.Count <= Amount && !TrashingIsRequired))
             {
                 foreach (var card in cardList)
                 {
@@ -79,10 +79,12 @@ namespace DominionWeb.Game.Cards.Abilities
                     {
                         SelectedCard = instance;
                         player.TrashFromHand(game.Supply, instance.Name);
-                        player.PlayStatus = PlayStatus.ActionPhase;
-                        Resolved = true;
                     }
                 }
+
+                player.PlayStatus = PlayStatus.ActionPhase;
+                Resolved = true;
+
             }
         }
     }
