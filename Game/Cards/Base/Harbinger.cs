@@ -1,12 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.CardSpecificAbilities;
+using DominionWeb.Game.Cards.Abilities.Compositions;
+using DominionWeb.Game.Cards.Abilities.SelectCardsResponses;
+using DominionWeb.Game.Cards.Filters;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Harbinger : ICard, IAction, IResponseRequired<IEnumerable<Card>>
+    public class Harbinger : ICard, IAction, IRulesHolder
     {
         public int Cost { get; } = 3;
 
@@ -14,29 +20,19 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Harbinger;
 
-        public void Resolve(Game game)
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
-            var player = game.GetActivePlayer();
-            //TODO: add minCardsSelectable
-            player.ActionRequest = new SelectCardsActionRequest("You may select a card to put on top of your deck.",
-                Card.Harbinger, player.DiscardPile, 1);
-            player.PlayStatus = PlayStatus.ActionRequestResponder;
+            return new List<IRule>
+            {
+                new HarbingerAbility(),
+                new PlusActions(1),
+                new PlusCards(1)
+            };
         }
 
-        public void ResponseReceived(Game game, IEnumerable<Card> cards)
+        public void Resolve(Game game)
         {
-            var player = game.GetActivePlayer();
-            player.PlayStatus = PlayStatus.ActionPhase;
-
-            var cardList = cards.ToList();
-
-            if (cardList.Count != 1) return;
-
-            var card = cardList.First();
-
-            player.DiscardPile.Remove(card);
-            player.Deck.Add(card);
-            
+           
         }
     }
 }

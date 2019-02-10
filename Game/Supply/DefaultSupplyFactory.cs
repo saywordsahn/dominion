@@ -23,10 +23,10 @@ namespace DominionWeb.Game.Supply
 
             var kSupply = pileFactory.Create(new List<Card>
             {
-                Card.Chapel,
+                Card.Harbinger,
                 //Card.FlagBearer,
                 Card.Groundskeeper,
-                Card.CouncilRoom,
+                Card.Merchant,
                 Card.Scavenger,
                 Card.Expand,
                 Card.Armory,

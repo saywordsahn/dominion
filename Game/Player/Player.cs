@@ -43,7 +43,6 @@ namespace DominionWeb.Game.Player
         public int DominionCount => Dominion.Count();
         public int VictoryPoints => GetVictoryPointCount();
         public List<ITriggeredAbility> TriggeredAbilities { get; }
-        public Stack<PlayedCard> PlayStack { get; set; }
         public IEnumerable<IReaction> RevealedReactions { get; set; }
         public int Coffers { get; set; }
         public int Villagers { get; set; }
@@ -69,7 +68,6 @@ namespace DominionWeb.Game.Player
             Deck = new List<Card>();
             DiscardPile = new List<Card>();
             PlayedCards = new List<PlayedCard>();
-            PlayStack = new Stack<PlayedCard>();
             TriggeredAbilities = new List<ITriggeredAbility>();
             PlayStatus = PlayStatus.GameStart;
             MoneyPlayed = 0;

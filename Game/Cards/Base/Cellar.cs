@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.CardSpecificAbilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Cellar : ICard, IAction, IResponseRequired<IEnumerable<Card>>
+    public class Cellar : ICard, IAction, IRulesHolder
     {
         public int Cost { get; } = 2;
 
@@ -14,39 +17,19 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Cellar;
 
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
+        {
+            return new List<IRule>
+            {
+                new CellarAbility()
+            };
+        }
+
         public void Resolve(Game game)
         {
-            var player = game.GetActivePlayer();
-            player.NumberOfActions++;
 
-            if (player.Hand.Count > 0)
-            {
-                player.ActionRequest = new SelectCardsActionRequest("Select any number of cards to discard, +1 card for each.",
-                    Card.Cellar, player.Hand, player.Hand.Count);
-                player.PlayStatus = PlayStatus.ActionRequestResponder;
-            }
-            else
-            {
-                player.PlayStatus = PlayStatus.ActionPhase;
-            }
         }
 
-        public void ResponseReceived(Game game, IEnumerable<Card> cards)
-        {
-            var player = game.GetActivePlayer();
-            var cardList = cards.ToList();
-
-            if (cardList.Count > 0)
-            {
-                foreach (var c in cardList)
-                {
-                    player.DiscardFromHand(c);
-                }
-                
-                player.Draw(cardList.Count); 
-            }
-
-            player.PlayStatus = PlayStatus.ActionPhase;
-        }
+       
     }
 }

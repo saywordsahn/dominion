@@ -47,13 +47,8 @@ namespace DominionWeb.Game
             bool CanPlayRule(IPlayer p) => p.Rules.All(x => x.Resolved) && p.RuleStack.Count > 0
                                            && p == GetActivePlayer();
 
-            bool CanPlayCard(IPlayer p) =>
-                p.PlayStatus == PlayStatus.ActionPhase && p.PlayStack.Count > 0;
-            
-            while ( CanPlayRule(player) || CanPlayCard(player))
+            while ( CanPlayRule(player))
             {
-                //rules are only implemented for AttackResponder for the moment - this will change but to
-                //narrow the scope of this feature we use it soley for now
                 while (CanPlayRule(player))
                 {
                     var rule = player.RuleStack.Pop();
@@ -73,36 +68,6 @@ namespace DominionWeb.Game
                     continue;
                 }
 
-                while (CanPlayCard(player))
-                {
-                    var card = player.PlayStack.Pop();
-
-                    if (card.IsThronedCopy)
-                    {
-                        player.PlayedCards.Add(card);
-                    }
-                    
-                    if (card.Card is IRulesHolder rh)
-                    {
-                        foreach (var rule in rh.GetRules(this, player))
-                        {
-                            player.RuleStack.Push(rule);
-                        }
-                    }
-                    else if (card.Card is IAction a)
-                    {
-                        a.Resolve(this);
-                    }
-                }
-                
-                if (player != GetActivePlayer())
-                {
-                    player = GetActivePlayer();
-                    if (player == null) return;
-                    continue;
-                }
-                
-//                break;
             }
         }
 
@@ -136,21 +101,6 @@ namespace DominionWeb.Game
                 {
                     player.PlayStatus = player.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
                 }
-            }
-            else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.ActionPhase && instance is IAction a2
-                     && player.NumberOfActions > 0)
-            {
-                player.Play(instance);
-                a2.Resolve(this);
-                CheckPlayStack(player);
-                //TODO: look into refactoring this to player object (ex. player.SetActionOrBuyPhase())
-                //TODO: check for number of actions remaining to move statuses automatically
-                if (player.PlayStatus != PlayStatus.ActionRequestResponder)
-                {
-                    player.PlayStatus = player.HasActionInHand() ? PlayStatus.ActionPhase : PlayStatus.BuyPhase;
-                }
-                
-                
             }
             else if (action == PlayerAction.Play && player.PlayStatus == PlayStatus.BuyPhase && instance is ITreasure t)
             {

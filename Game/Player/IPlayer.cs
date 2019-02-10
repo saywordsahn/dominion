@@ -48,7 +48,6 @@ namespace DominionWeb.Game.Player
         void TrashFromHand(ISupply supply, Card card);
         int DominionCount { get; }
         void PlayWithoutCost(ICard instance);
-        Stack<PlayedCard> PlayStack { get; set; }
         int Coffers { get; set; }
         int Villagers { get; set; }
         bool HasCardInHand(Card card);

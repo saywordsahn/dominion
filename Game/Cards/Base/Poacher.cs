@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using DominionWeb.Game.Cards.Abilities;
+using DominionWeb.Game.Cards.Abilities.CardSpecificAbilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Poacher : ICard, IAction, IResponseRequired<IEnumerable<Card>>
+    public class Poacher : ICard, IAction, IRulesHolder
     {
         public int Cost { get; } = 4;
 
@@ -14,37 +17,21 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Poacher;
 
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
+        {
+            return new List<IRule>
+            {
+                new PoacherAbility(),
+                new PlusMoney(1),
+                new PlusActions(1),
+                new PlusCards(1)
+            };
+        }
+
         public void Resolve(Game game)
         {
-            var player = game.GetActivePlayer();
-            player.Draw(1);
-            player.NumberOfActions++;
-            player.MoneyPlayed++;
-
-            var emptyPileCount = game.Supply.EmptyPileCount();
-
-            if (emptyPileCount > 0)
-            {
-                //discard a cardPerEmptyPile
-                player.ActionRequest = new SelectCardsActionRequest("Discard " + emptyPileCount + " cards.",
-                    Card.Poacher, player.Hand, emptyPileCount);
-                player.PlayStatus = PlayStatus.ActionRequestResponder;
-            }
-            
+           
         }
 
-        public void ResponseReceived(Game game, IEnumerable<Card> cards)
-        {
-            var player = game.GetActivePlayer();
-
-            var cardList = cards.ToList();
-
-            if (cardList.Count != game.Supply.EmptyPileCount()) return;
-
-            foreach (var c in cards)
-            {
-                player.DiscardFromHand(c);
-            }
-        }
     }
 }
