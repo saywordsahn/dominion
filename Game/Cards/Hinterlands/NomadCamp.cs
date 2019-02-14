@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
+using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Hinterlands
@@ -20,6 +23,15 @@ namespace DominionWeb.Game.Cards.Hinterlands
         public void OnGain(IPlayer player, Card card)
         {
             player.Deck.Add(card);
+        }
+
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
+        {
+            return new List<IRule>
+            {
+                new PlusBuys(1),
+                new PlusMoney(2)
+            };
         }
     }
 }

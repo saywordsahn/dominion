@@ -3,6 +3,8 @@ using System.Linq;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
 using DominionWeb.Game.Common;
+using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Empires
 {
@@ -11,6 +13,13 @@ namespace DominionWeb.Game.Cards.Empires
         public Card Name { get; } = Card.Sacrifice;
         public int Cost { get; } = 4;
         public CardType CardType { get; } = CardType.Action;
+
+        //TODO: Implement
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Resolve(Game game)
         {
             var player = game.GetActivePlayer();

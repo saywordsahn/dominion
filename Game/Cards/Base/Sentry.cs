@@ -3,7 +3,7 @@ using DominionWeb.Game.Cards.Types;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Sentry : ICard, IAction
+    public class Sentry : ICard
     {
         public int Cost { get; } = 5;
 

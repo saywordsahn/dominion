@@ -3,7 +3,7 @@ using DominionWeb.Game.Cards.Types;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Mine : ICard, IAction
+    public class Mine : ICard
     {
         public int Cost { get; } = 5;
 

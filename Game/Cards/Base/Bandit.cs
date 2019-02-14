@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using DominionWeb.Game.Cards.Types;
+using DominionWeb.Game.Common.Rules;
 using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
@@ -18,6 +20,11 @@ namespace DominionWeb.Game.Cards.Base
         }
 
         public void AttackEffect(IPlayer attackedPlayer, Game game)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
             throw new NotImplementedException();
         }

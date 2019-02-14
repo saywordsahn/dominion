@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using DominionWeb.Game.Cards.Abilities;
 using DominionWeb.Game.Cards.Types;
+using DominionWeb.Game.Common.Rules;
+using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Seaside
 {
@@ -33,5 +35,10 @@ namespace DominionWeb.Game.Cards.Seaside
             return new List<IAbility>() { new PlusCards(2), new PlusBuys(1) };
         }
 
+        //TODO: Implement
+        public IEnumerable<IRule> GetRules(Game game, IPlayer player)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

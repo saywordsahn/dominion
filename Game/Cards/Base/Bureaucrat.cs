@@ -4,7 +4,7 @@ using DominionWeb.Game.Player;
 
 namespace DominionWeb.Game.Cards.Base
 {
-    public class Bureaucrat : ICard, IAction
+    public class Bureaucrat : ICard
     {
         public int Cost { get; } = 4;
 
