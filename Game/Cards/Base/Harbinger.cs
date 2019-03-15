@@ -29,10 +29,5 @@ namespace DominionWeb.Game.Cards.Base
                 new PlusCards(1)
             };
         }
-
-        public void Resolve(Game game)
-        {
-           
-        }
     }
 }

@@ -15,11 +15,6 @@ namespace DominionWeb.Game.Cards.DarkAges
         public Card Name { get; } = Card.Beggar;
         public int Cost { get; } = 2;
         public CardType CardType { get; } = CardType.Action;
-        
-        public void Resolve(Game game)
-        {
-            throw new NotImplementedException("Depreciating this method in favor of rules/abilities");
-        }
 
         public IRule ReactionEffect() => new DiscardCardForTwoSilvers();
 

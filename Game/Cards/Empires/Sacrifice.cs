@@ -20,19 +20,6 @@ namespace DominionWeb.Game.Cards.Empires
             throw new System.NotImplementedException();
         }
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            if (player.Hand.Count == 0)
-            {
-                return;
-            }
-            
-            player.ActionRequest = new SelectCardsActionRequest("Select a card to trash.",
-                Card.Sacrifice, player.Hand, 1);
-            player.PlayStatus = PlayStatus.ActionRequestResponder;
-        }
-
         public void ResponseReceived(Game game, IEnumerable<Card> response)
         {
             var currentPlayer = game.GetActivePlayer();

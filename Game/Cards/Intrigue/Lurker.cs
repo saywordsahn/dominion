@@ -12,11 +12,6 @@ namespace DominionWeb.Game.Cards.Intrigue
         public Card Name { get; } = Card.Lurker;
         public int Cost { get; } = 2;
         public CardType CardType { get; } = CardType.Action;
-        public void Resolve(Game game)
-        {
-            //placeholder until all cards are converted
-            throw new System.NotImplementedException();
-        }
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

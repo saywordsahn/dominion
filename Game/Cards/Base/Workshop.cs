@@ -16,11 +16,6 @@ namespace DominionWeb.Game.Cards.Base
         public CardType CardType { get; } = CardType.Action;
 
         public Card Name { get; } = Card.Workshop;
-        
-        public void Resolve(Game game)
-        {
-            
-        }
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

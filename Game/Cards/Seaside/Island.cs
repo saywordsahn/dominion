@@ -16,11 +16,6 @@ namespace DominionWeb.Game.Cards.Seaside
             return 2;
         }
 
-        public void Resolve(Game game)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
             return new List<IRule> {new IslandAbility()};

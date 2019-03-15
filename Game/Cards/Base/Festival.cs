@@ -15,11 +15,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Festival;
 
-        public void Resolve(Game game)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
             return new List<IRule>

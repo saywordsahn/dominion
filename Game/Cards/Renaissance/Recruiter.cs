@@ -16,10 +16,5 @@ namespace DominionWeb.Game.Cards.Renaissance
             throw new System.NotImplementedException();
         }
 
-        public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
-
 	}
 }

@@ -23,10 +23,5 @@ namespace DominionWeb.Game.Cards.Base
                 new TrashFromHand(new NoFilter(), 4, false)
             };
         }
-
-        public void Resolve(Game game)
-        {
-
-        }
     }
 }

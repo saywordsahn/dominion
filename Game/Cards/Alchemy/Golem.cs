@@ -11,11 +11,6 @@ namespace DominionWeb.Game.Cards.Alchemy
 		public int Cost { get; } = 4;
 		public CardType CardType { get; } = CardType.Action;
 
-		public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
-
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{

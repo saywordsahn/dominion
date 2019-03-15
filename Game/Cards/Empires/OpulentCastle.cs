@@ -11,10 +11,5 @@ namespace DominionWeb.Game.Cards.Empires
 		public int Cost { get; }
 		public CardType CardType { get; }
 
-		public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
-
 	}
 }

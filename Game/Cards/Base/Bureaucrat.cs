@@ -12,11 +12,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Bureaucrat;
 
-        public void Resolve(Game game)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AttackEffect(IPlayer attackedPlayer, Game game)
         {
             throw new NotImplementedException();

@@ -14,13 +14,6 @@ namespace DominionWeb.Game.Cards.Seaside
         public bool Resolved { get; set; }
         
         public int NumberOfTurnsActive { get; set; }
-
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            player.Draw(2);
-            player.NumberOfBuys++;
-        }
         
         public void OnTurnStart(Game game)
         {

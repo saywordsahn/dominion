@@ -12,10 +12,6 @@ namespace DominionWeb.Game.Cards.Empires
         public Card Name { get; } = Card.Patrician;
         public int Cost { get; } = 2;
         public CardType CardType { get; } = CardType.Action;
-        public void Resolve(Game game)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

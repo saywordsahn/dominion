@@ -20,11 +20,6 @@ namespace DominionWeb.Game.Cards.Renaissance
 			CanGainAnother = canGainAnother;
 			IsThroned = isThroned;
 		}
-		
-		public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
 
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{

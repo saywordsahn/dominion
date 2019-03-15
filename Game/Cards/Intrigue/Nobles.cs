@@ -14,10 +14,6 @@ namespace DominionWeb.Game.Cards.Intrigue
         public Card Name { get; } = Card.Nobles;
         public int Cost { get; } = 6;
         public CardType CardType { get; } = CardType.Action;
-        public void Resolve(Game game)
-        {
-            
-        }
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

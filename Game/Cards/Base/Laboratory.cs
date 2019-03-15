@@ -14,13 +14,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Laboratory;
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            player.Draw(2);
-            player.NumberOfActions++;
-        }
-
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

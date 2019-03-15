@@ -14,12 +14,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Smithy;
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            player.Draw(3);
-        }
-
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
             return new List<IRule>

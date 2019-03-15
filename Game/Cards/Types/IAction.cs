@@ -7,8 +7,6 @@ namespace DominionWeb.Game.Cards.Types
 {
     public interface IAction : IRulesHolder
     {
-        [Obsolete("Resolve is deprecated, please use IRulesHolder interface instead.")]
-        void Resolve(Game game);
-        IEnumerable<IRule> GetRules(Game game, IPlayer player);
+
     }
 }

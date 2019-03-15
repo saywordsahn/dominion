@@ -1,7 +1,8 @@
 <d-play-area [playedCards]="playedCards"></d-play-area>
 <div class="row player-component">
-  <div class="col-sm-1">
+  <div class="col-sm-2">
     <div>
+      Deck {{ deck.length }}
       Discard: {{ discardPile.length }}
     </div>
     <div *ngIf="victoryTokens > 0">
@@ -23,10 +24,6 @@
       JourneyToken: Face Down
     </div>
 
-  </div>
-  <div class="col-sm-1">
-    Deck
-    {{ deck.length }}
   </div>
   <div class="col-sm">
     <d-hand-viewer [hand]="hand"></d-hand-viewer>

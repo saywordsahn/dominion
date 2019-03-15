@@ -11,10 +11,5 @@ namespace DominionWeb.Game.Cards.Alchemy
 		public int Cost { get; } = 1;
 		public CardType CardType { get; }
 
-		public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
-
 	}
 }

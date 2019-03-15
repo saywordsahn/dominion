@@ -20,10 +20,5 @@ namespace DominionWeb.Game.Cards.Renaissance
         {
             player.RuleStack.Push(new PlusVillagers(2));
         }
-
-        public void Resolve(Game game)
-        {
-//            throw new System.NotImplementedException();
-        }
     }
 }

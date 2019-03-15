@@ -12,15 +12,6 @@ namespace DominionWeb.Game.Cards.DarkAges
         public Card Name { get; } = Card.BanditCamp;
         public int Cost { get; } = 5;
         public CardType CardType { get; } = CardType.Action;
-        
-        public void Resolve(Game game)
-        {
-//            var player = game.GetActivePlayer();
-//            player.Draw(1);
-//            player.NumberOfActions += 2;
-//            player.Gain(Card.Spoils);
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

@@ -80,7 +80,8 @@ namespace DominionWeb.Game
             if (action == PlayerAction.Play && instance is IAction a1 && instance is IAttack att)
             {
                 player.Play(instance);
-                a1.Resolve(this);
+                //TODO: check attack cards to ensure working correctly
+                //a1.Resolve(this);
                 //with attack cards the player switches so we need to get the updated player
                 var activePlayer = GetActivePlayer();
                 CheckPlayStack(activePlayer);

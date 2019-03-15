@@ -59,7 +59,6 @@ body {
 .player-component {
   position: fixed;
   bottom:1em;
-  width: 100%;
 }
 
 /*TODO: make background invisible*/

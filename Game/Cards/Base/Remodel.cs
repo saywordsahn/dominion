@@ -26,10 +26,5 @@ namespace DominionWeb.Game.Cards.Base
                 new RemodelAbility()
             };
         }
-
-        public void Resolve(Game game)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

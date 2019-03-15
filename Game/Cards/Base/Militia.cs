@@ -18,16 +18,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Militia;
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-
-            foreach (var rule in GetRules(game, player))
-            {
-                player.RuleStack.Push(rule);
-            }
-        }
-
         private bool PlayerCanBeAffected(IPlayer player)
         {
             //TODO: implement check from duration cards

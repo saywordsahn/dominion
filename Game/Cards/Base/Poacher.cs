@@ -28,10 +28,5 @@ namespace DominionWeb.Game.Cards.Base
             };
         }
 
-        public void Resolve(Game game)
-        {
-           
-        }
-
     }
 }

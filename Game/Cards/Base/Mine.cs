@@ -10,10 +10,5 @@ namespace DominionWeb.Game.Cards.Base
         public CardType CardType { get; } = CardType.Action;
 
         public Card Name { get; } = Card.Mine;
-
-        public void Resolve(Game game)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

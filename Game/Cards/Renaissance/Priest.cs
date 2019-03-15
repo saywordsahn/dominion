@@ -21,20 +21,6 @@ namespace DominionWeb.Game.Cards.Renaissance
             throw new System.NotImplementedException();
         }
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            player.MoneyPlayed += 2;
-
-            if (player.Hand.Count > 0)
-            {
-                player.ActionRequest = new SelectCardsActionRequest("Select a card to trash.",
-                    Card.Priest, player.Hand, 1);
-                player.PlayStatus = PlayStatus.ActionRequestResponder;
-            }
-            
-        }
-
         public void ResponseReceived(Game game, IEnumerable<Card> cards)
         {            
             var player = game.GetActivePlayer();

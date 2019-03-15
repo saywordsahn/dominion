@@ -11,10 +11,5 @@ namespace DominionWeb.Game.Cards.Hinterlands
 		public int Cost { get; } = 6;
 		public CardType CardType { get; }
 
-		public void Resolve(Game game)
-		{
-			throw new System.NotImplementedException();
-		}
-
 	}
 }

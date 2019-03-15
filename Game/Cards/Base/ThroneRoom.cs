@@ -15,16 +15,6 @@ namespace DominionWeb.Game.Cards.Base
         public CardType CardType { get; } = CardType.Action;
 
         public Card Name { get; } = Card.ThroneRoom;
-        
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-
-            foreach (var rule in GetRules(game, player))
-            {
-                player.RuleStack.Push(rule);
-            }
-        }
 
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {

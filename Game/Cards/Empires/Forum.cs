@@ -12,11 +12,6 @@ namespace DominionWeb.Game.Cards.Empires
 		public int Cost { get; } = 5;
 		public CardType CardType { get; } = CardType.Action;
 
-		public void Resolve(Game game)
-		{
-			
-		}
-
 		public IEnumerable<IRule> GetRules(Game game, IPlayer player)
 		{
 			return new List<IRule>

@@ -39,7 +39,6 @@ namespace DominionWeb
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
-            
 
             services.AddDbContext<DominionContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DominionConnection")));

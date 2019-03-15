@@ -14,13 +14,6 @@ namespace DominionWeb.Game.Cards.Prosperity
 
         public Card Name { get; } = Card.Monument;
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            player.MoneyPlayed += 2;
-            player.VictoryTokens++;
-        }
-
         public IEnumerable<IRule> GetRules(Game game, IPlayer player)
         {
             return new List<IRule>

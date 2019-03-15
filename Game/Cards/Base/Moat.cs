@@ -15,12 +15,6 @@ namespace DominionWeb.Game.Cards.Base
 
         public Card Name { get; } = Card.Moat;
 
-        public void Resolve(Game game)
-        {
-            var player = game.GetActivePlayer();
-            player.Draw(2);
-        }
-
         public void ReactionEffect(Game game)
         {
             throw new NotImplementedException();
