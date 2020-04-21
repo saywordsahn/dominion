@@ -66,6 +66,7 @@ namespace DominionWeb.Game.Player
         void PlayVillagers(int amount);
         int GetCardCount(ICardFilter filter);
         TavernMat TavernMat { get; set; }
+        ExileMat ExileMat { get; set; }
         bool JourneyTokenIsFaceUp { get; set; }
         IEnumerable<Card> GetTopCards(int number);
 

@@ -55,6 +55,7 @@ namespace DominionWeb.Game.Player
 
         public List<IArtifact> Artifacts { get; set; }
         public TavernMat TavernMat { get; set; }
+        public ExileMat ExileMat { get; set; }
 
         public bool JourneyTokenIsFaceUp { get; set; }
 
@@ -85,6 +86,7 @@ namespace DominionWeb.Game.Player
             Artifacts = new List<IArtifact>();
             OnHandDrawAbilities = new List<IAbility>();
             TavernMat = new TavernMat();
+            ExileMat = new ExileMat();
             JourneyTokenIsFaceUp = true;
         }
 
