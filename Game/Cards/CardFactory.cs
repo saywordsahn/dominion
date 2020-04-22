@@ -165,7 +165,7 @@ namespace DominionWeb.Game.Cards
             { Card.HorseTraders, () => new HorseTraders() },
             { Card.HuntingParty, () => new HuntingParty() },
             { Card.Jester, () => new Jester() },
-            { Card.Menagerie, () => new Menagerie() },
+            { Card.Menagerie, () => new Cornucopia.Menagerie() },
             { Card.Remake, () => new Remake() },
             { Card.Tournament, () => new Tournament() },
             { Card.YoungWitch, () => new YoungWitch() },

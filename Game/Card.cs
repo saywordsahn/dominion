@@ -124,6 +124,9 @@
         //not playable
         Any,
         None,
+
+        //Menegerie
+        Sanctuary,
         
     }
 }
